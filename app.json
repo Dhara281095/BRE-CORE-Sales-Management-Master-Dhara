@@ -1,0 +1,37 @@
+{
+  "id": "cb789aa6-8154-437c-94af-7e4ff7836a03",
+  "name": "Sales-RealEstate",
+  "publisher": "Default Publisher",
+  "version": "1.0.0.0",
+  "brief": "",
+  "description": "",
+  "privacyStatement": "",
+  "EULA": "",
+  "help": "",
+  "url": "",
+  "logo": "",
+  "dependencies": [{
+    "id": "d428365a-d3cf-41bd-a230-0e7c93943ec6",
+    "name": "Core-RealEstate",
+    "publisher": "Default Publisher",
+    "version": "1.0.0.1"
+  }],
+  "screenshots": [],
+  "platform": "1.0.0.0",
+  "application": "26.0.0.0",
+  "idRanges": [
+    {
+      "from": 50100,
+      "to": 50149
+    }
+  ],
+  "resourceExposurePolicy": {
+    "allowDebugging": true,
+    "allowDownloadingSource": true,
+    "includeSourceInSymbolFile": true
+  },
+  "runtime": "15.0",
+  "features": [
+    "NoImplicitWith"
+  ]
+}
