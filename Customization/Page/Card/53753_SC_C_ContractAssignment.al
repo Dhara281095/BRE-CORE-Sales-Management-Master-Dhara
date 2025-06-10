@@ -1,169 +1,144 @@
-page 53501 "Construction Project"
+page 53753 "Contract Assignment"
 {
     PageType = Card;
-    SourceTable = "Construction Project";
+    SourceTable = "Contract Assignment";
     ApplicationArea = All;
-    Caption = 'Construction Project Card';
+    Caption = 'Contract Assignment';
+
     layout
     {
         area(Content)
         {
-            group(Group)
+            group(ProjectDetails)
             {
                 Caption = 'Project Details';
+                field("Assignment ID"; Rec."Assignment ID")
+                {
+                    ApplicationArea = All;
+                }
                 field("Project ID"; Rec."Project ID")
                 {
                     ApplicationArea = All;
-
                 }
                 field("Project Name"; Rec."Project Name")
                 {
                     ApplicationArea = All;
-
-
                 }
                 field("Project Location"; Rec."Project Location")
                 {
                     ApplicationArea = All;
-
-
                 }
                 field("Project Scope"; Rec."Project Scope")
                 {
                     ApplicationArea = All;
-
-
                 }
                 field("Project Start Date"; Rec."Project Start Date")
                 {
                     ApplicationArea = All;
-
-
                 }
                 field("Project End Date"; Rec."Project End Date")
                 {
                     ApplicationArea = All;
-
-
-                }
-                field("Project Status"; Rec."Project Status")
-                {
-                    ApplicationArea = All;
-
                 }
             }
-            group(ContractAssignment)
+            group(VendorDetails)
             {
-                Caption = 'Contract Assignment';
-
-                part("Contract Assignment List Part"; "Contract Assignment List Part")
+                Caption = 'Vendor/Subcontractor Details';
+                field("ID"; Rec."Vendor/Subcontractor ID")
                 {
                     ApplicationArea = All;
-                    Caption = 'Contract Assignments';
-                    Visible = true;
-                    SubPageLink = "Project ID" = field("Project ID");
+                }
+                field("Name"; Rec."Vendor/Subcontractor Name")
+                {
+                    ApplicationArea = All;
+                }
+                field("Contact"; Rec."Vendor Contact")
+                {
+                    ApplicationArea = All;
+                }
+                field("Email"; Rec."Vendor Email")
+                {
+                    ApplicationArea = All;
                 }
             }
-            group("Milestone Details")
+            group(ContractDetails)
             {
-                Caption = 'Milestone Details';
-                field("Milestone No."; Rec."Milestone ID")
+                Caption = 'Contract Details';
+                field("Contract ID"; Rec."Contract ID")
                 {
                     ApplicationArea = All;
-
                 }
-                field("Milestone Name"; Rec."Milestone Name")
+                field("Contract Date"; Rec."Contract Date")
                 {
                     ApplicationArea = All;
-
                 }
-                field("Milestone Start Date"; Rec."Milestone Start Date")
+                field("Contract Type"; Rec."Contract Type")
                 {
                     ApplicationArea = All;
-
                 }
-                field("Milestone End Date"; Rec."Milestone End Date")
+                field("Contract Status"; Rec."Contract Status")
                 {
                     ApplicationArea = All;
-
+                }
+                field("Contract Template"; Rec."Contract Template")
+                {
+                    ApplicationArea = All;
+                }
+                field("Contract File"; Rec."Contract File")
+                {
+                    ApplicationArea = All;
+                }
+                field("Contract Notes"; Rec."Contract Notes")
+                {
+                    ApplicationArea = All;
                 }
             }
-            group("Task Details")
+            group(FinancialDetails)
             {
-                Caption = 'Task Details';
-                field("Task No."; Rec."Task ID")
+                Caption = 'Financial Details';
+                field("Total Contract Amount"; Rec."Total Contract Amount")
                 {
                     ApplicationArea = All;
-
                 }
-                field("Task Name"; Rec."Task Name")
+                field("Payment Schedule"; Rec."Payment Schedule")
                 {
                     ApplicationArea = All;
-
                 }
-                field("Task Start Date"; Rec."Task Start Date")
+                field("Payment Method"; Rec."Payment Method")
                 {
                     ApplicationArea = All;
-
-                }
-                field("Task End Date"; Rec."Task End Date")
-                {
-                    ApplicationArea = All;
-
                 }
             }
-            group("Issue Tracking")
+            group(WorkDetails)
             {
-                Caption = 'Issue Tracking';
-                field("Issue No."; Rec."Issue ID")
+                Caption = 'Work Scope and Timelines';
+                field("Work Scope"; Rec."Work Scope")
                 {
                     ApplicationArea = All;
-
                 }
-                field("Issue Description"; Rec."Issue Description")
+                field("Start Date"; Rec."Start Date")
                 {
                     ApplicationArea = All;
-
                 }
-                field("Issue Status"; Rec."Issue Status")
+                field("End Date"; Rec."End Date")
                 {
                     ApplicationArea = All;
-
-                }
-                field("Issue Notes"; Rec."Issue Notes")
-                {
-                    ApplicationArea = All;
-
                 }
             }
-            group("Progress Reporting")
+            group(ApprovalDetails)
             {
-                Caption = 'Progress Reporting';
-                field("Report ID"; Rec."Report ID")
+                Caption = 'Approval Details';
+                field("Reviewed By"; Rec."Reviewed By")
                 {
                     ApplicationArea = All;
-
                 }
-                field("Report Date"; Rec."Report Date")
+                field("Approved By"; Rec."Approved By")
                 {
                     ApplicationArea = All;
-
                 }
-                field("Report Type"; Rec."Report Type")
+                field("Approval Date"; Rec."Approval Date")
                 {
                     ApplicationArea = All;
-
-                }
-                field("Report File"; Rec."Report File")
-                {
-
-                    ApplicationArea = All;
-
-                }
-                field("Report Notes"; Rec."Report Notes")
-                {
-                    ApplicationArea = All;
-
                 }
             }
         }
