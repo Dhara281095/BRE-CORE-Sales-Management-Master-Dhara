@@ -61,6 +61,7 @@ page 53501 "Construction Project"
                     ApplicationArea = All;
                     Caption = 'Contract Assignments';
                     Visible = true;
+                    Editable = false;
                     SubPageLink = "Project ID" = field("Project ID");
                 }
             }

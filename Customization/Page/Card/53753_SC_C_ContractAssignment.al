@@ -87,6 +87,21 @@ page 53753 "Contract Assignment"
                 field("Contract File"; Rec."Contract File")
                 {
                     ApplicationArea = All;
+                    Editable = false;
+
+                    trigger OnDrillDown()
+                    var
+                        uploadAttachment: Codeunit UploadAttachment;
+                        fileName: Text;
+                        uploadResult: Text;
+                    begin
+                        fileName := uploadAttachment.UploadDocument(uploadResult);
+                        if fileName <> '' then begin
+                            Rec."Contract File" := uploadResult;
+                            Rec.Modify();
+                            Message('File uploaded successfully: %1', fileName);
+                        end;
+                    end;
                 }
                 field("Contract Notes"; Rec."Contract Notes")
                 {
