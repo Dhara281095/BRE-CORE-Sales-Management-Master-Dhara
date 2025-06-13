@@ -91,11 +91,13 @@ page 53753 "Contract Assignment"
 
                     trigger OnDrillDown()
                     var
-                        uploadAttachment: Codeunit UploadAttachment;
+                        azureBlobUploader: Codeunit "Azure AD Blob Storage";
                         fileName: Text;
+                        folderName: Text;
                         uploadResult: Text;
                     begin
-                        fileName := uploadAttachment.UploadDocument(uploadResult);
+                        folderName := 'ConstructionContracts';
+                        fileName := azureBlobUploader.ValidateDocument(uploadResult, folderName);
                         if fileName <> '' then begin
                             Rec."Contract File" := uploadResult;
                             Rec.Modify();
