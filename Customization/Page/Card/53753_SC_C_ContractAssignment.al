@@ -89,21 +89,21 @@ page 53753 "Contract Assignment"
                     ApplicationArea = All;
                     Editable = false;
 
-                    // trigger OnDrillDown()
-                    // var
-                    //     azureBlobUploader: Codeunit "Azure AD Blob Storage";
-                    //     fileName: Text;
-                    //     folderName: Text;
-                    //     uploadResult: Text;
-                    // begin
-                    //     folderName := 'ConstructionContracts';
-                    //     fileName := azureBlobUploader.ValidateDocument(uploadResult, folderName);
-                    //     if fileName <> '' then begin
-                    //         Rec."Contract File" := uploadResult;
-                    //         Rec.Modify();
-                    //         Message('File uploaded successfully: %1', fileName);
-                    //     end;
-                    // end;
+                    trigger OnDrillDown()
+                    var
+                        azureBlobUploader: Codeunit "Azure AD Blob Storage";
+                        fileName: Text;
+                        folderName: Text;
+                        uploadResult: Text;
+                    begin
+                        folderName := 'ConstructionContracts';
+                        fileName := azureBlobUploader.ValidateDocument(uploadResult, folderName);
+                        if fileName <> '' then begin
+                            Rec."Contract File" := uploadResult;
+                            Rec.Modify();
+                            Message('File uploaded successfully: %1', fileName);
+                        end;
+                    end;
                 }
                 field("Contract Notes"; Rec."Contract Notes")
                 {

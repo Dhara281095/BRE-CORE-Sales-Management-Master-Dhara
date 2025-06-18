@@ -22,19 +22,11 @@ page 53502 "Construction Project List"
                 {
                     ApplicationArea = All;
                 }
-                field("Project Location"; Rec."Project Location")
+                field("Planned Start Date"; Rec."Planned start date")
                 {
                     ApplicationArea = All;
                 }
-                field("Project Scope"; Rec."Project Scope")
-                {
-                    ApplicationArea = All;
-                }
-                field("Project Start Date"; Rec."Project Start Date")
-                {
-                    ApplicationArea = All;
-                }
-                field("Project End Date"; Rec."Project End Date")
+                field("Planned End Date"; Rec."Planned End Date")
                 {
                     ApplicationArea = All;
                 }

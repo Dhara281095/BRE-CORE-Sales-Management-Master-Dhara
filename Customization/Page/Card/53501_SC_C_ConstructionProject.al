@@ -190,34 +190,94 @@ page 53501 "Construction Project"
             group("Project Documents")
             {
                 Caption = 'Project Documents';
-                field("DrawingsRevisions"; Rec."DrawingsRevisions")
+                field("Drawings/Revisions"; Rec."DrawingsRevisions")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
+                    Editable = false;
+                    trigger OnDrillDown()
+                    var
+                        azureBlobUploader: Codeunit "Azure AD Blob Storage";
+                        fileName: Text;
+                        folderName: Text;
+                        uploadResult: Text;
+                    begin
+                        folderName := 'ConstructionContracts';
+                        fileName := azureBlobUploader.ValidateDocument(uploadResult, folderName);
+                        if fileName <> '' then begin
+                            Rec.DrawingsRevisions := uploadResult;
+                            Rec.Modify();
+                            Message('File uploaded successfully: %1', fileName);
+                        end;
+                    end;
                 }
-                field("Permit numbers -Relevant documents"; Rec."Permit numbers -Relevant documents")
+                field("Permit Numbers & Relevant documents"; Rec."Permit No. Relevant Documents")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
+                    Editable = false;
+                    trigger OnDrillDown()
+                    var
+                        azureBlobUploader: Codeunit "Azure AD Blob Storage";
+                        fileName: Text;
+                        folderName: Text;
+                        uploadResult: Text;
+                    begin
+                        folderName := 'ConstructionContracts';
+                        fileName := azureBlobUploader.ValidateDocument(uploadResult, folderName);
+                        if fileName <> '' then begin
+                            Rec."Permit No. Relevant Documents" := uploadResult;
+                            Rec.Modify();
+                            Message('File uploaded successfully: %1', fileName);
+                        end;
+                    end;
                 }
-                field("Contract documents"; Rec."Contract documents")
+                field("Contract Documents"; Rec."Contract Documents")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
+                    trigger OnDrillDown()
+                    var
+                        azureBlobUploader: Codeunit "Azure AD Blob Storage";
+                        fileName: Text;
+                        folderName: Text;
+                        uploadResult: Text;
+                    begin
+                        folderName := 'ConstructionContracts';
+                        fileName := azureBlobUploader.ValidateDocument(uploadResult, folderName);
+                        if fileName <> '' then begin
+                            Rec."Contract Documents" := uploadResult;
+                            Rec.Modify();
+                            Message('File uploaded successfully: %1', fileName);
+                        end;
+                    end;
                 }
-                field("Inspection reports"; Rec."Inspection reports")
+                field("Inspection Reports"; Rec."Inspection Reports")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
+                    trigger OnDrillDown()
+                    var
+                        azureBlobUploader: Codeunit "Azure AD Blob Storage";
+                        fileName: Text;
+                        folderName: Text;
+                        uploadResult: Text;
+                    begin
+                        folderName := 'ConstructionContracts';
+                        fileName := azureBlobUploader.ValidateDocument(uploadResult, folderName);
+                        if fileName <> '' then begin
+                            Rec."Inspection Reports" := uploadResult;
+                            Rec.Modify();
+                            Message('File uploaded successfully: %1', fileName);
+                        end;
+                    end;
                 }
             }
 
             group("Construction Specifications")
             {
                 Caption = 'Construction Specifications';
-                field("Building type or classification"; Rec."Building type or classification")
+                field("Building Type or Classification"; Rec."Building Type/Classification")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
