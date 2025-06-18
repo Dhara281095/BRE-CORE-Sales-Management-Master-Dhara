@@ -8,165 +8,415 @@ page 53501 "Construction Project"
     {
         area(Content)
         {
-            group(Group)
+            group("Project Details")
             {
                 Caption = 'Project Details';
                 field("Project ID"; Rec."Project ID")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
                 field("Project Name"; Rec."Project Name")
                 {
                     ApplicationArea = All;
-
-
+                    ShowMandatory = true;
                 }
-                field("Project Location"; Rec."Project Location")
+                field("Project type"; Rec."Project type")
                 {
                     ApplicationArea = All;
-
-
-                }
-                field("Project Scope"; Rec."Project Scope")
-                {
-                    ApplicationArea = All;
-
+                    ShowMandatory = true;
 
                 }
-                field("Project Start Date"; Rec."Project Start Date")
+                field("Project status"; Rec."Project status")
                 {
                     ApplicationArea = All;
-
-
-                }
-                field("Project End Date"; Rec."Project End Date")
-                {
-                    ApplicationArea = All;
-
-
-                }
-                field("Project Status"; Rec."Project Status")
-                {
-                    ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
             }
-            group(ContractAssignment)
+
+            group("Project scope")
             {
-                Caption = 'Contract Assignment';
-
-                part("Contract Assignment List Part"; "Contract Assignment List Part")
+                Caption = 'Project scope';
+                field("Description"; Rec."Description")
                 {
                     ApplicationArea = All;
-                    Caption = 'Contract Assignments';
-                    Visible = true;
-                    Editable = false;
-                    SubPageLink = "Project ID" = field("Project ID");
+                    ShowMandatory = true;
+
+                }
+                field("Objectives"; Rec."Objectives")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                }
+                field("Additional Notes"; Rec."Additional Notes")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
                 }
             }
-            group("Milestone Details")
+
+            group("Project Location")
             {
-                Caption = 'Milestone Details';
-                field("Milestone No."; Rec."Milestone ID")
+                Caption = 'Project Location';
+                field("Address Line 1"; Rec."Address Line 1")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
-                field("Milestone Name"; Rec."Milestone Name")
+                field("Address Line 2"; Rec."Address Line 2")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
+                }
+                field("Postal code"; Rec."Postal code")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
-                field("Milestone Start Date"; Rec."Milestone Start Date")
+                field("latitude"; Rec."latitude")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
-                field("Milestone End Date"; Rec."Milestone End Date")
+                field("longitude"; Rec."longitude")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Location link"; Rec."Location link")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
             }
-            group("Task Details")
+
+            group("Timeline")
             {
-                Caption = 'Task Details';
-                field("Task No."; Rec."Task ID")
+                Caption = 'Timeline';
+                field("Planned start date"; Rec."Planned start date")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Planned end Date"; Rec."Planned end Date")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Actual start date"; Rec."Actual start date")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Task Name"; Rec."Task Name")
+                field("Final completion date"; Rec."Final completion date")
                 {
                     ApplicationArea = All;
-
-                }
-                field("Task Start Date"; Rec."Task Start Date")
-                {
-                    ApplicationArea = All;
-
-                }
-                field("Task End Date"; Rec."Task End Date")
-                {
-                    ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
             }
-            group("Issue Tracking")
+
+            group("Performance Metrics")
             {
-                Caption = 'Issue Tracking';
-                field("Issue No."; Rec."Issue ID")
+                Caption = 'Performance Metrics';
+                field("Progress percentages"; Rec."Progress percentages")
                 {
                     ApplicationArea = All;
-
-                }
-                field("Issue Description"; Rec."Issue Description")
-                {
-                    ApplicationArea = All;
-
-                }
-                field("Issue Status"; Rec."Issue Status")
-                {
-                    ApplicationArea = All;
-
-                }
-                field("Issue Notes"; Rec."Issue Notes")
-                {
-                    ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
             }
-            group("Progress Reporting")
+
+            group("Financial Details")
             {
-                Caption = 'Progress Reporting';
-                field("Report ID"; Rec."Report ID")
+                Caption = 'Financial Details';
+                field("Approved budget"; Rec."Approved budget")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Estimated cost breakdown"; Rec."Estimated cost breakdown")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Funding source"; Rec."Funding source")
                 {
                     ApplicationArea = All;
 
                 }
-                field("Report Date"; Rec."Report Date")
+                field("Current spends tracking"; Rec."Current spends tracking")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
-                field("Report Type"; Rec."Report Type")
+            }
+
+            group("Responsible Parties")
+            {
+                Caption = 'Responsible Parties';
+                field("Project owner"; Rec."Project owner")
                 {
                     ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
-                field("Report File"; Rec."Report File")
+                field("Primary contractor"; Rec."Primary contractor")
                 {
-
                     ApplicationArea = All;
+                    ShowMandatory = true;
 
                 }
-                field("Report Notes"; Rec."Report Notes")
+                field("Project manager"; Rec."Project manager")
                 {
                     ApplicationArea = All;
 
                 }
             }
+
+            group("Project Documents")
+            {
+                Caption = 'Project Documents';
+                field("DrawingsRevisions"; Rec."DrawingsRevisions")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Permit numbers -Relevant documents"; Rec."Permit numbers -Relevant documents")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Contract documents"; Rec."Contract documents")
+                {
+                    ApplicationArea = All;
+
+                }
+                field("Inspection reports"; Rec."Inspection reports")
+                {
+                    ApplicationArea = All;
+
+                }
+            }
+
+            group("Construction Specifications")
+            {
+                Caption = 'Construction Specifications';
+                field("Building type or classification"; Rec."Building type or classification")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("UOM"; Rec."UOM")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Number of floors"; Rec."Number of floors")
+                {
+                    ApplicationArea = All;
+
+                }
+                field("Construction materials"; Rec."Construction materials")
+                {
+                    ApplicationArea = All;
+
+                }
+            }
+
+            group("Stakeholders")
+            {
+                Caption = 'Stakeholders';
+                field("Architect/design firm"; Rec."Architect/design firm")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Subcontractors list"; Rec."Subcontractors list")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Key consultants"; Rec."Key consultants")
+                {
+                    ApplicationArea = All;
+
+                }
+            }
+
+            group("Extended Timeline")
+            {
+                Caption = 'Extended Timeline';
+                field("Design completion date"; Rec."Design completion date")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Permit approval date"; Rec."Permit approval date")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+
+                }
+                field("Substantial completion date"; Rec."Substantial completion date")
+                {
+                    ApplicationArea = All;
+
+                }
+                field("Extended Final completion date"; Rec."Extended Final completion date")
+                {
+                    ApplicationArea = All;
+
+                }
+            }
+
+            // group(ContractAssignment)
+            // {
+            //     Caption = 'Contract Assignment';
+
+            //     part("Contract Assignment List Part"; "Contract Assignment List Part")
+            //     {
+            //         ApplicationArea = All;
+            //         Caption = 'Contract Assignments';
+            //         Visible = true;
+            //         Editable = false;
+            //         SubPageLink = "Project ID" = field("Project ID");
+            //     }
+            // }
+
+            // group("Milestone Details")
+            // {
+            //     Caption = 'Milestone Details';
+            //     field("Milestone No."; Rec."Milestone ID")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Milestone Name"; Rec."Milestone Name")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Milestone Start Date"; Rec."Milestone Start Date")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Milestone End Date"; Rec."Milestone End Date")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            // }
+            // group("Task Details")
+            // {
+            //     Caption = 'Task Details';
+            //     field("Task No."; Rec."Task ID")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Task Name"; Rec."Task Name")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Task Start Date"; Rec."Task Start Date")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Task End Date"; Rec."Task End Date")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            // }
+            // group("Issue Tracking")
+            // {
+            //     Caption = 'Issue Tracking';
+            //     field("Issue No."; Rec."Issue ID")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Issue Description"; Rec."Issue Description")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Issue Status"; Rec."Issue Status")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Issue Notes"; Rec."Issue Notes")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            // }
+            // group("Progress Reporting")
+            // {
+            //     Caption = 'Progress Reporting';
+            //     field("Report ID"; Rec."Report ID")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Report Date"; Rec."Report Date")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Report Type"; Rec."Report Type")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Report File"; Rec."Report File")
+            //     {
+
+            //         ApplicationArea = All;
+
+            //     }
+            //     field("Report Notes"; Rec."Report Notes")
+            //     {
+            //         ApplicationArea = All;
+
+            //     }
+            // }
         }
     }
+
+    // Insert Validation and trigger 
+    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    var
+    begin
+        Rec.TestField("Project Name");
+        Rec.TestField("Planned start Date");
+        Rec.TestField("Planned end Date");
+    end;
+
+    // Insert Validation and trigger 
 }
