@@ -15,7 +15,6 @@ page 53501 "Construction Project"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                 }
                 field("Project Name"; Rec."Project Name")
                 {
@@ -26,13 +25,11 @@ page 53501 "Construction Project"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                 }
                 field("Project status"; Rec."Project status")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                 }
             }
 
@@ -42,19 +39,14 @@ page 53501 "Construction Project"
                 field("Description"; Rec."Description")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("Objectives"; Rec."Objectives")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
                 }
                 field("Additional Notes"; Rec."Additional Notes")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
             }
 
@@ -65,7 +57,6 @@ page 53501 "Construction Project"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                 }
                 field("Address Line 2"; Rec."Address Line 2")
                 {
@@ -81,20 +72,14 @@ page 53501 "Construction Project"
                 field("latitude"; Rec."latitude")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("longitude"; Rec."longitude")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("Location link"; Rec."Location link")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
             }
 
@@ -105,24 +90,21 @@ page 53501 "Construction Project"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                 }
                 field("Planned end Date"; Rec."Planned end Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                 }
                 field("Actual start date"; Rec."Actual start date")
                 {
                     ApplicationArea = All;
-
+                    ShowMandatory = true;
                 }
                 field("Final completion date"; Rec."Final completion date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                 }
             }
 
@@ -143,25 +125,18 @@ page 53501 "Construction Project"
                 field("Approved budget"; Rec."Approved budget")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("Estimated cost breakdown"; Rec."Estimated cost breakdown")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("Funding source"; Rec."Funding source")
                 {
                     ApplicationArea = All;
-
                 }
                 field("Current spends tracking"; Rec."Current spends tracking")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
             }
 
@@ -171,19 +146,14 @@ page 53501 "Construction Project"
                 field("Project owner"; Rec."Project owner")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("Primary contractor"; Rec."Primary contractor")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("Project manager"; Rec."Project manager")
                 {
                     ApplicationArea = All;
-
                 }
             }
             part("Construction Project Document List Part"; "Construction Project Documents")
@@ -199,24 +169,18 @@ page 53501 "Construction Project"
                 field("Building Type or Classification"; Rec."Building Type/Classification")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("UOM"; Rec."UOM")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("Number of floors"; Rec."Number of floors")
                 {
                     ApplicationArea = All;
-
                 }
                 field("Construction materials"; Rec."Construction materials")
                 {
                     ApplicationArea = All;
-
                 }
             }
 
@@ -226,19 +190,14 @@ page 53501 "Construction Project"
                 field("Architect/design firm"; Rec."Architect/design firm")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("Subcontractors list"; Rec."Subcontractors list")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
                 }
                 field("Key consultants"; Rec."Key consultants")
                 {
                     ApplicationArea = All;
-
                 }
             }
 
@@ -249,23 +208,21 @@ page 53501 "Construction Project"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                 }
                 field("Permit approval date"; Rec."Permit approval date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                 }
                 field("Substantial completion date"; Rec."Substantial completion date")
                 {
                     ApplicationArea = All;
-
+                    ShowMandatory = true;
                 }
                 field("Extended Final completion date"; Rec."Extended Final completion date")
                 {
                     ApplicationArea = All;
-
+                    ShowMandatory = true;
                 }
             }
 
