@@ -31,6 +31,11 @@ page 53501 "Construction Project"
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
+                field(SelectedMilestoneId; Rec.SelectedMilestoneId)
+                {
+                    ApplicationArea = All;
+                    Visible = false;
+                }
             }
 
             group("Project scope")
@@ -107,6 +112,22 @@ page 53501 "Construction Project"
                     ShowMandatory = true;
                 }
             }
+            part("Project Milestone List Part"; "Project Milestone List Part")
+            {
+                ApplicationArea = All;
+                Caption = 'Project Milestones';
+                Visible = true;
+                SubPageLink = "Project ID" = field("Project ID");
+            }
+
+            //TODO: Add the functionality to select a milestone and show its tasks
+            // part("Project Milestone Tasks"; "Project Milestone Task LP")
+            // {
+            //     ApplicationArea = All;
+            //     Caption = 'Milestone Tasks';
+            //     Visible = true;
+            //     SubPageLink = "Milestone ID" = field(SelectedMilestoneId);
+            // }
 
             group("Performance Metrics")
             {
@@ -352,16 +373,26 @@ page 53501 "Construction Project"
         Rec.TestField("Project Name");
         Rec.TestField("Planned start Date");
         Rec.TestField("Planned end Date");
-        CurrPage."Construction Project Document List Part".Page.SetOwnerId(Rec."Project ID");
+        CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+        CurrPage."Project Milestone List Part".Page.SetProjectId(Rec."Project ID");
     end;
 
     trigger OnModifyRecord(): Boolean
     begin
-        CurrPage."Construction Project Document List Part".Page.SetOwnerId(Rec."Project ID");
+        CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+        CurrPage."Project Milestone List Part".Page.SetProjectId(Rec."Project ID");
+        CurrPage.Update(true);
     end;
 
     trigger OnAfterGetRecord()
     begin
-        CurrPage."Construction Project Document List Part".Page.SetOwnerId(Rec."Project ID");
+        CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+        CurrPage."Project Milestone List Part".Page.SetProjectId(Rec."Project ID");
+    end;
+
+    trigger OnAfterGetCurrRecord()
+    begin
+        CurrPage."Project Milestone List Part".Page.SetProjectId(Rec."Project ID");
+        CurrPage.Update(false);
     end;
 }
