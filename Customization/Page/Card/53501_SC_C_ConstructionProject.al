@@ -260,109 +260,6 @@ page 53501 "Construction Project"
             //         SubPageLink = "Project ID" = field("Project ID");
             //     }
             // }
-
-            // group("Milestone Details")
-            // {
-            //     Caption = 'Milestone Details';
-            //     field("Milestone No."; Rec."Milestone ID")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Milestone Name"; Rec."Milestone Name")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Milestone Start Date"; Rec."Milestone Start Date")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Milestone End Date"; Rec."Milestone End Date")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            // }
-            // group("Task Details")
-            // {
-            //     Caption = 'Task Details';
-            //     field("Task No."; Rec."Task ID")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Task Name"; Rec."Task Name")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Task Start Date"; Rec."Task Start Date")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Task End Date"; Rec."Task End Date")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            // }
-            // group("Issue Tracking")
-            // {
-            //     Caption = 'Issue Tracking';
-            //     field("Issue No."; Rec."Issue ID")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Issue Description"; Rec."Issue Description")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Issue Status"; Rec."Issue Status")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Issue Notes"; Rec."Issue Notes")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            // }
-            // group("Progress Reporting")
-            // {
-            //     Caption = 'Progress Reporting';
-            //     field("Report ID"; Rec."Report ID")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Report Date"; Rec."Report Date")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Report Type"; Rec."Report Type")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Report File"; Rec."Report File")
-            //     {
-
-            //         ApplicationArea = All;
-
-            //     }
-            //     field("Report Notes"; Rec."Report Notes")
-            //     {
-            //         ApplicationArea = All;
-
-            //     }
-            // }
         }
     }
 
@@ -373,6 +270,25 @@ page 53501 "Construction Project"
         Rec.TestField("Project Name");
         Rec.TestField("Planned start Date");
         Rec.TestField("Planned end Date");
+        Rec.TestField("Project status");
+
+        Rec.TestField("Address Line 1");
+        Rec.TestField("Address Line 2");
+        Rec.TestField("Postal code");
+
+        Rec.TestField("Planned start date");
+        Rec.TestField("Planned end Date");
+        Rec.TestField("Actual start date");
+        Rec.TestField("Final completion date");
+
+        Rec.TestField("Progress percentages");
+
+        Rec.TestField("Design completion date");
+        Rec.TestField("Permit approval date");
+        Rec.TestField("Substantial completion date");
+        Rec.TestField("Extended Final completion date");
+
+
         CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
         CurrPage."Project Milestone List Part".Page.SetProjectId(Rec."Project ID");
     end;
