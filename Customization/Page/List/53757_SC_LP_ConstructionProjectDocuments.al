@@ -87,8 +87,8 @@ page 53757 "Construction Project Documents"
     var
         ProjectId: Code[20];
 
-    procedure SetOwnerId(pOwnerId: Code[20])
+    procedure SetProjectId(pProjectId: Code[20])
     begin
-        ProjectId := pOwnerId;
+        ProjectId := pProjectId;
     end;
 }
