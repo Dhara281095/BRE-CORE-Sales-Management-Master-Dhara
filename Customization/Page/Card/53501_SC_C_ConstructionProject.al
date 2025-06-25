@@ -4,6 +4,7 @@ page 53501 "Construction Project"
     SourceTable = "Construction Project";
     ApplicationArea = All;
     Caption = 'Construction Project Card';
+    RefreshOnActivate = true;
     layout
     {
         area(Content)
@@ -15,18 +16,19 @@ page 53501 "Construction Project"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+                    Editable = false;
                 }
                 field("Project Name"; Rec."Project Name")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field("Project type"; Rec."Project type")
+                field("Project Type"; Rec."Project Type")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field("Project status"; Rec."Project status")
+                field("Project Status"; Rec."Project Status")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -38,9 +40,9 @@ page 53501 "Construction Project"
                 }
             }
 
-            group("Project scope")
+            group("Project Scope")
             {
-                Caption = 'Project scope';
+                Caption = 'Project Scope';
                 field("Description"; Rec."Description")
                 {
                     ApplicationArea = All;
@@ -68,21 +70,21 @@ page 53501 "Construction Project"
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field("Postal code"; Rec."Postal code")
+                field("Postal Code"; Rec."Postal Code")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
 
                 }
-                field("latitude"; Rec."latitude")
+                field("Latitude"; Rec."Latitude")
                 {
                     ApplicationArea = All;
                 }
-                field("longitude"; Rec."longitude")
+                field("Longitude"; Rec."Longitude")
                 {
                     ApplicationArea = All;
                 }
-                field("Location link"; Rec."Location link")
+                field("Location Link"; Rec."Location Link")
                 {
                     ApplicationArea = All;
                 }
@@ -91,22 +93,22 @@ page 53501 "Construction Project"
             group("Timeline")
             {
                 Caption = 'Timeline';
-                field("Planned start date"; Rec."Planned start date")
+                field("Planned Start Date"; Rec."Planned Start Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field("Planned end Date"; Rec."Planned end Date")
+                field("Planned End Date"; Rec."Planned End Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field("Actual start date"; Rec."Actual start date")
+                field("Actual Start Date"; Rec."Actual Start Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field("Final completion date"; Rec."Final completion date")
+                field("Final Completion Date"; Rec."Final Completion Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -118,24 +120,35 @@ page 53501 "Construction Project"
                 Caption = 'Project Milestones';
                 Visible = true;
                 SubPageLink = "Project ID" = field("Project ID");
+                UpdatePropagation = Both;
             }
 
-            //TODO: Add the functionality to select a milestone and show its tasks
-            // part("Project Milestone Tasks"; "Project Milestone Task LP")
-            // {
-            //     ApplicationArea = All;
-            //     Caption = 'Milestone Tasks';
-            //     Visible = true;
-            //     SubPageLink = "Milestone ID" = field(SelectedMilestoneId);
-            // }
+            part("Project Milestone Tasks"; "Project Milestone Task LP")
+            {
+                ApplicationArea = All;
+                Caption = 'Milestone Tasks';
+                Visible = true;
+                Provider = "Project Milestone List Part";
+                SubPageLink = "Milestone ID" = field("Milestone ID");
+            }
+
+            part("Project Milestone Sub Tasks"; "Project Milestone Sub Task LP")
+            {
+                ApplicationArea = All;
+                Caption = 'Milestone Sub Tasks';
+                Visible = true;
+                Provider = "Project Milestone Tasks";
+                SubPageLink = "Task ID" = field("Task ID");
+            }
 
             group("Performance Metrics")
             {
                 Caption = 'Performance Metrics';
-                field("Progress percentages"; Rec."Progress percentages")
+                field("Progress Percentages"; Rec."Progress Percentages")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
+                    // ShowMandatory = true;
+                    Editable = false;
 
                 }
             }
@@ -143,19 +156,19 @@ page 53501 "Construction Project"
             group("Financial Details")
             {
                 Caption = 'Financial Details';
-                field("Approved budget"; Rec."Approved budget")
+                field("Approved Budget"; Rec."Approved Budget")
                 {
                     ApplicationArea = All;
                 }
-                field("Estimated cost breakdown"; Rec."Estimated cost breakdown")
+                field("Estimated Cost Breakdown"; Rec."Estimated Cost Breakdown")
                 {
                     ApplicationArea = All;
                 }
-                field("Funding source"; Rec."Funding source")
+                field("Funding Source"; Rec."Funding Source")
                 {
                     ApplicationArea = All;
                 }
-                field("Current spends tracking"; Rec."Current spends tracking")
+                field("Current Spends Tracking"; Rec."Current Spends Tracking")
                 {
                     ApplicationArea = All;
                 }
@@ -164,15 +177,15 @@ page 53501 "Construction Project"
             group("Responsible Parties")
             {
                 Caption = 'Responsible Parties';
-                field("Project owner"; Rec."Project owner")
+                field("Project Owner"; Rec."Project Owner")
                 {
                     ApplicationArea = All;
                 }
-                field("Primary contractor"; Rec."Primary contractor")
+                field("Primary Contractor"; Rec."Primary Contractor")
                 {
                     ApplicationArea = All;
                 }
-                field("Project manager"; Rec."Project manager")
+                field("Project Manager"; Rec."Project Manager")
                 {
                     ApplicationArea = All;
                 }
@@ -195,11 +208,11 @@ page 53501 "Construction Project"
                 {
                     ApplicationArea = All;
                 }
-                field("Number of floors"; Rec."Number of floors")
+                field("Number of Floors"; Rec."Number of Floors")
                 {
                     ApplicationArea = All;
                 }
-                field("Construction materials"; Rec."Construction materials")
+                field("Construction Materials"; Rec."Construction Materials")
                 {
                     ApplicationArea = All;
                 }
@@ -208,15 +221,15 @@ page 53501 "Construction Project"
             group("Stakeholders")
             {
                 Caption = 'Stakeholders';
-                field("Architect/design firm"; Rec."Architect/design firm")
+                field("Architect/Design Firm"; Rec."Architect/Design Firm")
                 {
                     ApplicationArea = All;
                 }
-                field("Subcontractors list"; Rec."Subcontractors list")
+                field("Subcontractors List"; Rec."Subcontractors List")
                 {
                     ApplicationArea = All;
                 }
-                field("Key consultants"; Rec."Key consultants")
+                field("Key Consultants"; Rec."Key Consultants")
                 {
                     ApplicationArea = All;
                 }
@@ -225,22 +238,22 @@ page 53501 "Construction Project"
             group("Extended Timeline")
             {
                 Caption = 'Extended Timeline';
-                field("Design completion date"; Rec."Design completion date")
+                field("Design Completion Date"; Rec."Design Completion Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field("Permit approval date"; Rec."Permit approval date")
+                field("Permit Approval Date"; Rec."Permit Approval Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field("Substantial completion date"; Rec."Substantial completion date")
+                field("Substantial Completion Date"; Rec."Substantial Completion Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field("Extended Final completion date"; Rec."Extended Final completion date")
+                field("Extended Final Completion Date"; Rec."Extended Final Completion Date")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
@@ -281,7 +294,7 @@ page 53501 "Construction Project"
         Rec.TestField("Actual start date");
         Rec.TestField("Final completion date");
 
-        Rec.TestField("Progress percentages");
+        // Rec.TestField("Progress percentages");
 
         Rec.TestField("Design completion date");
         Rec.TestField("Permit approval date");
@@ -290,25 +303,20 @@ page 53501 "Construction Project"
 
 
         CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
-        CurrPage."Project Milestone List Part".Page.SetProjectId(Rec."Project ID");
     end;
 
     trigger OnModifyRecord(): Boolean
     begin
         CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
-        CurrPage."Project Milestone List Part".Page.SetProjectId(Rec."Project ID");
-        CurrPage.Update(true);
     end;
 
     trigger OnAfterGetRecord()
     begin
         CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
-        CurrPage."Project Milestone List Part".Page.SetProjectId(Rec."Project ID");
     end;
 
     trigger OnAfterGetCurrRecord()
     begin
-        CurrPage."Project Milestone List Part".Page.SetProjectId(Rec."Project ID");
-        CurrPage.Update(false);
+        Rec.RecalculateProgress();
     end;
 }
