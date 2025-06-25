@@ -33,11 +33,7 @@ page 53501 "Construction Project"
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
-                field(SelectedMilestoneId; Rec.SelectedMilestoneId)
-                {
-                    ApplicationArea = All;
-                    Visible = false;
-                }
+
             }
 
             group("Project Scope")
