@@ -75,7 +75,6 @@ page 53758 "Project Milestone List Part"
     }
     trigger OnAfterGetRecord()
     begin
-        // Rec.RecalculateProgress();
         CurrPage.Update(false);
     end;
 
