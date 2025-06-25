@@ -4,6 +4,7 @@ page 53759 "Project Milestone Task LP"
     SourceTable = "Project Milestone Task";
     ApplicationArea = All;
     Caption = 'Milestone Tasks List';
+    RefreshOnActivate = true;
 
     layout
     {
@@ -15,6 +16,7 @@ page 53759 "Project Milestone Task LP"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Unique identifier for the task.';
+                    Editable = false;
                 }
 
                 field("Task Name"; Rec."Task Name")
@@ -26,6 +28,7 @@ page 53759 "Project Milestone Task LP"
                 {
                     ApplicationArea = All;
                     ToolTip = 'Identifier for the milestone to which this task belongs.';
+                    Editable = false;
                 }
                 field(Status; Rec.Status)
                 {
@@ -38,6 +41,7 @@ page 53759 "Project Milestone Task LP"
                     ApplicationArea = All;
                     Caption = 'Progress (%)';
                     ToolTip = 'Indicates the progress percentage of the task.';
+                    Editable = false;
                 }
                 field("Start Date"; Rec."Start Date")
                 {
@@ -53,7 +57,12 @@ page 53759 "Project Milestone Task LP"
                 {
                     ApplicationArea = All;
                     Caption = 'Weight (%)';
-                    ToolTip = 'Indicates the weight of the task in the project.';
+                    ToolTip = 'Indicates the weight of the task in the milestone.';
+
+                    // trigger OnValidate()
+                    // begin
+                    //     CurrPage.Update(false);
+                    // end;
                 }
                 field(Description; Rec.Description)
                 {
@@ -71,16 +80,12 @@ page 53759 "Project Milestone Task LP"
         }
     }
 
-    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    begin
-        Rec."Milestone ID" := MilestoneId;
-    end;
-
+    trigger OnAfterGetRecord()
     var
-        MilestoneId: Code[20];
-
-    procedure SetMilestoneId(pMilestoneId: Code[20])
+        milestone: Page "Project Milestone List Part";
     begin
-        MilestoneId := pMilestoneId;
+        Rec.RecalculateProgress();
+        CurrPage.Update(false);
+        milestone.UpdatedPage();
     end;
 }
