@@ -90,31 +90,31 @@ page 53106 "Vendor Proposal"
         }
     }
 
-    // actions
-    // {
-    //     area(Navigation)
-    //     {
-    //         action("Submission for Approval")
-    //         {
-    //             ApplicationArea = All;
-    //             Caption = 'Submit for Approval';
-    //             Image = Approve;
-    //             trigger OnAction()
-    //             var
-    //                 ConstructionProjectApproval: Codeunit ConstructionProjectApproval;
-    //             begin
-    //                 ConstructionProjectApproval.ConstructionProApproval(Rec);
-    //             end;
-    //         }
-    //     }
-    // }
+    actions
+    {
+        area(Navigation)
+        {
+            action("Submission for Approval")
+            {
+                ApplicationArea = All;
+                Caption = 'Submit for Approval';
+                Image = Approve;
+                trigger OnAction()
+                var
+                    ApprovalVendorProposal: Codeunit "Approval Vendor Proposal";
+                begin
+                    ApprovalVendorProposal.SubmitVendorProposal(Rec);
+                end;
+            }
+        }
+    }
 
     // Insert Validation and trigger 
-    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    var
-    begin
-        Rec.TestField("Project ID");
-        // Rec.TestField("Vendor ID");
-    end;
+    // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    // var
+    // begin
+    //     Rec.TestField("Project ID");
+    //     // Rec.TestField("Vendor ID");
+    // end;
 
 }
