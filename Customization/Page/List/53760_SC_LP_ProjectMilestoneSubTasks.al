@@ -41,7 +41,14 @@ page 53760 "Project Milestone Sub Task LP"
                     ToolTip = 'Indicates the progress percentage of the sub task.';
 
                     trigger OnValidate()
+                    var
+                        projectMilestoneTask: Record "Project Milestone Task";
                     begin
+                        Rec.modify(true);
+                        projectMilestoneTask.SetRange("Task ID", Rec."Task ID");
+                        if projectMilestoneTask.FindSet() then begin
+                            projectMilestoneTask.RecalculateProgress();
+                        end;
                         CurrPage.Update(false);
                     end;
                 }
@@ -62,7 +69,14 @@ page 53760 "Project Milestone Sub Task LP"
                     ToolTip = 'Indicates the weight of the sub task in the task.';
 
                     trigger OnValidate()
+                    var
+                        projectMilestoneTask: Record "Project Milestone Task";
                     begin
+                        Rec.modify(true);
+                        projectMilestoneTask.SetRange("Task ID", Rec."Task ID");
+                        if projectMilestoneTask.FindSet() then begin
+                            projectMilestoneTask.RecalculateProgress();
+                        end;
                         CurrPage.Update(false);
                     end;
                 }
@@ -82,8 +96,8 @@ page 53760 "Project Milestone Sub Task LP"
         }
     }
 
-    // trigger OnAfterGetCurrRecord()
-    // begin
-    //     CurrPage.Update(false);
-    // end;
+    trigger OnAfterGetCurrRecord()
+    begin
+        CurrPage.Update(false);
+    end;
 }

@@ -79,16 +79,16 @@ page 53757 "Construction Project Documents"
         }
     }
 
-    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    begin
-        Rec."Project ID" := ProjectId;
-    end;
+    // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    // begin
+    //     Rec."Project ID" := ProjectId;
+    // end;
 
-    var
-        ProjectId: Code[20];
+    //     var
+    //         ProjectId: Code[20];
 
-    procedure SetProjectId(pProjectId: Code[20])
-    begin
-        ProjectId := pProjectId;
-    end;
+    //     procedure SetProjectId(pProjectId: Code[20])
+    //     begin
+    //         ProjectId := pProjectId;
+    //     end;
 }
