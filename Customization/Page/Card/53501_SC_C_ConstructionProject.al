@@ -33,6 +33,15 @@ page 53501 "Construction Project"
                     ApplicationArea = All;
                     ShowMandatory = true;
                 }
+                field("Approval Status"; Rec."Approval Status")
+                {
+                    ApplicationArea = All;
+
+                }
+                field("Reason for Rejection"; Rec."Reason for Rejection")
+                {
+                    ApplicationArea = All;
+                }
 
             }
 
@@ -271,6 +280,25 @@ page 53501 "Construction Project"
             // }
         }
     }
+    actions
+    {
+        area(Navigation)
+        {
+            action("Submission for Approval")
+            {
+                ApplicationArea = All;
+                Caption = 'Submit for Approval';
+                Image = Approve;
+                trigger OnAction()
+                var
+                    ConstructionProjectApproval: Codeunit ConstructionProjectApproval;
+                begin
+                    ConstructionProjectApproval.ConstructionProApproval(Rec);
+                end;
+            }
+
+        }
+    }
 
     // Insert Validation and trigger 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
@@ -309,10 +337,34 @@ page 53501 "Construction Project"
     trigger OnAfterGetRecord()
     begin
         CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+        approvaleditable := UserApprovalProjectStatus();
     end;
 
     trigger OnAfterGetCurrRecord()
     begin
         Rec.RecalculateProgress();
     end;
+
+    procedure UserApprovalProjectStatus(): Boolean
+    var
+        UserPersonalization: Record "User Personalization";
+    begin
+
+        if UserPersonalization.Get(UserSecurityId()) then begin
+
+            case UserPersonalization."Profile ID" of
+                'PROJECT MANAGER':
+                    exit(true);
+                'PROJECT OWNER':
+                    exit(false);
+                'FINANCE MANAGER':
+                    exit(false);
+            end;
+        end;
+
+        exit(true);
+    end;
+
+    var
+        approvaleditable: Boolean;
 }
