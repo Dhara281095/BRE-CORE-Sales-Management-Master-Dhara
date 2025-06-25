@@ -281,25 +281,25 @@ page 53501 "Construction Project"
     var
     begin
         Rec.TestField("Project Name");
-        Rec.TestField("Planned start Date");
-        Rec.TestField("Planned end Date");
-        Rec.TestField("Project status");
+        Rec.TestField("Planned Start Date");
+        Rec.TestField("Planned End Date");
+        Rec.TestField("Project Status");
 
         Rec.TestField("Address Line 1");
         Rec.TestField("Address Line 2");
-        Rec.TestField("Postal code");
+        Rec.TestField("Postal Code");
 
-        Rec.TestField("Planned start date");
-        Rec.TestField("Planned end Date");
-        Rec.TestField("Actual start date");
-        Rec.TestField("Final completion date");
+        Rec.TestField("Planned Start Date");
+        Rec.TestField("Planned End Date");
+        Rec.TestField("Actual Start Date");
+        Rec.TestField("Final Completion Date");
 
         // Rec.TestField("Progress percentages");
 
-        Rec.TestField("Design completion date");
-        Rec.TestField("Permit approval date");
-        Rec.TestField("Substantial completion date");
-        Rec.TestField("Extended Final completion date");
+        Rec.TestField("Design Completion Date");
+        Rec.TestField("Permit Approval Date");
+        Rec.TestField("Substantial Completion Date");
+        Rec.TestField("Extended Final Completion Date");
 
 
         CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
