@@ -135,6 +135,7 @@ page 53501 "Construction Project"
                 Visible = true;
                 Provider = "Project Milestone List Part";
                 SubPageLink = "Milestone ID" = field("Milestone ID");
+                UpdatePropagation = Both;
             }
 
             part("Project Milestone Sub Tasks"; "Project Milestone Sub Task LP")
@@ -144,6 +145,7 @@ page 53501 "Construction Project"
                 Visible = true;
                 Provider = "Project Milestone Tasks";
                 SubPageLink = "Task ID" = field("Task ID");
+                UpdatePropagation = Both;
             }
 
             group("Performance Metrics")
@@ -326,17 +328,17 @@ page 53501 "Construction Project"
         Rec.TestField("Extended Final Completion Date");
 
 
-        CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+        // CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
     end;
 
     trigger OnModifyRecord(): Boolean
     begin
-        CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+        // CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
     end;
 
     trigger OnAfterGetRecord()
     begin
-        CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+        // CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
         approvaleditable := UserApprovalProjectStatus();
     end;
 

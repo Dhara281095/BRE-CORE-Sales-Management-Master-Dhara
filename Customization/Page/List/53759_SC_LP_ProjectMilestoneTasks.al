@@ -84,7 +84,7 @@ page 53759 "Project Milestone Task LP"
     var
         milestone: Page "Project Milestone List Part";
     begin
-        Rec.RecalculateProgress();
+        // Rec.RecalculateProgress();
         CurrPage.Update(false);
         milestone.UpdatedPage();
     end;
