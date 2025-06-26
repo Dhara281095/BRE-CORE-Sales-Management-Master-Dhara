@@ -64,12 +64,12 @@ page 53108 "Vendor Contract"
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Vendor Designation"; Rec."Vendor Designation")
+                field("Vendor Email"; Rec."Vendor Email")
                 {
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Vendor Email"; Rec."Vendor Email")
+                field("Vendor Designation"; Rec."Vendor Designation")
                 {
                     ApplicationArea = All;
                     Editable = false;
