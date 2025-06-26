@@ -12,6 +12,20 @@ page 53251 "Pricing Breakdown Grid"
         {
             repeater(Prices)
             {
+
+                field("Entry No."; Rec."Entry No.")
+                {
+                    ApplicationArea = All;
+
+                }
+
+                field("Profile ID"; Rec."Profile ID")
+                {
+                    ApplicationArea = All;
+
+                }
+
+
                 field("Line No."; Rec."Line No.")
                 {
                     ApplicationArea = All;
@@ -24,7 +38,10 @@ page 53251 "Pricing Breakdown Grid"
                 field("Quantity"; Rec."Quantity")
                 {
                     ApplicationArea = All;
-
+                    trigger OnValidate()
+                    begin
+                        Rec."Total Cost" := Rec."Quantity" * Rec."Price Per Unit";
+                    end;
                 }
                 field("Unit"; Rec."Unit")
                 {
@@ -33,7 +50,10 @@ page 53251 "Pricing Breakdown Grid"
                 field("Price Per Unit"; Rec."Price Per Unit")
                 {
                     ApplicationArea = All;
-
+                    trigger OnValidate()
+                    begin
+                        Rec."Total Cost" := Rec."Quantity" * Rec."Price Per Unit";
+                    end;
                 }
                 field("Total Cost"; Rec."Total Cost")
                 {
@@ -44,23 +64,23 @@ page 53251 "Pricing Breakdown Grid"
         }
     }
 
-    actions
-    {
-        area(Processing)
-        {
-            action(CalculateTotal)
-            {
-                Caption = 'Recalculate Total';
-                ApplicationArea = All;
-                Image = Calculate;
-                trigger OnAction()
-                begin
-                    Rec."Total Cost" := Rec."Quantity" * Rec."Price Per Unit";
-                    Rec.Modify();
-                    Message('Total cost updated to: %1', Rec."Total Cost");
-                end;
-            }
-        }
-    }
+    // actions
+    // {
+    //     area(Processing)
+    //     {
+    //         action(CalculateTotal)
+    //         {
+    //             Caption = 'Recalculate Total';
+    //             ApplicationArea = All;
+    //             Image = Calculate;
+    //             trigger OnAction()
+    //             begin
+    //                 Rec."Total Cost" := Rec."Quantity" * Rec."Price Per Unit";
+    //                 Rec.Modify();
+    //                 Message('Total cost updated to: %1', Rec."Total Cost");
+    //             end;
+    //         }
+    //     }
+    // }
 
 }

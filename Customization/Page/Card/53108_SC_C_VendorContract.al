@@ -33,12 +33,26 @@ page 53108 "Vendor Contract"
                             Rec."Vendor ID" := VendorRec."Vendor ID";
                             Rec."Vendor Name" := VendorRec."Vendor Name";
                             Rec."Vendor Email" := VendorRec."Vendor Email";
-                            Rec."Vendor Designation" := VendorRec."Vendor Designation"; // Change to correct field if needed
+                            Rec."Vendor Designation" := VendorRec."Vendor Designation";
+                            Rec."Project ID" := VendorRec."Project ID";
+                            Rec."Work Scope" := VendorRec."Work Scope";
+                            Rec."Contract Start Date" := VendorRec."Start Date";
+                            Rec."Contract End Date" := VendorRec."End Date";
+                            Rec."Payment Terms" := VendorRec."Payment Terms";
+                            Rec."Compliance Required" := VendorRec."Compliance Required";
+                            Rec."Created By" := VendorRec."Created By";
+
                         end else begin
                             Rec."Vendor ID" := '';
                             Rec."Vendor Name" := '';
                             Rec."Vendor Email" := '';
                             Rec."Vendor Designation" := '';
+                            Rec."Project ID" := '';
+                            Rec."Work Scope" := '';
+                            Rec."Payment Terms" := '';
+                            Rec."Created By" := '';
+
+
                         end;
                     end;
                 }
@@ -121,6 +135,7 @@ page 53108 "Vendor Contract"
                 field("Vendor Approval Status"; Rec."Vendor Approval Status")
                 {
                     ApplicationArea = All;
+
                 }
                 field("Vendor Remarks"; Rec."Vendor Remarks")
                 {
@@ -132,24 +147,29 @@ page 53108 "Vendor Contract"
         }
     }
 
-    // actions
-    // {
-    //     area(Navigation)
-    //     {
-    //         action("Submission for Approval")
-    //         {
-    //             ApplicationArea = All;
-    //             Caption = 'Submit for Approval';
-    //             Image = Approve;
-    //             trigger OnAction()
-    //             var
-    //                 ApprovalVendorProposal: Codeunit "Approval Vendor Proposal";
-    //             begin
-    //                 ApprovalVendorProposal.SubmitVendorProposal(Rec);
-    //             end;
-    //         }
-    //     }
-    // }
+    actions
+    {
+        area(Processing) // Use Processing or Reporting instead of Navigation
+        {
+            // This will be the top-level menu now
+
+            action("Submission for Approval")
+            {
+                ApplicationArea = All;
+                Caption = 'Submit for Approval';
+                Image = Approve;
+
+                trigger OnAction()
+                var
+                    ApprovalVendorProposal: Codeunit "Approval Vendor Contract";
+                begin
+                    ApprovalVendorProposal.SubmitVendorContract(Rec);
+                end;
+            }
+        }
+    }
+
+
 
     // Insert Validation and trigger 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
