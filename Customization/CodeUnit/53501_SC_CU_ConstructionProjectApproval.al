@@ -43,7 +43,7 @@ codeunit 53501 ConstructionProjectApproval
             EmailMessage.Create(EmailAddress, 'Construction Project Approval Notification - ' + ConstructionProject."Project ID",
             '<html>' +
                          '<body>' +
-                         '<p>Dear ' + Username + ',</p>' +
+                         '<p>Dear ' + UserRec."Full Name" + ',</p>' +
                          '<h3>Construction Project Details</h3>' +
                          //  '<p>The following invoice has been Updated:</p>' +
                          '<p><b>Project ID:</b> ' + ConstructionProject."Project ID" + '<br/>' +

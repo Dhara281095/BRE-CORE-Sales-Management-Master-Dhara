@@ -5,6 +5,7 @@ page 53501 "Construction Project"
     ApplicationArea = All;
     Caption = 'Construction Project Card';
     RefreshOnActivate = true;
+    UsageCategory = Administration;
     layout
     {
         area(Content)
@@ -36,11 +37,26 @@ page 53501 "Construction Project"
                 field("Approval Status"; Rec."Approval Status")
                 {
                     ApplicationArea = All;
+                    Editable = approvaleditable;
+                    trigger OnValidate()
+                    var
+                        dialogboxConstProjectRejection: Codeunit DialogboxConstProjectRejection;
+                    begin
+                        if Rec."Approval Status" = Rec."Approval Status"::Rejected then begin
+                            dialogboxConstProjectRejection.DialogboxForRejection(Rec);
+                        end;
+                    end;
 
                 }
                 field("Reason for Rejection"; Rec."Reason for Rejection")
                 {
+                    Editable = approvaleditable;
                     ApplicationArea = All;
+                }
+                field("Created By"; Rec."Created By")
+                {
+                    ApplicationArea = All;
+
                 }
 
             }
@@ -296,6 +312,8 @@ page 53501 "Construction Project"
                     ConstructionProjectApproval: Codeunit ConstructionProjectApproval;
                 begin
                     ConstructionProjectApproval.ConstructionProApproval(Rec);
+                    Rec."Approval Status" := Rec."Approval Status"::Pending;
+                    Rec.Modify(true);
                 end;
             }
 
@@ -364,7 +382,7 @@ page 53501 "Construction Project"
             end;
         end;
 
-        exit(true);
+        exit(false);
     end;
 
     var

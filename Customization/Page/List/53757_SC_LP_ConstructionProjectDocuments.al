@@ -50,34 +50,7 @@ page 53757 "Construction Project Documents"
             }
         }
     }
-    actions
-    {
-        area(Processing)
-        {
-            action(UploadDocument)
-            {
-                ApplicationArea = All;
-                Caption = 'Upload Document';
-                Image = Insert;
-                trigger OnAction()
-                var
-                    azureBlobUploader: Codeunit "Azure AD Blob Storage";
-                    fileName: Text;
-                    folderName: Text;
-                    uploadResult: Text;
-                begin
-                    folderName := 'ConstructionContracts';
-                    fileName := azureBlobUploader.ValidateDocument(uploadResult, folderName);
-                    if fileName <> '' then begin
-                        Rec."Upload Document" := fileName;
-                        Rec."Document URL" := uploadResult;
-                        Rec.Modify();
-                        Message('File uploaded successfully: %1', fileName);
-                    end;
-                end;
-            }
-        }
-    }
+
 
     // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     // begin
