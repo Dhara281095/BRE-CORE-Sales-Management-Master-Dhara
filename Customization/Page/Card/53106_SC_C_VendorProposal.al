@@ -122,6 +122,7 @@ page 53106 "Vendor Proposal"
                 field("Vendor Approval Status"; Rec."Vendor Approval Status")
                 {
                     ApplicationArea = All;
+                    // Editable = true;
                 }
                 field("Vendor Remarks"; Rec."Vendor Remarks")
                 {
@@ -133,12 +134,20 @@ page 53106 "Vendor Proposal"
                     ApplicationArea = All;
                 }
             }
+
+            part("Pricing Breakdown Grid"; "Pricing Breakdown Grid")
+            {
+                ApplicationArea = All;
+                Caption = 'Pricing Breakdown Grid';
+                Visible = true;
+                SubPageLink = "Profile ID" = field("Project ID");
+            }
         }
     }
 
     actions
     {
-        area(Navigation)
+        area(Processing)
         {
             action("Submission for Approval")
             {

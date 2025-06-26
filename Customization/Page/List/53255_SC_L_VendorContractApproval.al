@@ -1,9 +1,9 @@
-page 53253 "Vendor Proposal Approval List"
+page 53255 "Vendor Contract Approval List"
 {
     PageType = List;
-    SourceTable = "Vendor Proposal Approval";
+    SourceTable = "Vendor Contract Approval";
     ApplicationArea = All;
-    Caption = 'Vendor Proposal Approval List';
+    Caption = 'Vendor Contract Approval List';
     UsageCategory = Lists;
     // CardPageId = 50320;
 
@@ -26,27 +26,26 @@ page 53253 "Vendor Proposal Approval List"
                 {
                     ApplicationArea = All;
                 }
-                field("Vendor Proposal ID"; Rec."Vendor Proposal ID")
+                field("Vendor Contract ID"; Rec."Vendor Contract ID")
                 {
                     ApplicationArea = All;
 
-                    // DrillDown trigger to navigate to the Tenancy Contract Card
                     trigger OnDrillDown()
                     var
-                        TenancyContractRec: Record "Vendor Proposal"; // Replace with the correct table name for Tenancy Contract
+                        TenancyContractRec: Record "Vendor Contract"; // Replace with the correct table name for Tenancy Contract
                     begin
                         // Debugging: Log the Contract ID value
-                        Message('Checking Proposal ID: %1', Rec."Vendor Proposal ID");
+                        Message('Checking Contract ID: %1', Rec."Vendor Contract ID");
 
                         // Use SetRange and FindFirst to locate the record
-                        TenancyContractRec.SetRange("Proposal ID", Rec."Vendor Proposal ID");
+                        TenancyContractRec.SetRange("Proposal ID", Rec."Vendor Contract ID");
 
                         if TenancyContractRec.FindFirst() then begin
                             // Record found, open the Tenancy Contract Card page
                             PAGE.Run(PAGE::"Vendor Proposal", TenancyContractRec); // Replace with the correct card page ID or name
                         end else begin
                             // Record not found
-                            Message('The selected Contract ID (%1) does not exist in the Tenancy Contract table.', Rec."Vendor Proposal ID");
+                            Message('The selected Contract ID (%1) does not exist in the Tenancy Contract table.', Rec."Vendor Contract ID");
                         end;
                     end;
                 }
@@ -72,6 +71,7 @@ page 53253 "Vendor Proposal Approval List"
         area(processing)
         {
 
+
             action(Approve)
             {
                 Caption = 'Approve';
@@ -81,8 +81,8 @@ page 53253 "Vendor Proposal Approval List"
 
                 trigger OnAction()
                 var
-                    SelectedRec: Record "Vendor Proposal Approval";
-                    VendorProposalRec: Record "Vendor Proposal";
+                    SelectedRec: Record "Vendor Contract Approval";
+                    VendorProposalRec: Record "Vendor Contract";
                 begin
                     if Rec.Status = 'Pending' then begin
                         SelectedRec := Rec;
@@ -90,7 +90,7 @@ page 53253 "Vendor Proposal Approval List"
                         SelectedRec.Modify();
 
                         // Update all Vendor Proposal records with matching Proposal ID
-                        VendorProposalRec.SetRange("Proposal ID", SelectedRec."Vendor Proposal ID");
+                        VendorProposalRec.SetRange("Contract ID", SelectedRec."Vendor Contract ID");
                         if VendorProposalRec.FindSet() then begin
                             repeat
                                 VendorProposalRec."Internal Approval Status" := VendorProposalRec."Internal Approval Status"::Approved;
@@ -116,8 +116,8 @@ page 53253 "Vendor Proposal Approval List"
 
                 trigger OnAction()
                 var
-                    SelectedRec: Record "Vendor Proposal Approval";
-                    VendorProposalRec: Record "Vendor Proposal";
+                    SelectedRec: Record "Vendor Contract Approval";
+                    VendorProposalRec: Record "Vendor Contract";
                     RemarkDialog: Page "DialogBoxForInvoiceRejection";
                     RemarkText: Text;
                     DialogResult: Action;
@@ -136,7 +136,7 @@ page 53253 "Vendor Proposal Approval List"
                                 SelectedRec.Modify();
 
                                 // Update in vendor proposal table
-                                VendorProposalRec.SetRange("Proposal ID", SelectedRec."Vendor Proposal ID");
+                                VendorProposalRec.SetRange("Contract ID", SelectedRec."Vendor Contract ID");
                                 if VendorProposalRec.FindSet() then begin
                                     repeat
                                         VendorProposalRec."Internal Remarks" := RemarkText;
@@ -154,38 +154,9 @@ page 53253 "Vendor Proposal Approval List"
                         Message('Selected record is not in "Pending" status.');
                 end;
             }
-        }
 
 
 
-
-        area(navigation)
-        {
-            action("Open Vendor Proposal")
-            {
-                Caption = 'Open Vendor Proposal';
-                ApplicationArea = All;
-                Image = OpenRecord;
-
-                trigger OnAction()
-                var
-                    TenancyContractRec: Record "Vendor Proposal"; // Replace with the correct table name for Tenancy Contract
-                begin
-                    // Debugging: Log the Contract ID value
-                    Message('Checking Contract ID: %1', Rec."Vendor Proposal ID");
-
-                    // Use SetRange and FindFirst to locate the record
-                    TenancyContractRec.SetRange("Proposal ID", Rec."Vendor Proposal ID");
-
-                    if TenancyContractRec.FindFirst() then begin
-                        // Record found, open the Tenancy Contract Card page
-                        PAGE.Run(PAGE::"Vendor Proposal", TenancyContractRec); // Replace with the correct card page ID or name
-                    end else begin
-                        // Record not found
-                        Message('The selected Proposal ID (%1) does not exist in the Vendor Proposal table.', Rec."Vendor Proposal ID");
-                    end;
-                end;
-            }
 
 
         }
