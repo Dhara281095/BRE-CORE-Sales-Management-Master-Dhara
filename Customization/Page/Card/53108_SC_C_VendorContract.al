@@ -1,9 +1,9 @@
-page 53106 "Vendor Proposal"
+page 53108 "Vendor Contract"
 {
     PageType = Card;
-    SourceTable = "Vendor Proposal";
+    SourceTable = "Vendor Contract";
     ApplicationArea = All;
-    Caption = 'Vendor Proposal Card';
+    Caption = 'Vendor Contract Card';
 
     layout
     {
@@ -12,46 +12,52 @@ page 53106 "Vendor Proposal"
             group("General Information")
             {
                 Caption = 'General Information';
-                field("Proposal ID"; Rec."Proposal ID")
+
+                field("Contract ID"; Rec."Contract ID")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
                     Editable = false;
                 }
-                field("Project ID"; Rec."Project ID")
-                {
-                    ApplicationArea = All;
-                    ShowMandatory = true;
-                }
-                field("Proposal Date"; Rec."Proposal Date")
-                {
-                    ApplicationArea = All;
-                }
-            }
-
-            group("Vendor Information")
-            {
-                Caption = 'Vendor Information';
-                field("Vendor ID"; Rec."Vendor ID")
+                field("Proposal ID"; Rec."Proposal ID")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
 
                     trigger OnValidate()
                     var
-                        VendorRec: Record "Facility Vendor Profiles";
+                        VendorRec: Record "Vendor Proposal";
                     begin
-                        VendorRec.SetRange("Vendor ID", Rec."Vendor ID");
+                        VendorRec.SetRange("Proposal ID", Rec."Proposal ID");
                         if VendorRec.FindFirst() then begin
+                            Rec."Vendor ID" := VendorRec."Vendor ID";
                             Rec."Vendor Name" := VendorRec."Vendor Name";
-                            Rec."Vendor Email" := VendorRec."Email Address";
-                            Rec."Vendor Designation" := VendorRec."Designation"; // Change to correct field if needed
+                            Rec."Vendor Email" := VendorRec."Vendor Email";
+                            Rec."Vendor Designation" := VendorRec."Vendor Designation"; // Change to correct field if needed
                         end else begin
+                            Rec."Vendor ID" := '';
                             Rec."Vendor Name" := '';
                             Rec."Vendor Email" := '';
                             Rec."Vendor Designation" := '';
                         end;
                     end;
+                }
+                field("Project ID"; Rec."Project ID")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                }
+                field("Contract Date"; Rec."Contract Date")
+                {
+                    ApplicationArea = All;
+                }
+            }
+            group("Vendor Information")
+            {
+                field("Vendor ID"; Rec."Vendor ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Vendor Name"; Rec."Vendor Name")
                 {
@@ -69,26 +75,23 @@ page 53106 "Vendor Proposal"
                     Editable = false;
                 }
             }
-            group("Vendor Proposal Details")
+            group("Vendor Contract Details")
             {
-                Caption = 'Vendor Proposal Details';
-
+                Caption = 'Vendor Contract Details';
                 field("Work Scope"; Rec."Work Scope")
                 {
                     ApplicationArea = All;
                     multiLine = true;
                 }
-                field("Start Date"; Rec."Start Date")
+                field("Compliance Required"; Rec."Compliance Required")
                 {
-                    Caption = 'Proposal Start Date';
                     ApplicationArea = All;
                 }
-                field("End Date"; Rec."End Date")
+                field("Contract Start Date"; Rec."Contract Start Date")
                 {
-                    Caption = 'Proposal End Date';
                     ApplicationArea = All;
                 }
-                field("Quoted Price"; Rec."Quoted Price")
+                field("Contract End Date"; Rec."Contract End Date")
                 {
                     ApplicationArea = All;
                 }
@@ -96,16 +99,12 @@ page 53106 "Vendor Proposal"
                 {
                     ApplicationArea = All;
                 }
-                field("Compliance Required"; Rec."Compliance Required")
-                {
-                    ApplicationArea = All;
-                }
 
             }
-            group("Vendor Proposale Status")
-            {
-                Caption = 'Vendor Proposal Status';
 
+            group("Vendor Contract Status")
+            {
+                Caption = 'Vendor Contract Status';
                 field("Internal Approval Status"; Rec."Internal Approval Status")
                 {
                     ApplicationArea = All;
@@ -128,39 +127,37 @@ page 53106 "Vendor Proposal"
                     ApplicationArea = All;
                     multiLine = true;
                 }
-                field("Created DateTime"; Rec."Created DateTime")
-                {
-                    ApplicationArea = All;
-                }
+
             }
         }
     }
 
-    actions
-    {
-        area(Navigation)
-        {
-            action("Submission for Approval")
-            {
-                ApplicationArea = All;
-                Caption = 'Submit for Approval';
-                Image = Approve;
-                trigger OnAction()
-                var
-                    ApprovalVendorProposal: Codeunit "Approval Vendor Proposal";
-                begin
-                    ApprovalVendorProposal.SubmitVendorProposal(Rec);
-                end;
-            }
-        }
-    }
+    // actions
+    // {
+    //     area(Navigation)
+    //     {
+    //         action("Submission for Approval")
+    //         {
+    //             ApplicationArea = All;
+    //             Caption = 'Submit for Approval';
+    //             Image = Approve;
+    //             trigger OnAction()
+    //             var
+    //                 ApprovalVendorProposal: Codeunit "Approval Vendor Proposal";
+    //             begin
+    //                 ApprovalVendorProposal.SubmitVendorProposal(Rec);
+    //             end;
+    //         }
+    //     }
+    // }
 
     // Insert Validation and trigger 
-    // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    // var
-    // begin
-    //     Rec.TestField("Project ID");
-    //     // Rec.TestField("Vendor ID");
-    // end;
+    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    var
+    begin
+        Rec.TestField("Proposal ID");
+        Rec.TestField("Project ID");
+        Rec.TestField("Vendor ID");
+    end;
 
 }
