@@ -18,12 +18,13 @@ page 53108 "Vendor Contract"
                     ApplicationArea = All;
                     ShowMandatory = true;
                     Editable = false;
+
                 }
+
                 field("Proposal ID"; Rec."Proposal ID")
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
-
                     trigger OnValidate()
                     var
                         VendorRec: Record "Vendor Proposal";
@@ -41,6 +42,7 @@ page 53108 "Vendor Contract"
                             Rec."Payment Terms" := VendorRec."Payment Terms";
                             Rec."Compliance Required" := VendorRec."Compliance Required";
                             Rec."Created By" := VendorRec."Created By";
+                            Rec."Project Name" := VendorRec."Project Name";
 
                         end else begin
                             Rec."Vendor ID" := '';
@@ -55,6 +57,13 @@ page 53108 "Vendor Contract"
 
                         end;
                     end;
+
+                }
+                field("Project Name"; Rec."Project Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Project Name';
+                    Editable = false;
                 }
                 field("Project ID"; Rec."Project ID")
                 {
@@ -122,25 +131,29 @@ page 53108 "Vendor Contract"
                 field("Internal Approval Status"; Rec."Internal Approval Status")
                 {
                     ApplicationArea = All;
+                    Editable = approvaleditable;
                 }
                 field("Internal Remarks"; Rec."Internal Remarks")
                 {
                     ApplicationArea = All;
                     multiLine = true;
+                    Editable = approvaleditable;
                 }
                 field("Created By"; Rec."Created By")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Vendor Approval Status"; Rec."Vendor Approval Status")
                 {
                     ApplicationArea = All;
-
+                    Editable = approvaleditable;
                 }
                 field("Vendor Remarks"; Rec."Vendor Remarks")
                 {
                     ApplicationArea = All;
                     multiLine = true;
+                    Editable = approvaleditable;
                 }
 
             }
@@ -149,9 +162,9 @@ page 53108 "Vendor Contract"
 
     actions
     {
-        area(Processing) // Use Processing or Reporting instead of Navigation
+
+        area(Processing)
         {
-            // This will be the top-level menu now
 
             action("Submission for Approval")
             {
@@ -166,10 +179,35 @@ page 53108 "Vendor Contract"
                     ApprovalVendorProposal.SubmitVendorContract(Rec);
                 end;
             }
+            action("Send to Vendor for Approval")
+            {
+                ApplicationArea = All;
+                Caption = 'Send to Vendor for Approval';
+                Image = Approve;
+                trigger OnAction()
+                var
+                    VendorContractApprovalVendor: Codeunit VendorContractApprovalVendor;
+                begin
+                    if Rec."Internal Approval Status" = Rec."Internal Approval Status"::Approved then begin
+                        VendorContractApprovalVendor.VendorContractApproval(Rec);
+                        Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                        Rec.Modify(true);
+                    end else begin
+                        Error('Internal approval is required before sending to vendor.');
+                    end;
+                end;
+            }
+        }
+        area(Promoted)
+        {
+            actionref(submitforapprovaltoprojectmanager; "Submission for Approval")
+            {
+            }
+            actionref(sendtovendortoprojectmanager; "Send to Vendor for Approval")
+            {
+            }
         }
     }
-
-
 
     // Insert Validation and trigger 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
@@ -179,5 +217,34 @@ page 53108 "Vendor Contract"
         Rec.TestField("Project ID");
         Rec.TestField("Vendor ID");
     end;
+
+    trigger OnAfterGetRecord()
+    begin
+        // CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+        approvaleditable := UserApprovalProjectStatus();
+    end;
+
+    procedure UserApprovalProjectStatus(): Boolean
+    var
+        UserPersonalization: Record "User Personalization";
+    begin
+
+        if UserPersonalization.Get(UserSecurityId()) then begin
+
+            case UserPersonalization."Profile ID" of
+                'PROJECT MANAGER':
+                    exit(true);
+                'PROJECT OWNER':
+                    exit(false);
+                'FINANCE MANAGER':
+                    exit(false);
+            end;
+        end;
+
+        exit(false);
+    end;
+
+    var
+        approvaleditable: Boolean;
 
 }

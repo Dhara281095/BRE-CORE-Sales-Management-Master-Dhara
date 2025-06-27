@@ -300,7 +300,7 @@ page 53501 "Construction Project"
     }
     actions
     {
-        area(Navigation)
+        area(Processing)
         {
             action("Submission for Approval")
             {
@@ -318,7 +318,14 @@ page 53501 "Construction Project"
             }
 
         }
+        area(Promoted)
+        {
+            actionref(submitforapprovaltoprojectmanager; "Submission for Approval")
+            {
+            }
+        }
     }
+
 
     // Insert Validation and trigger 
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean

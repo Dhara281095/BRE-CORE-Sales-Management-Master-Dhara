@@ -22,6 +22,26 @@ page 53106 "Vendor Proposal"
                 {
                     ApplicationArea = All;
                     ShowMandatory = true;
+
+                    trigger OnValidate()
+                    var
+                        ProjectRec: Record "Construction Project";
+                    begin
+                        ProjectRec.SetRange("Project ID", Rec."Project ID");
+                        if ProjectRec.FindFirst() then begin
+                            Rec."Project Name" := ProjectRec."Project Name";
+
+                        end else begin
+                            Rec."Project Name" := '';
+
+                        end;
+                    end;
+                }
+                field("Project Name"; Rec."Project Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Project Name';
+                    Editable = false;
                 }
                 field("Proposal Date"; Rec."Proposal Date")
                 {
@@ -41,11 +61,15 @@ page 53106 "Vendor Proposal"
                     var
                         VendorRec: Record "Facility Vendor Profiles";
                     begin
-                        VendorRec.SetRange("Vendor ID", Rec."Vendor ID");
+                        VendorRec.SetRange("Profile ID", Rec."Vendor ID");
                         if VendorRec.FindFirst() then begin
-                            Rec."Vendor Name" := VendorRec."Vendor Name";
+                            // Rec."Vendor Name" := VendorRec."Vendor Name";
+                            // Rec."Vendor Email" := VendorRec."Email Address";
+                            // Rec."Vendor Designation" := VendorRec."Designation"; 
+                            Rec."Vendor Name" := VendorRec."Profile Name";
                             Rec."Vendor Email" := VendorRec."Email Address";
-                            Rec."Vendor Designation" := VendorRec."Designation"; // Change to correct field if needed
+                            Rec."Vendor Designation" := VendorRec.Designation;
+                            // Change to correct field if needed
                         end else begin
                             Rec."Vendor Name" := '';
                             Rec."Vendor Email" := '';
@@ -109,32 +133,36 @@ page 53106 "Vendor Proposal"
                 field("Internal Approval Status"; Rec."Internal Approval Status")
                 {
                     ApplicationArea = All;
+                    Editable = approvaleditable;
                 }
                 field("Internal Remarks"; Rec."Internal Remarks")
                 {
                     ApplicationArea = All;
                     multiLine = true;
+                    Editable = approvaleditable;
                 }
                 field("Created By"; Rec."Created By")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Vendor Approval Status"; Rec."Vendor Approval Status")
                 {
                     ApplicationArea = All;
-                    // Editable = true;
+                    Editable = approvaleditable;
                 }
                 field("Vendor Remarks"; Rec."Vendor Remarks")
                 {
                     ApplicationArea = All;
                     multiLine = true;
+                    Editable = approvaleditable;
                 }
                 field("Created DateTime"; Rec."Created DateTime")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
             }
-
             part("Pricing Breakdown Grid"; "Pricing Breakdown Grid")
             {
                 ApplicationArea = All;
@@ -147,8 +175,10 @@ page 53106 "Vendor Proposal"
 
     actions
     {
+
         area(Processing)
         {
+
             action("Submission for Approval")
             {
                 ApplicationArea = All;
@@ -161,15 +191,70 @@ page 53106 "Vendor Proposal"
                     ApprovalVendorProposal.SubmitVendorProposal(Rec);
                 end;
             }
+            action("Send to Vendor for Approval")
+            {
+                ApplicationArea = All;
+                Caption = 'Send to Vendor for Approval';
+                Image = Approve;
+                trigger OnAction()
+                var
+                    VendorProposalApprovalVendor: Codeunit VendorProposalApprovalVendor;
+                begin
+                    if Rec."Internal Approval Status" = Rec."Internal Approval Status"::Approved then begin
+                        VendorProposalApprovalVendor.VendorProposalApproval(Rec);
+                        Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                        Rec.Modify(true);
+                    end else begin
+                        Error('Internal approval is required before sending to vendor.');
+                    end;
+                end;
+            }
+        }
+        area(Promoted)
+        {
+            actionref(submitforapprovaltoprojectmanager; "Submission for Approval")
+            {
+            }
+            actionref(sendtovendortoprojectmanager; "Send to Vendor for Approval")
+            {
+            }
         }
     }
 
-    // Insert Validation and trigger 
-    // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    // var
-    // begin
-    //     Rec.TestField("Project ID");
-    //     // Rec.TestField("Vendor ID");
-    // end;
+    trigger OnAfterGetRecord()
+    begin
+        // CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+        approvaleditable := UserApprovalProjectStatus();
+    end;
+
+    procedure UserApprovalProjectStatus(): Boolean
+    var
+        UserPersonalization: Record "User Personalization";
+    begin
+
+        if UserPersonalization.Get(UserSecurityId()) then begin
+
+            case UserPersonalization."Profile ID" of
+                'PROJECT MANAGER':
+                    exit(true);
+                'PROJECT OWNER':
+                    exit(false);
+                'FINANCE MANAGER':
+                    exit(false);
+            end;
+        end;
+
+        exit(false);
+    end;
+
+    var
+        approvaleditable: Boolean;
 
 }
+
+
+
+
+
+
+
