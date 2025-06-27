@@ -188,7 +188,9 @@ page 53106 "Vendor Proposal"
                 var
                     ApprovalVendorProposal: Codeunit "Approval Vendor Proposal";
                 begin
+
                     ApprovalVendorProposal.SubmitVendorProposal(Rec);
+
                 end;
             }
             action("Send to Vendor for Approval")
@@ -200,12 +202,21 @@ page 53106 "Vendor Proposal"
                 var
                     VendorProposalApprovalVendor: Codeunit VendorProposalApprovalVendor;
                 begin
-                    if Rec."Internal Approval Status" = Rec."Internal Approval Status"::Approved then begin
+                    if (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Pending) or
+                     (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Approved) then begin
+                        if Confirm('Are you sure you want to submit again this proposal for approval?', true) then begin
+                            VendorProposalApprovalVendor.VendorProposalApproval(Rec);
+                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                            Rec.Modify(true);
+                        end else begin
+                            exit;
+                        end;
+
+                    end
+                    else begin
                         VendorProposalApprovalVendor.VendorProposalApproval(Rec);
                         Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
                         Rec.Modify(true);
-                    end else begin
-                        Error('Internal approval is required before sending to vendor.');
                     end;
                 end;
             }

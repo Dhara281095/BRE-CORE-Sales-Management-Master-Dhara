@@ -30,19 +30,19 @@ codeunit 53504 VendorProposalApprovalVendor
         VendorProposal.Get(Rec."Proposal ID");
 
         if CompanyInfo.get() then begin
-            EmailMessage.Create(VendorProposal."Vendor Email", 'Vendor Proposal Approval Request - ' + VendorProposal."Proposal ID" + 'for Project ' + VendorProposal."Project ID",
+            EmailMessage.Create(VendorProposal."Vendor Email", 'Vendor Proposal Approval Request - ' + VendorProposal."Proposal ID" + ' for Project ' + VendorProposal."Project ID",
             '<html>' +
                          '<body>' +
                          '<p>Dear ' + VendorProposal."Vendor Name" + ',</p>' +
                          '<h3>Vendor Proposal Details</h3>' +
                           '<p>We hope this message finds you well.' + '<br/>' +
-                           'The Proposal' + VendorProposal."Proposal ID" + 'related to project' + VendorProposal."Project ID" + 'is now ready for your review and approval.</p>' + '<br/>' +
-                           '<p>Please find the proposal details below:</p>' + '<br/>' +
-                          '<p><b>Project ID:</b> ' + VendorProposal."Proposal ID" + '<br/>' +
+                           'The Proposal ' + VendorProposal."Proposal ID" + ' related to project ' + VendorProposal."Project ID" + ' is now ready for your review and approval.' + '<br/>' +
+                           'Please find the proposal details below:' + '<br/>' +
+                          '<b>Project ID:</b> ' + VendorProposal."Proposal ID" + '<br/>' +
                          '<b>Proposal Date:</b> ' + Format(VendorProposal."Proposal Date") + '<br/>' +
                          '<b>Project ID:</b> ' + VendorProposal."Project ID" + '<br/>' +
-                          '<b>Vendor ID:</b> ' + VendorProposal."Vendor ID" + '<br/>' +
-                         '<p>Please log in to the Vendor Portal to review the proposal details and approve or refer it back with comments.' + '<br/>' +
+                          '<b>Vendor ID:</b> ' + VendorProposal."Vendor ID" + '</p>' +
+                         '<p>Please log into the Vendor Portal to review the proposal details and approve or refer it back with comments.' + '<br/>' +
                          'If you have any questions or need assistance accessing the portal, please feel free to contact us.' + '<br/>' +
                          'Thank you for your cooperation.</p>' +
                          '<p>Best regards,<br/>' + CompanyInfo.Name + '</p>' +

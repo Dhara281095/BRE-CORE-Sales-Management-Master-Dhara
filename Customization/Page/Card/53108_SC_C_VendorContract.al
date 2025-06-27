@@ -169,7 +169,7 @@ page 53108 "Vendor Contract"
             action("Submission for Approval")
             {
                 ApplicationArea = All;
-                Caption = 'Submit for Approval';
+                Caption = 'Send for Approval';
                 Image = Approve;
 
                 trigger OnAction()
@@ -188,13 +188,17 @@ page 53108 "Vendor Contract"
                 var
                     VendorContractApprovalVendor: Codeunit VendorContractApprovalVendor;
                 begin
-                    if Rec."Internal Approval Status" = Rec."Internal Approval Status"::Approved then begin
-                        VendorContractApprovalVendor.VendorContractApproval(Rec);
-                        Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                        Rec.Modify(true);
-                    end else begin
-                        Error('Internal approval is required before sending to vendor.');
-                    end;
+                    if (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Pending) or
+                     (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Approved) then
+                        if Confirm('Are you sure you want to submit again this contract for approval?', true) then begin
+                            VendorContractApprovalVendor.VendorContractApproval(Rec);
+                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                            Rec.Modify(true);
+                        end else begin
+                            VendorContractApprovalVendor.VendorContractApproval(Rec);
+                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                            Rec.Modify(true);
+                        end;
                 end;
             }
         }
