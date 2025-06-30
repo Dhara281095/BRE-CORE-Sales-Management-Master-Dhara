@@ -172,7 +172,7 @@ page 53253 "Vendor Proposal Approval List"
                     TenancyContractRec: Record "Vendor Proposal"; // Replace with the correct table name for Tenancy Contract
                 begin
                     // Debugging: Log the Contract ID value
-                    Message('Checking Contract ID: %1', Rec."Vendor Proposal ID");
+                    Message('Checking Vendor Proposal ID: %1', Rec."Vendor Proposal ID");
 
                     // Use SetRange and FindFirst to locate the record
                     TenancyContractRec.SetRange("Proposal ID", Rec."Vendor Proposal ID");

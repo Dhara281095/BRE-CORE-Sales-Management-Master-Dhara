@@ -14,6 +14,11 @@ page 53757 "Construction Project Documents"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Document Name"; Rec."Document Name")
+                {
+                    ApplicationArea = All;
+                }
                 field("Upload Document"; Rec."Upload Document")
                 {
                     ApplicationArea = All;

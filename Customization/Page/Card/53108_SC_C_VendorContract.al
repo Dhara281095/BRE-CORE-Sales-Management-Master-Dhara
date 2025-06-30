@@ -177,6 +177,7 @@ page 53108 "Vendor Contract"
                     ApprovalVendorProposal: Codeunit "Approval Vendor Contract";
                 begin
                     ApprovalVendorProposal.SubmitVendorContract(Rec);
+                  
                 end;
             }
             action("Send to Vendor for Approval")

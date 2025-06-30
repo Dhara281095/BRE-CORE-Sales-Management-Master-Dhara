@@ -3,7 +3,7 @@ page 53753 "Contract Assignment"
     PageType = Card;
     SourceTable = "Contract Assignment";
     ApplicationArea = All;
-    Caption = 'Contract Assignment';
+    Caption = 'Vendor Assignment';
 
     layout
     {
@@ -80,6 +80,15 @@ page 53753 "Contract Assignment"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Remark On Rejection"; Rec."Remark On Rejection")
+                {
+                    ApplicationArea = All;
+                }
+
+
+
+
                 field("Contract Template"; Rec."Contract Template")
                 {
                     ApplicationArea = All;
@@ -160,4 +169,100 @@ page 53753 "Contract Assignment"
             }
         }
     }
+
+
+    actions
+    {
+
+        area(Processing)
+        {
+
+            action("Submission for Approval")
+            {
+                ApplicationArea = All;
+                Caption = 'Send for Approval';
+                Image = Approve;
+
+                trigger OnAction()
+                var
+                    ApprovalVendorProposal: Codeunit "Vendor Assignment Approval";
+                begin
+                    ApprovalVendorProposal.SubmitVendorAssignment(Rec);
+                    Dialog.Message('✅ Your request has been submitted successfully.');
+                end;
+            }
+
+            action("Change Contract Status")
+            {
+                ApplicationArea = All;
+                Caption = 'Change Contract Status';
+                Image = Action;
+                Visible = IsPropertyManager;
+
+                trigger OnAction()
+                var
+                    selectedOption: Integer;
+                begin
+
+                    if not (Rec."Contract Status" in [Rec."Contract Status"::Approved, Rec."Contract Status"::Suspended]) then begin
+                        Message('You can only change the contract status if it is Approved or Suspended.');
+                        exit;
+                    end;
+
+
+                    selectedOption := Dialog.StrMenu('Activate Contract, Suspend Contract', 1);
+                    case selectedOption of
+                        1:
+                            begin
+                                Rec."Contract Status" := Rec."Contract Status"::Active;
+                                Rec.Modify();
+                                Message('Contract status has been updated to Active.');
+                            end;
+                        2:
+                            begin
+                                Rec."Contract Status" := Rec."Contract Status"::Suspended;
+                                Rec.Modify();
+                                Message('Contract status has been updated to Suspended.');
+                            end;
+                    end;
+                end;
+            }
+
+        }
+        area(Promoted)
+        {
+            actionref(submitforapprovaltoprojectmanager; "Submission for Approval")
+            {
+            }
+            actionref(submitforapprovaltoprojectmanager1; "Change Contract Status")
+            {
+            }
+
+        }
+    }
+
+
+
+    trigger OnOpenPage()
+    begin
+        IsPropertyManager := CheckUserRole();
+    end;
+
+    procedure CheckUserRole(): Boolean
+    var
+        UserPersonalization: Record "User Personalization";
+    begin
+        if UserPersonalization.Get(UserSecurityId()) then begin
+            case UserPersonalization."Profile ID" of
+                'PROJECT MANAGER':
+                    exit(true);  // Only property managers can approve/reject
+                else
+                    exit(false);
+            end;
+        end;
+        exit(false);
+    end;
+
+    var
+        IsPropertyManager: Boolean;
 }

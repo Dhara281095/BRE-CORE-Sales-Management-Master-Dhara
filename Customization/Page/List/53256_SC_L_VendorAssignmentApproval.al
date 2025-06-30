@@ -1,15 +1,10 @@
-page 53255 "Vendor Contract Approval List"
+page 53256 "Vendor Assignment Approval"
 {
     PageType = List;
-    SourceTable = "Vendor Contract Approval";
+    SourceTable = "Vendor Assignment Approval";
     ApplicationArea = All;
-    Caption = 'Vendor Contract Approval List';
+    Caption = 'Vendor Assignment Approval List';
     UsageCategory = Lists;
-    // CardPageId = 50320;
-
-    // InsertAllowed = false;
-    // ModifyAllowed = false;
-    // DeleteAllowed = false;
 
     layout
     {
@@ -20,57 +15,55 @@ page 53255 "Vendor Contract Approval List"
                 field("ID"; Rec."ID")
                 {
                     ApplicationArea = All;
-                    Editable = false;
                 }
                 field("Status"; Rec."Status")
                 {
                     ApplicationArea = All;
                 }
-                field("Vendor Contract ID"; Rec."Vendor Contract ID")
+                field("Vendor Assignment ID"; Rec."Vendor Assignment ID")
                 {
                     ApplicationArea = All;
-
+                    // DrillDown trigger to navigate to the Tenancy Contract Card
                     trigger OnDrillDown()
                     var
-                        TenancyContractRec: Record "Vendor Contract"; // Replace with the correct table name for Tenancy Contract
+                        TenancyContractRec: Record "Contract Assignment"; // Replace with the correct table name for Tenancy Contract
                     begin
                         // Debugging: Log the Contract ID value
-                        Message('Checking Vendor Contract ID: %1', Rec."Vendor Contract ID");
+                        Message('Checking Vendor Assignment ID: %1', Rec."Vendor Assignment ID");
 
                         // Use SetRange and FindFirst to locate the record
-                        TenancyContractRec.SetRange("Contract ID", Rec."Vendor Contract ID");
+                        TenancyContractRec.SetRange("Assignment ID", Rec."Vendor Assignment ID");
 
                         if TenancyContractRec.FindFirst() then begin
                             // Record found, open the Tenancy Contract Card page
-                            PAGE.Run(PAGE::"Vendor Contract", TenancyContractRec); // Replace with the correct card page ID or name
+                            PAGE.Run(PAGE::"Contract Assignment", TenancyContractRec); // Replace with the correct card page ID or name
                         end else begin
                             // Record not found
-                            Message('The selected Vendor Contract ID (%1) does not exist in the Vendor Contract Table.', Rec."Vendor Contract ID");
+                            Message('The selected Vendor Assignment ID (%1) does not exist in the Vendor Assignment Table.', Rec."Vendor Assignment ID");
                         end;
                     end;
-                }
 
+
+                }
+                field(Remark; Rec.Remark)
+                {
+                    ApplicationArea = All;
+                }
                 field("Vendor ID"; Rec."Vendor ID")
                 {
                     ApplicationArea = All;
                 }
-
-
-
-                field("Remark"; Rec."Remark")
+                field("Contract ID"; Rec."Contract ID")
                 {
                     ApplicationArea = All;
                 }
-
             }
         }
     }
-
     actions
     {
         area(processing)
         {
-
 
             action(Approve)
             {
@@ -81,8 +74,8 @@ page 53255 "Vendor Contract Approval List"
 
                 trigger OnAction()
                 var
-                    SelectedRec: Record "Vendor Contract Approval";
-                    VendorProposalRec: Record "Vendor Contract";
+                    SelectedRec: Record "Vendor Assignment Approval";
+                    VendorProposalRec: Record "Contract Assignment";
                 begin
                     if Rec.Status = 'Pending' then begin
                         SelectedRec := Rec;
@@ -90,10 +83,10 @@ page 53255 "Vendor Contract Approval List"
                         SelectedRec.Modify();
 
                         // Update all Vendor Proposal records with matching Proposal ID
-                        VendorProposalRec.SetRange("Contract ID", SelectedRec."Vendor Contract ID");
+                        VendorProposalRec.SetRange("Assignment ID", SelectedRec."Vendor Assignment ID");
                         if VendorProposalRec.FindSet() then begin
                             repeat
-                                VendorProposalRec."Internal Approval Status" := VendorProposalRec."Internal Approval Status"::Approved;
+                                VendorProposalRec."Contract Status" := VendorProposalRec."Contract Status"::Approved;
                                 VendorProposalRec.Modify();
                             until VendorProposalRec.Next() = 0;
                         end;
@@ -116,8 +109,8 @@ page 53255 "Vendor Contract Approval List"
 
                 trigger OnAction()
                 var
-                    SelectedRec: Record "Vendor Contract Approval";
-                    VendorProposalRec: Record "Vendor Contract";
+                    SelectedRec: Record "Vendor Assignment Approval";
+                    VendorProposalRec: Record "Contract Assignment";
                     RemarkDialog: Page "DialogBoxForInvoiceRejection";
                     RemarkText: Text;
                     DialogResult: Action;
@@ -136,11 +129,11 @@ page 53255 "Vendor Contract Approval List"
                                 SelectedRec.Modify();
 
                                 // Update in vendor proposal table
-                                VendorProposalRec.SetRange("Contract ID", SelectedRec."Vendor Contract ID");
+                                VendorProposalRec.SetRange("Assignment ID", SelectedRec."Vendor Assignment ID");
                                 if VendorProposalRec.FindSet() then begin
                                     repeat
-                                        VendorProposalRec."Internal Remarks" := RemarkText;
-                                        VendorProposalRec."Internal Approval Status" := VendorProposalRec."Internal Approval Status"::Rejected;
+                                        VendorProposalRec."Remark On Rejection" := RemarkText;
+                                        VendorProposalRec."Contract Status" := VendorProposalRec."Contract Status"::Rejected;
                                         VendorProposalRec.Modify();
                                     until VendorProposalRec.Next() = 0;
                                 end;
@@ -154,37 +147,35 @@ page 53255 "Vendor Contract Approval List"
                         Message('Selected record is not in "Pending" status.');
                 end;
             }
-
-
-
-
-
         }
+
+
+
 
         area(navigation)
         {
-            action("Open Vendor Contract")
+            action("Open Vendor Assignment")
             {
-                Caption = 'Open Vendor Contract';
+                Caption = 'Open Vendor Assignment';
                 ApplicationArea = All;
                 Image = OpenRecord;
 
                 trigger OnAction()
                 var
-                    TenancyContractRec: Record "Vendor Contract"; // Replace with the correct table name for Tenancy Contract
+                    TenancyContractRec: Record "Contract Assignment"; // Replace with the correct table name for Tenancy Contract
                 begin
                     // Debugging: Log the Contract ID value
-                    Message('Checking Contract ID: %1', Rec."Vendor Contract ID");
+                    Message('Checking Contract ID: %1', Rec."Vendor Assignment ID");
 
                     // Use SetRange and FindFirst to locate the record
-                    TenancyContractRec.SetRange("Contract ID", Rec."Vendor Contract ID");
+                    TenancyContractRec.SetRange("Assignment ID", Rec."Vendor Assignment ID");
 
                     if TenancyContractRec.FindFirst() then begin
                         // Record found, open the Tenancy Contract Card page
-                        PAGE.Run(PAGE::"Vendor Contract", TenancyContractRec); // Replace with the correct card page ID or name
+                        PAGE.Run(PAGE::"Contract Assignment", TenancyContractRec); // Replace with the correct card page ID or name
                     end else begin
                         // Record not found
-                        Message('The selected Vendor Contract(%1) does not exist in the Vendor Contract table.', Rec."Vendor Contract ID");
+                        Message('The selected Vendor Assignment(%1) does not exist in the Vendor Assignment table.', Rec."Vendor Assignment ID");
                     end;
                 end;
             }
