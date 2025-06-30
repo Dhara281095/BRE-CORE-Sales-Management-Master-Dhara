@@ -201,16 +201,17 @@ page 53108 "Vendor Contract"
                     VendorContractApprovalVendor: Codeunit VendorContractApprovalVendor;
                 begin
                     if (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Pending) or
-                     (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Approved) then
-                        if Confirm('Are you sure you want to submit again this contract for approval?', true) then begin
-                            VendorContractApprovalVendor.VendorContractApproval(Rec);
-                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                            Rec.Modify(true);
-                        end else begin
+                     (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Approved) then begin
+                        if Confirm('Are you sure you want to send again this contract for approval?', true) then begin
                             VendorContractApprovalVendor.VendorContractApproval(Rec);
                             Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
                             Rec.Modify(true);
                         end;
+                    end else begin
+                        VendorContractApprovalVendor.VendorContractApproval(Rec);
+                        Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                        Rec.Modify(true);
+                    end;
                 end;
             }
         }

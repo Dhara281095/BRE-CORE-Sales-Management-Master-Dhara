@@ -48,7 +48,68 @@ page 53106 "Vendor Proposal"
                     ApplicationArea = All;
                 }
             }
+            group("Task Details")
+            {
+                Caption = 'Task Details';
+                field("Task ID"; Rec."Task ID")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
 
+                    trigger OnValidate()
+                    var
+                        TaskRec: Record "Project Milestone Task";
+                    begin
+                        TaskRec.SetRange("Task ID", Rec."Task ID");
+                        if TaskRec.FindFirst() then begin
+                            Rec."Task Name" := TaskRec."Task Name";
+                            Rec."Task Start Date" := TaskRec."Start Date";
+                            Rec."Task End Date" := TaskRec."End Date";
+                            Rec."Task Description" := TaskRec."Description";
+                            Rec.Notes := TaskRec.Notes;
+                        end else begin
+                            Rec."Task Name" := '';
+                            Rec."Task Start Date" := 0D;
+                            Rec."Task End Date" := 0D;
+                            Rec."Task Description" := '';
+                            Rec.Notes := '';
+                        end;
+                    end;
+                }
+                field("Task Name"; Rec."Task Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task Name';
+                    Editable = false;
+                }
+                field("Task Start Date"; Rec."Task Start Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task Start Date';
+                    Editable = false;
+                }
+                field("Task End Date"; Rec."Task End Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task End Date';
+                    Editable = false;
+                }
+                field("Task Description"; Rec."Task Description")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task Description';
+                    Editable = false;
+                    MultiLine = true;
+                }
+                field(Notes; Rec.Notes)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Notes';
+                    Editable = false;
+                    MultiLine = true;
+                }
+
+            }
             group("Vendor Information")
             {
                 Caption = 'Vendor Information';
@@ -217,7 +278,7 @@ page 53106 "Vendor Proposal"
                 begin
                     if (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Pending) or
                      (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Approved) then begin
-                        if Confirm('Are you sure you want to submit again this proposal for approval?', true) then begin
+                        if Confirm('Are you sure you want to send again this proposal for approval?', true) then begin
                             VendorProposalApprovalVendor.VendorProposalApproval(Rec);
                             Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
                             Rec.Modify(true);
@@ -244,6 +305,13 @@ page 53106 "Vendor Proposal"
             }
         }
     }
+
+    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    begin
+        Rec.TestField("Project ID");
+        Rec.TestField("Task ID");
+        Rec.TestField("Vendor ID");
+    end;
 
     trigger OnAfterGetRecord()
     begin

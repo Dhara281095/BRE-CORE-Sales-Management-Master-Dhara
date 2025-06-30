@@ -64,11 +64,18 @@ page 53501 "Construction Project"
             group("Project Scope")
             {
                 Caption = 'Project Scope';
-                field("Description"; Rec."Description")
+                group("")
                 {
-                    ApplicationArea = All;
-                    MultiLine = true;
+                    Caption = ' ';
+                    field("Description"; Rec."Description")
+                    {
+                        ApplicationArea = All;
+                        MultiLine = true;
+
+
+                    }
                 }
+
                 field("Objectives"; Rec."Objectives")
                 {
                     ApplicationArea = All;
