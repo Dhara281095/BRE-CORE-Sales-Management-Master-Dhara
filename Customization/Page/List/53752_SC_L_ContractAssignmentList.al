@@ -3,7 +3,7 @@ page 53752 "Contract Assignment List"
     PageType = List;
     SourceTable = "Contract Assignment";
     ApplicationArea = All;
-    Caption = 'Contract Assignment List';
+    Caption = 'Vendor Assignment List';
     UsageCategory = Lists;
     CardPageId = 53753;
     ModifyAllowed = false;
