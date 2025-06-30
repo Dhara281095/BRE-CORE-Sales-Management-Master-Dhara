@@ -26,7 +26,7 @@ page 53256 "Vendor Assignment Approval"
                     // DrillDown trigger to navigate to the Tenancy Contract Card
                     trigger OnDrillDown()
                     var
-                        TenancyContractRec: Record "Contract Assignment"; // Replace with the correct table name for Tenancy Contract
+                        TenancyContractRec: Record "Vendor Assignment"; // Replace with the correct table name for Tenancy Contract
                     begin
                         // Debugging: Log the Contract ID value
                         Message('Checking Vendor Assignment ID: %1', Rec."Vendor Assignment ID");
@@ -36,7 +36,7 @@ page 53256 "Vendor Assignment Approval"
 
                         if TenancyContractRec.FindFirst() then begin
                             // Record found, open the Tenancy Contract Card page
-                            PAGE.Run(PAGE::"Contract Assignment", TenancyContractRec); // Replace with the correct card page ID or name
+                            PAGE.Run(PAGE::"Vendor Assignment", TenancyContractRec); // Replace with the correct card page ID or name
                         end else begin
                             // Record not found
                             Message('The selected Vendor Assignment ID (%1) does not exist in the Vendor Assignment Table.', Rec."Vendor Assignment ID");
@@ -75,7 +75,7 @@ page 53256 "Vendor Assignment Approval"
                 trigger OnAction()
                 var
                     SelectedRec: Record "Vendor Assignment Approval";
-                    VendorProposalRec: Record "Contract Assignment";
+                    VendorProposalRec: Record "Vendor Assignment";
                 begin
                     if Rec.Status = 'Pending' then begin
                         SelectedRec := Rec;
@@ -110,7 +110,7 @@ page 53256 "Vendor Assignment Approval"
                 trigger OnAction()
                 var
                     SelectedRec: Record "Vendor Assignment Approval";
-                    VendorProposalRec: Record "Contract Assignment";
+                    VendorProposalRec: Record "Vendor Assignment";
                     RemarkDialog: Page "DialogBoxForInvoiceRejection";
                     RemarkText: Text;
                     DialogResult: Action;
@@ -162,7 +162,7 @@ page 53256 "Vendor Assignment Approval"
 
                 trigger OnAction()
                 var
-                    TenancyContractRec: Record "Contract Assignment"; // Replace with the correct table name for Tenancy Contract
+                    TenancyContractRec: Record "Vendor Assignment"; // Replace with the correct table name for Tenancy Contract
                 begin
                     // Debugging: Log the Contract ID value
                     Message('Checking Contract ID: %1', Rec."Vendor Assignment ID");
@@ -172,7 +172,7 @@ page 53256 "Vendor Assignment Approval"
 
                     if TenancyContractRec.FindFirst() then begin
                         // Record found, open the Tenancy Contract Card page
-                        PAGE.Run(PAGE::"Contract Assignment", TenancyContractRec); // Replace with the correct card page ID or name
+                        PAGE.Run(PAGE::"Vendor Assignment", TenancyContractRec); // Replace with the correct card page ID or name
                     end else begin
                         // Record not found
                         Message('The selected Vendor Assignment(%1) does not exist in the Vendor Assignment table.', Rec."Vendor Assignment ID");
