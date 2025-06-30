@@ -67,14 +67,17 @@ page 53501 "Construction Project"
                 field("Description"; Rec."Description")
                 {
                     ApplicationArea = All;
+                    MultiLine = true;
                 }
                 field("Objectives"; Rec."Objectives")
                 {
                     ApplicationArea = All;
+                    MultiLine = true;
                 }
                 field("Additional Notes"; Rec."Additional Notes")
                 {
                     ApplicationArea = All;
+                    MultiLine = true;
                 }
             }
 
@@ -127,12 +130,10 @@ page 53501 "Construction Project"
                 field("Actual Start Date"; Rec."Actual Start Date")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
                 }
                 field("Final Completion Date"; Rec."Final Completion Date")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
                 }
             }
             part("Project Milestone List Part"; "Project Milestone List Part")
@@ -264,22 +265,18 @@ page 53501 "Construction Project"
                 field("Design Completion Date"; Rec."Design Completion Date")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
                 }
                 field("Permit Approval Date"; Rec."Permit Approval Date")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
                 }
                 field("Substantial Completion Date"; Rec."Substantial Completion Date")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
                 }
                 field("Extended Final Completion Date"; Rec."Extended Final Completion Date")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
                 }
             }
 
@@ -339,19 +336,6 @@ page 53501 "Construction Project"
         Rec.TestField("Address Line 1");
         Rec.TestField("Address Line 2");
         Rec.TestField("Postal Code");
-
-        Rec.TestField("Planned Start Date");
-        Rec.TestField("Planned End Date");
-        Rec.TestField("Actual Start Date");
-        Rec.TestField("Final Completion Date");
-
-        // Rec.TestField("Progress percentages");
-
-        Rec.TestField("Design Completion Date");
-        Rec.TestField("Permit Approval Date");
-        Rec.TestField("Substantial Completion Date");
-        Rec.TestField("Extended Final Completion Date");
-
 
         // CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
     end;
