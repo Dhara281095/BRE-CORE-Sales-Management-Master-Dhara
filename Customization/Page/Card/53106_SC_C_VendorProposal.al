@@ -106,11 +106,25 @@ page 53106 "Vendor Proposal"
                 {
                     Caption = 'Proposal Start Date';
                     ApplicationArea = All;
+                    trigger OnValidate()
+                    begin
+                        CalculateDuration();
+                    end;
                 }
                 field("End Date"; Rec."End Date")
                 {
                     Caption = 'Proposal End Date';
                     ApplicationArea = All;
+
+                    trigger OnValidate()
+                    begin
+                        CalculateDuration();
+                    end;
+                }
+                field("Duration"; Rec."Duration")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Quoted Price"; Rec."Quoted Price")
                 {
@@ -124,7 +138,6 @@ page 53106 "Vendor Proposal"
                 {
                     ApplicationArea = All;
                 }
-
             }
             group("Vendor Proposale Status")
             {
@@ -260,6 +273,72 @@ page 53106 "Vendor Proposal"
 
     var
         approvaleditable: Boolean;
+
+    // Calculate the duration based on start and end dates
+    procedure CalculateDuration()
+    var
+        ProposalStartDate: Date;
+        ProposalEndDate: Date;
+        Years: Integer;
+        Months: Integer;
+        Days: Integer;
+        DurationText: Text[50];
+        TempStartDate: Date;
+        DaysDifference: Integer;
+    begin
+        ProposalStartDate := Rec."Start Date";
+        ProposalEndDate := Rec."End Date";
+        if (ProposalStartDate <> 0D) and (ProposalEndDate <> 0D) then begin
+            if ProposalEndDate >= ProposalStartDate then begin
+                // Calculate total days difference
+                DaysDifference := ProposalEndDate - ProposalStartDate + 1;
+
+                // If the difference is exactly 365 or 366 days (accounting for leap year)
+                if (DaysDifference = 365) or (DaysDifference = 366) then begin
+                    Years := 1;
+                    Months := 0;
+                    Days := 0;
+                end else begin
+                    TempStartDate := ProposalStartDate;
+
+                    // Calculate the years
+                    Years := 0;
+                    while (CALCDATE('<+1Y>', TempStartDate) <= ProposalEndDate) or
+                          (CALCDATE('<+1Y-1D>', TempStartDate) = ProposalEndDate) do begin
+                        TempStartDate := CALCDATE('<+1Y>', TempStartDate);
+                        Years := Years + 1;
+                    end;
+
+                    // Calculate the months
+                    Months := 0;
+                    while CALCDATE('<+1M>', TempStartDate) <= ProposalEndDate do begin
+                        TempStartDate := CALCDATE('<+1M>', TempStartDate);
+                        Months := Months + 1;
+                    end;
+
+                    // Calculate the remaining days
+                    Days := ProposalEndDate - TempStartDate + 1;
+                end;
+
+                // Build the duration text
+                DurationText := '';
+                if Years > 0 then
+                    DurationText := Format(Years) + ' year(s) ';
+
+                if Months > 0 then
+                    DurationText := DurationText + Format(Months) + ' month(s) ';
+
+                if Days > 0 then
+                    DurationText := DurationText + Format(Days) + ' day(s)';
+
+                Rec."Duration" := DelChr(DurationText, '<>', ' ');
+            end else
+                Rec."Duration" := '';
+        end else
+            Rec."Duration" := '';
+    end;
+    //-------------Calculate Lease Duration--------------//
+    // Trasfer from Table End
 
 }
 

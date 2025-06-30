@@ -43,6 +43,8 @@ page 53108 "Vendor Contract"
                             Rec."Compliance Required" := VendorRec."Compliance Required";
                             Rec."Created By" := VendorRec."Created By";
                             Rec."Project Name" := VendorRec."Project Name";
+                            Rec."Duration" := VendorRec."Duration";
+                            Rec."Contract Amount" := VendorRec."Quoted Price";
 
                         end else begin
                             Rec."Vendor ID" := '';
@@ -53,7 +55,8 @@ page 53108 "Vendor Contract"
                             Rec."Work Scope" := '';
                             Rec."Payment Terms" := '';
                             Rec."Created By" := '';
-
+                            Rec."Duration" := '';
+                            Rec."Contract Amount" := 0;
 
                         end;
                     end;
@@ -118,6 +121,14 @@ page 53108 "Vendor Contract"
                 {
                     ApplicationArea = All;
                 }
+                field("Duration"; Rec."Duration")
+                {
+                    ApplicationArea = All;
+                }
+                field("Contract Amount"; Rec."Contract Amount")
+                {
+                    ApplicationArea = All;
+                }
                 field("Payment Terms"; Rec."Payment Terms")
                 {
                     ApplicationArea = All;
@@ -177,7 +188,7 @@ page 53108 "Vendor Contract"
                     ApprovalVendorProposal: Codeunit "Approval Vendor Contract";
                 begin
                     ApprovalVendorProposal.SubmitVendorContract(Rec);
-                  
+
                 end;
             }
             action("Send to Vendor for Approval")
