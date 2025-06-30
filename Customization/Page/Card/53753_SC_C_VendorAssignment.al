@@ -1,7 +1,7 @@
-page 53753 "Contract Assignment"
+page 53753 "Vendor Assignment"
 {
     PageType = Card;
-    SourceTable = "Contract Assignment";
+    SourceTable = "Vendor Assignment";
     ApplicationArea = All;
     Caption = 'Vendor Assignment';
 

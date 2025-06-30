@@ -1,10 +1,10 @@
-page 53754 "Contract Assignment List Part"
+page 53754 "Vendor Assignment List Part"
 {
     PageType = ListPart;
-    SourceTable = "Contract Assignment";
+    SourceTable = "Vendor Assignment";
     ApplicationArea = All;
-    Caption = 'Contract Assignment List';
-    CardPageId = 53753;
+    Caption = 'Vendor Assignment List';
+    CardPageId = "Vendor Assignment";
     ModifyAllowed = false;
     InsertAllowed = false;
 

@@ -108,7 +108,7 @@ report 53751 "Vendor Contract"
         Project: Record "Construction Project";
         ProjectName: Text;
         ProjectLocation: Text;
-        ContractAssigment: Record "Contract Assignment";
+        ContractAssigment: Record "Vendor Assignment";
 
     procedure AddSuffix(pDay: Text): Text
     var
