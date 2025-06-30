@@ -85,10 +85,6 @@ page 53753 "Contract Assignment"
                 {
                     ApplicationArea = All;
                 }
-
-
-
-
                 field("Contract Template"; Rec."Contract Template")
                 {
                     ApplicationArea = All;
@@ -164,6 +160,46 @@ page 53753 "Contract Assignment"
                 }
                 field("Approval Date"; Rec."Approval Date")
                 {
+                    ApplicationArea = All;
+                }
+            }
+            group(QualityNCompliance)
+            {
+                Caption = 'Quality & Compliance';
+                field("UAE Regulatory Requirements"; Rec."UAE Regulatory Requirements")
+                {
+                    ApplicationArea = All;
+                }
+                field("Industry Standards"; Rec."Industry Standards")
+                {
+                    ApplicationArea = All;
+                }
+            }
+            group(Miscellaneous)
+            {
+                field("Delivery Schedule"; Rec."Delivery Schedule")
+                {
+                    ApplicationArea = All;
+                }
+                field("Work SPecifications"; Rec."Work SPecifications")
+                {
+                    ApplicationArea = All;
+                }
+                field("Penalty Clauses"; Rec."Penalty Clauses")
+                {
+                    ApplicationArea = All;
+                }
+                field(Incoterms; Rec.Incoterms)
+                {
+                    ApplicationArea = All;
+                }
+                field("Warranty Period"; Rec."Warranty Period")
+                {
+                    ApplicationArea = All;
+                }
+                field("Governing Law & Dispute Rsln."; Rec."Governing Law & Dispute Rsln.")
+                {
+                    Caption = 'Governing Law & Dispte Resolution';
                     ApplicationArea = All;
                 }
             }
