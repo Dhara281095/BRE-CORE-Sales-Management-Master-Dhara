@@ -67,14 +67,22 @@ page 53106 "Vendor Proposal"
                             Rec."Task End Date" := TaskRec."End Date";
                             Rec."Task Description" := TaskRec."Description";
                             Rec.Notes := TaskRec.Notes;
+                            Rec."Milestone ID" := TaskRec."Milestone ID";
                         end else begin
                             Rec."Task Name" := '';
                             Rec."Task Start Date" := 0D;
                             Rec."Task End Date" := 0D;
                             Rec."Task Description" := '';
                             Rec.Notes := '';
+                            Rec."Milestone ID" := '';
                         end;
                     end;
+                }
+                field("Milestone ID"; Rec."Milestone ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Milestone ID';
                 }
                 field("Task Name"; Rec."Task Name")
                 {
