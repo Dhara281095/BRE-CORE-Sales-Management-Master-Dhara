@@ -8,6 +8,8 @@ report 53751 "Vendor Contract"
     {
         dataitem("Vendor Contract"; "Vendor Contract")
         {
+            DataItemTableView = sorting("Contract ID");
+            RequestFilterFields = "Contract ID";
             column(Day; Day) { }
             column(Month; Month) { }
             column(Year; Year) { }
@@ -23,6 +25,14 @@ report 53751 "Vendor Contract"
             column(CompanyAddress; CompanyAddress) { }
             column(ProjectName; ProjectName) { }
             column(ProjectLocation; ProjectLocation) { }
+            column(Incoterms; Incoterms) { }
+            column(Contract_Amount; "Contract Amount") { }
+            column(Payment_Terms; "Payment Terms") { }
+            column(PaymentMethod; PaymentMethod) { }
+            column(UAERegulatoryRequiements; UAERegulatoryRequiements) { }
+            column(DisputeResolution; DisputeResolution) { }
+            column(IndustryStandards; IndustryStandards) { }
+            column(PenaltyClauses; PenaltyClauses) { }
 
 
             trigger OnAfterGetRecord()
@@ -44,10 +54,14 @@ report 53751 "Vendor Contract"
                     ProjectLocation := Project."Address Line 1" + ', ' + Project."Address Line 2" + ', ' + Project."Postal Code" + ',';
                 end;
 
-                ContractAssigment.SetRange("Contract ID", "Contract ID");
-                ContractAssigment.SetRange("Vendor/Subcontractor ID", "Vendor ID");
-                if ContractAssigment.FindFirst() then begin
-
+                VendorAssigment.SetRange("Contract ID", "Contract ID");
+                VendorAssigment.SetRange("Vendor/Subcontractor ID", "Vendor ID");
+                if VendorAssigment.FindFirst() then begin
+                    Incoterms := VendorAssigment.Incoterms;
+                    PaymentMethod := VendorAssigment."Payment Method";
+                    DisputeResolution := VendorAssigment."Governing Law & Dispute Rsln.";
+                    UAERegulatoryRequiements := VendorAssigment."UAE Regulatory Requirements";
+                    IndustryStandards := VendorAssigment."Industry Standards";
                 end;
 
                 Day := AddSuffix(Format(Date2DMY("Contract Date", 1)));
@@ -93,7 +107,6 @@ report 53751 "Vendor Contract"
         {
             Type = Word;
             LayoutFile = './ReportTemplate/VendorContract.docx';
-
         }
     }
 
@@ -108,13 +121,23 @@ report 53751 "Vendor Contract"
         Project: Record "Construction Project";
         ProjectName: Text;
         ProjectLocation: Text;
-        ContractAssigment: Record "Vendor Assignment";
+        VendorAssigment: Record "Vendor Assignment";
+        Incoterms: Text[100];
+        PaymentMethod: Text[100];
+        DisputeResolution: Text[100];
+        UAERegulatoryRequiements: Text[100];
+        IndustryStandards: Text[100];
+        PenaltyClauses: Text[250];
 
     procedure AddSuffix(pDay: Text): Text
     var
         onesDigit: Text;
     begin
-        onesDigit := CopyStr(pDay, StrLen(pDay) - 1, StrLen(pDay));
+        if StrLen(pDay) > 1 then
+            onesDigit := CopyStr(pDay, StrLen(pDay) - 1, StrLen(pDay))
+        else
+            onesDigit := CopyStr(pDay, StrLen(pDay), StrLen(pDay));
+
 
         case onesDigit of
             '1':
