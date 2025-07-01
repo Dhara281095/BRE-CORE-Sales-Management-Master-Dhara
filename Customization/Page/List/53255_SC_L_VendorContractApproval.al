@@ -7,8 +7,8 @@ page 53255 "Vendor Contract Approval List"
     UsageCategory = Lists;
     // CardPageId = 50320;
 
-    // InsertAllowed = false;
-    // ModifyAllowed = false;
+    InsertAllowed = false;
+    ModifyAllowed = false;
     // DeleteAllowed = false;
 
     layout
@@ -83,25 +83,38 @@ page 53255 "Vendor Contract Approval List"
                 var
                     SelectedRec: Record "Vendor Contract Approval";
                     VendorProposalRec: Record "Vendor Contract";
+                    RemarkDialog: Page "DialogBoxForInvoiceRejection";
+                    RemarkText: Text;
+                    DialogResult: Action;
                 begin
                     if Rec.Status = 'Pending' then begin
-                        SelectedRec := Rec;
-                        SelectedRec.Status := 'Approved';
-                        SelectedRec.Modify();
+                        DialogResult := RemarkDialog.RunModal();
 
-                        // Update all Vendor Proposal records with matching Proposal ID
-                        VendorProposalRec.SetRange("Contract ID", SelectedRec."Vendor Contract ID");
-                        if VendorProposalRec.FindSet() then begin
-                            repeat
-                                VendorProposalRec."Internal Approval Status" := VendorProposalRec."Internal Approval Status"::Approved;
-                                VendorProposalRec.Modify();
-                            until VendorProposalRec.Next() = 0;
+                        if DialogResult = Action::OK then begin
+                            RemarkText := RemarkDialog.GetReason();
+
+                            if RemarkText <> '' then begin
+                                // Update in approval table
+                                SelectedRec := Rec;
+                                SelectedRec.Status := 'Approved';
+                                SelectedRec.Remark := RemarkText;
+                                SelectedRec.Modify();
+
+                                // Update in vendor proposal/contract table
+                                VendorProposalRec.SetRange("Contract ID", SelectedRec."Vendor Contract ID");
+                                if VendorProposalRec.FindSet() then begin
+                                    repeat
+                                        VendorProposalRec."Internal Remarks" := RemarkText;
+                                        VendorProposalRec."Internal Approval Status" := VendorProposalRec."Internal Approval Status"::Approved;
+                                        VendorProposalRec.Modify();
+                                    until VendorProposalRec.Next() = 0;
+                                end;
+
+                                Commit();
+                                CurrPage.Update();
+                                Message('Request Approved Successfully with Remarks.');
+                            end;
                         end;
-
-
-                        Commit();
-                        CurrPage.Update();
-                        Message('Request Approved Successfully');
                     end else
                         Message('Selected record is not in "Pending" status.');
                 end;

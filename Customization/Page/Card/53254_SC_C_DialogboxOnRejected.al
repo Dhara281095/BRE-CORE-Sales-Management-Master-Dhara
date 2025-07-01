@@ -1,16 +1,16 @@
 page 53254 DialogBoxForInvoiceRejection
 {
     PageType = StandardDialog;
-    Caption = 'Enter Reason Rejection';
+    Caption = 'Enter Remark';
     layout
     {
         area(content)
         {
             field(ReasonForRejection; reasonvalue)
             {
-                Caption = 'Reason for Rejection';
+                Caption = 'Enter Remark';
                 ApplicationArea = All;
-                ToolTip = 'Enter the reason for rejection.';
+                ToolTip = 'Enter Remark';
             }
         }
     }
@@ -27,7 +27,7 @@ page 53254 DialogBoxForInvoiceRejection
         // Validate only when OK is clicked
         if CloseAction = Action::OK then begin
             if reasonvalue = '' then begin
-                Message('Please enter a reason for rejection before proceeding.');
+                Message('Please enter a reason before proceeding.');
                 exit(false); // Prevents closing the dialog
             end;
         end;

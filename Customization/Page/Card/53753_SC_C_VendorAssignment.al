@@ -203,6 +203,58 @@ page 53753 "Vendor Assignment"
                     ApplicationArea = All;
                 }
             }
+
+            group("Task Details")
+            {
+                Caption = 'Task Details';
+                field("Task ID"; Rec."Task ID")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                    Editable = false;
+
+                }
+                field("Milestone ID"; Rec."Milestone ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Milestone ID';
+                }
+                field("Task Name"; Rec."Task Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task Name';
+                    Editable = false;
+                }
+                field("Task Start Date"; Rec."Task Start Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task Start Date';
+                    Editable = false;
+                }
+                field("Task End Date"; Rec."Task End Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task End Date';
+                    Editable = false;
+                }
+                field("Task Description"; Rec."Task Description")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task Description';
+                    Editable = false;
+                    MultiLine = true;
+
+                }
+                field(Notes; Rec.Notes)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Notes';
+                    Editable = false;
+                    MultiLine = true;
+                }
+
+            }
         }
     }
 
