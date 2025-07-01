@@ -45,6 +45,13 @@ page 53108 "Vendor Contract"
                             Rec."Project Name" := VendorRec."Project Name";
                             Rec."Duration" := VendorRec."Duration";
                             Rec."Contract Amount" := VendorRec."Quoted Price";
+                            Rec."Task ID" := VendorRec."Task ID";
+                            Rec."Task Name" := VendorRec."Task Name";
+                            Rec."Task Start Date" := VendorRec."Task Start Date";
+                            Rec."Task End Date" := VendorRec."Task End Date";
+                            Rec."Task Description" := VendorRec."Task Description";
+                            Rec.Notes := VendorRec.Notes;
+                            Rec."Milestone ID" := VendorRec."Milestone ID";
 
                         end else begin
                             Rec."Vendor ID" := '';
@@ -77,6 +84,57 @@ page 53108 "Vendor Contract"
                 {
                     ApplicationArea = All;
                 }
+            }
+            group("Task Details")
+            {
+                Caption = 'Task Details';
+                field("Task ID"; Rec."Task ID")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
+                    Editable = false;
+
+                }
+                field("Milestone ID"; Rec."Milestone ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                    Caption = 'Milestone ID';
+                }
+                field("Task Name"; Rec."Task Name")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task Name';
+                    Editable = false;
+                }
+                field("Task Start Date"; Rec."Task Start Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task Start Date';
+                    Editable = false;
+                }
+                field("Task End Date"; Rec."Task End Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task End Date';
+                    Editable = false;
+                }
+                field("Task Description"; Rec."Task Description")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Task Description';
+                    Editable = false;
+                    MultiLine = true;
+
+                }
+                field(Notes; Rec.Notes)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Notes';
+                    Editable = false;
+                    MultiLine = true;
+                }
+
             }
             group("Vendor Information")
             {

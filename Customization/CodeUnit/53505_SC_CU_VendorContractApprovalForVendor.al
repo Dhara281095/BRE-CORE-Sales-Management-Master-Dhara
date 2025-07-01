@@ -43,6 +43,12 @@ codeunit 53505 VendorContractApprovalVendor
                           '<b>Contract End date:</b> ' + Format(VendorContract."Contract End Date") + '<br/>' +
                          '<b>Project ID:</b> ' + VendorContract."Project ID" + '<br/>' +
                           '<b>Vendor ID:</b> ' + VendorContract."Vendor ID" + '</p>' +
+                          '<b>Task ID:</b> ' + VendorContract."Task ID" + '</p>' +
+                          '<b>Task Name:</b> ' + VendorContract."Task Name" + '</p>' +
+                          '<b>Task Start Date:</b> ' + Format(VendorContract."Task Start Date") + '</p>' +
+                          '<b>Task End Date:</b> ' + Format(VendorContract."Task End Date") + '</p>' +
+                          '<b>Task Description:</b> ' + VendorContract."Task Description" + '</p>' +
+                          '<b>Milestone ID:</b> ' + VendorContract."Milestone ID" + '</p>' +
                           '<p>Please log into the Vendor Portal to review the contract details and approve or refer it back with comments.' + '<br/>' +
                          'If you have any questions or need assistance accessing the portal, please feel free to contact us.' + '<br/>' +
                          'Thank you for your cooperation.</p>' +
