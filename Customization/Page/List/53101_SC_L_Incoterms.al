@@ -33,10 +33,10 @@ page 53101 "Incoterms List"
         }
     }
 
-    trigger OnInsertRecord(BelowxRec: Boolean): Boolean
-    var
-    begin
-        Rec.TestField("Name");
-        Rec.TestField("Description");
-    end;
+    // trigger OnInsertRecord(BelowxRec: Boolean): Boolean
+    // var
+    // begin
+    //     Rec.TestField("Name");
+    //     Rec.TestField("Description");
+    // end;
 }
