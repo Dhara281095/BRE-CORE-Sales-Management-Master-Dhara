@@ -3,7 +3,7 @@ page 53504 "Industry Standards"
     PageType = List;
     SourceTable = "Industry Standards";
     ApplicationArea = All;
-    Caption = 'Industry Standards';
+    Caption = 'Industry Standards List';
     UsageCategory = Lists;
 
 
@@ -17,6 +17,7 @@ page 53504 "Industry Standards"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Visible = false;
                 }
                 field(Name; Rec.Name)
                 {
