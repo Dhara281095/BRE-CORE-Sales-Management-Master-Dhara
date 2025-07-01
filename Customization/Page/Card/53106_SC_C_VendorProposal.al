@@ -272,6 +272,7 @@ page 53106 "Vendor Proposal"
                 begin
 
                     ApprovalVendorProposal.SubmitVendorProposal(Rec);
+                    Dialog.Message('✅ Your request has been submitted successfully.');
 
                 end;
             }

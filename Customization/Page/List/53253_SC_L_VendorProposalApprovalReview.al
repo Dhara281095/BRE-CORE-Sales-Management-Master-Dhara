@@ -7,8 +7,8 @@ page 53253 "Vendor Proposal Approval List"
     UsageCategory = Lists;
     // CardPageId = 50320;
 
-    // InsertAllowed = false;
-    // ModifyAllowed = false;
+    InsertAllowed = false;
+    ModifyAllowed = false;
     // DeleteAllowed = false;
 
     layout
@@ -61,6 +61,7 @@ page 53253 "Vendor Proposal Approval List"
                 field("Remark"; Rec."Remark")
                 {
                     ApplicationArea = All;
+                    
                 }
 
             }

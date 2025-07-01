@@ -246,6 +246,7 @@ page 53108 "Vendor Contract"
                     ApprovalVendorProposal: Codeunit "Approval Vendor Contract";
                 begin
                     ApprovalVendorProposal.SubmitVendorContract(Rec);
+                    Dialog.Message('✅ Your request has been submitted successfully.');
 
                 end;
             }

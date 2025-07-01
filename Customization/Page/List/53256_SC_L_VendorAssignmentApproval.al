@@ -5,6 +5,9 @@ page 53256 "Vendor Assignment Approval"
     ApplicationArea = All;
     Caption = 'Vendor Assignment Approval List';
     UsageCategory = Lists;
+    InsertAllowed = false;
+    ModifyAllowed = false;
+
 
     layout
     {
@@ -87,6 +90,9 @@ page 53256 "Vendor Assignment Approval"
                         if VendorProposalRec.FindSet() then begin
                             repeat
                                 VendorProposalRec."Contract Status" := VendorProposalRec."Contract Status"::Approved;
+                                VendorProposalRec."Approved By" := GetCurrentUserName();
+                                VendorProposalRec."Reviewed By" := GetCurrentUserName();
+                                VendorProposalRec."Approval Date" := Today;
                                 VendorProposalRec.Modify();
                             until VendorProposalRec.Next() = 0;
                         end;
@@ -134,6 +140,9 @@ page 53256 "Vendor Assignment Approval"
                                     repeat
                                         VendorProposalRec."Remark On Rejection" := RemarkText;
                                         VendorProposalRec."Contract Status" := VendorProposalRec."Contract Status"::Rejected;
+                                        VendorProposalRec."Approved By" := GetCurrentUserName();
+                                        VendorProposalRec."Reviewed By" := GetCurrentUserName();
+                                        VendorProposalRec."Approval Date" := Today;
                                         VendorProposalRec.Modify();
                                     until VendorProposalRec.Next() = 0;
                                 end;
@@ -207,5 +216,14 @@ page 53256 "Vendor Assignment Approval"
 
     var
         IsPropertyManager: Boolean;
+
+    local procedure GetCurrentUserName(): Text[100]
+    var
+        User: Record User;
+    begin
+        if User.Get(UserSecurityId()) then
+            exit(User."Full Name");
+        exit(UserId()); // fallback to user ID
+    end;
 }
 
