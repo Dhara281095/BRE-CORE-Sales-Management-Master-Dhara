@@ -67,7 +67,6 @@ page 53256 "Vendor Assignment Approval"
     {
         area(processing)
         {
-
             action(Approve)
             {
                 Caption = 'Approve';
@@ -79,28 +78,41 @@ page 53256 "Vendor Assignment Approval"
                 var
                     SelectedRec: Record "Vendor Assignment Approval";
                     VendorProposalRec: Record "Vendor Assignment";
+                    RemarkDialog: Page "DialogBoxForInvoiceRejection";
+                    RemarkText: Text;
+                    DialogResult: Action;
                 begin
                     if Rec.Status = 'Pending' then begin
-                        SelectedRec := Rec;
-                        SelectedRec.Status := 'Approved';
-                        SelectedRec.Modify();
+                        DialogResult := RemarkDialog.RunModal();
 
-                        // Update all Vendor Proposal records with matching Proposal ID
-                        VendorProposalRec.SetRange("Assignment ID", SelectedRec."Vendor Assignment ID");
-                        if VendorProposalRec.FindSet() then begin
-                            repeat
-                                VendorProposalRec."Contract Status" := VendorProposalRec."Contract Status"::Approved;
-                                VendorProposalRec."Approved By" := GetCurrentUserName();
-                                VendorProposalRec."Reviewed By" := GetCurrentUserName();
-                                VendorProposalRec."Approval Date" := Today;
-                                VendorProposalRec.Modify();
-                            until VendorProposalRec.Next() = 0;
+                        if DialogResult = Action::OK then begin
+                            RemarkText := RemarkDialog.GetReason();
+
+                            if RemarkText <> '' then begin
+                                // Update approval table
+                                SelectedRec := Rec;
+                                SelectedRec.Status := 'Approved';
+                                SelectedRec.Remark := RemarkText;
+                                SelectedRec.Modify();
+
+                                // Update all Vendor Assignment records with matching Assignment ID
+                                VendorProposalRec.SetRange("Assignment ID", SelectedRec."Vendor Assignment ID");
+                                if VendorProposalRec.FindSet() then begin
+                                    repeat
+                                        VendorProposalRec."Contract Status" := VendorProposalRec."Contract Status"::Approved;
+                                        VendorProposalRec."Approved By" := GetCurrentUserName();
+                                        VendorProposalRec."Reviewed By" := GetCurrentUserName();
+                                        VendorProposalRec."Approval Date" := Today;
+                                        VendorProposalRec."Remark On Rejection" := RemarkText;
+                                        VendorProposalRec.Modify();
+                                    until VendorProposalRec.Next() = 0;
+                                end;
+
+                                Commit();
+                                CurrPage.Update();
+                                Message('Request Approved Successfully with Remarks.');
+                            end;
                         end;
-
-
-                        Commit();
-                        CurrPage.Update();
-                        Message('Request Approved Successfully');
                     end else
                         Message('Selected record is not in "Pending" status.');
                 end;
