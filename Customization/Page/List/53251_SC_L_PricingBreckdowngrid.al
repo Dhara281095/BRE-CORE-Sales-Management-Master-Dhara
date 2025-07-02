@@ -16,20 +16,23 @@ page 53251 "Pricing Breakdown Grid"
                 field("Entry No."; Rec."Entry No.")
                 {
                     ApplicationArea = All;
-
+                    Visible = false;
                 }
 
                 field("Profile ID"; Rec."Profile ID")
                 {
                     ApplicationArea = All;
-
+                    Caption = 'Vendor Profile ID';
                 }
-
-
-                field("Line No."; Rec."Line No.")
+                field("Vendor Proposal ID"; Rec."Vendor Proposal ID")
                 {
                     ApplicationArea = All;
-
+                    Editable = false;
+                }
+                field("Vendor Contract ID"; Rec."Vendor Contract ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Item Description"; Rec."Item Description")
                 {

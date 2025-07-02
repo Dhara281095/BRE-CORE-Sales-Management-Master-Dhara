@@ -19,6 +19,7 @@ report 53751 "Vendor Contract"
             column(Contract_End_Date; "Contract End Date") { }
             column(Vendor_ID; "Vendor ID") { }
             column(Vendor_Name; "Vendor Name") { }
+            column(Work_Scope; "Work Scope") { }
             column(VendorCountry; VendorCountry) { }
             column(VendorAddess; VendorAddess) { }
             column(CompanyName; CompanyName) { }
@@ -33,6 +34,20 @@ report 53751 "Vendor Contract"
             column(DisputeResolution; DisputeResolution) { }
             column(IndustryStandards; IndustryStandards) { }
             column(PenaltyClauses; PenaltyClauses) { }
+
+            dataitem("Pricing Breakdown"; "Pricing Breakdown")
+            {
+                DataItemLink = "Vendor Contract ID" = field("Contract ID");
+                DataItemLinkReference = "Vendor Contract";
+                DataItemTableView = sorting("Entry No.");
+
+                column(Vendor_Contract_ID; "Vendor Contract ID") { }
+                column(Item_Description; "Item Description") { }
+                column(Quantity; Quantity) { }
+                column(Unit; Unit) { }
+                column(Price_Per_Unit; "Price Per Unit") { }
+                column(Total_Cost; "Total Cost") { }
+            }
 
 
             trigger OnAfterGetRecord()

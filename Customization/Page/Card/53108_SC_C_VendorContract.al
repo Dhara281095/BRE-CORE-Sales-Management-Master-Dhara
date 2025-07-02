@@ -52,7 +52,6 @@ page 53108 "Vendor Contract"
                             Rec."Task Description" := VendorRec."Task Description";
                             Rec.Notes := VendorRec.Notes;
                             Rec."Milestone ID" := VendorRec."Milestone ID";
-
                         end else begin
                             Rec."Vendor ID" := '';
                             Rec."Vendor Name" := '';
@@ -224,7 +223,14 @@ page 53108 "Vendor Contract"
                     multiLine = true;
                     Editable = approvaleditable;
                 }
-
+            }
+            part("Pricing Breakdown Grid"; "Pricing Breakdown Grid")
+            {
+                ApplicationArea = All;
+                Caption = 'Pricing Breakdown Grid';
+                Visible = true;
+                Editable = false;
+                SubPageLink = "Vendor Contract ID" = field("Contract ID");
             }
         }
     }
@@ -322,5 +328,4 @@ page 53108 "Vendor Contract"
 
     var
         approvaleditable: Boolean;
-
 }
