@@ -157,16 +157,25 @@ page 53108 "Vendor Contract"
                 {
                     ApplicationArea = All;
                     Caption = 'Delivery Location';
+                    Editable = false;
                 }
                 field("Delivery Date"; Rec."Delivery Date")
                 {
                     ApplicationArea = All;
                     Caption = 'Delivery Date';
+                    Editable = false;
+                }
+                field(Incoterms; Rec.Incoterms)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Incoterms';
+                    Editable = false;
                 }
                 field("Late Delivery Penalty %"; Rec."Late Delivery Penalty %")
                 {
                     ApplicationArea = All;
                     Caption = 'Late Delivery Penalty %';
+                    Editable = false;
                 }
             }
             group("Price & Payment Terms")
@@ -176,26 +185,31 @@ page 53108 "Vendor Contract"
                 {
                     ApplicationArea = All;
                     Caption = 'Total Contract Value (AED)';
+                    Editable = false;
                 }
                 field("Advance Payment (%)"; Rec."Advance Payment (%)")
                 {
                     ApplicationArea = All;
                     Caption = 'Advance Payment (%)';
+                    Editable = false;
                 }
                 field("Interim Payment (%)"; Rec."Interim Payment (%)")
                 {
                     ApplicationArea = All;
                     Caption = 'Interim Payment (%)';
+                    Editable = false;
                 }
                 field("Final Payment (%)"; Rec."Final Payment (%)")
                 {
                     ApplicationArea = All;
                     Caption = 'Final Payment (%)';
+                    Editable = false;
                 }
                 field("Payment Method"; Rec."Payment Method")
                 {
                     ApplicationArea = All;
                     Caption = 'Payment Method';
+                    Editable = false;
                 }
             }
             group("Quality & Compliance")
@@ -205,13 +219,15 @@ page 53108 "Vendor Contract"
                 {
                     ApplicationArea = All;
                     Caption = 'UAE Compliance Requirements';
-                    ShowMandatory = true;
+
+                    Editable = false;
                 }
                 field("Industry Standards"; Rec."Industry Standards")
                 {
                     ApplicationArea = All;
                     Caption = 'Industry Standards';
                     ShowMandatory = true;
+                    Editable = false;
                 }
 
             }
@@ -219,13 +235,16 @@ page 53108 "Vendor Contract"
             {
                 ApplicationArea = All;
                 Caption = 'Warranty Period (Months)';
+                Editable = false;
             }
             field("Dispute Resolution"; Rec."Dispute Resolution")
             {
                 ApplicationArea = All;
                 Caption = 'Dispute Resolution';
                 ShowMandatory = true;
+                Editable = false;
             }
+
 
 
             group("Vendor Contract Details")

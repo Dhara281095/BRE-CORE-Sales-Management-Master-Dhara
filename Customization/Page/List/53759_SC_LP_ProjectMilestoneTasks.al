@@ -76,6 +76,33 @@ page 53759 "Project Milestone Task LP"
                     Caption = 'Notes';
                     ToolTip = 'Contains any notes related to the task.';
                 }
+                field("Contract ID"; Rec."Contract ID")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Contract ID';
+                    TableRelation = "Vendor Contract"."Contract ID" where("Project ID" = field("Project ID"));
+                    trigger OnValidate()
+                    var
+                        ContractRec: Record "Vendor Contract";
+                    begin
+                        ContractRec.SetRange("Contract ID", Rec."Contract ID");
+                        if ContractRec.FindFirst() then begin
+                            Rec."Vendor Profile ID" := ContractRec."Contract ID";
+
+                        end else begin
+                            Rec."Contract ID" := '';
+
+                        end;
+                    end;
+                }
+                field("Vendor Profile ID"; Rec."Vendor Profile ID")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Vendor Profile ID';
+                    Editable = false;
+                }
+
+
             }
         }
     }
