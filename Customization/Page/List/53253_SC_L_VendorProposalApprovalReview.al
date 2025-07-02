@@ -61,7 +61,7 @@ page 53253 "Vendor Proposal Approval List"
                 field("Remark"; Rec."Remark")
                 {
                     ApplicationArea = All;
-                    
+
                 }
 
             }
@@ -84,25 +84,38 @@ page 53253 "Vendor Proposal Approval List"
                 var
                     SelectedRec: Record "Vendor Proposal Approval";
                     VendorProposalRec: Record "Vendor Proposal";
+                    RemarkDialog: Page "DialogBoxForInvoiceRejection";
+                    RemarkText: Text;
+                    DialogResult: Action;
                 begin
                     if Rec.Status = 'Pending' then begin
-                        SelectedRec := Rec;
-                        SelectedRec.Status := 'Approved';
-                        SelectedRec.Modify();
+                        DialogResult := RemarkDialog.RunModal();
 
-                        // Update all Vendor Proposal records with matching Proposal ID
-                        VendorProposalRec.SetRange("Proposal ID", SelectedRec."Vendor Proposal ID");
-                        if VendorProposalRec.FindSet() then begin
-                            repeat
-                                VendorProposalRec."Internal Approval Status" := VendorProposalRec."Internal Approval Status"::Approved;
-                                VendorProposalRec.Modify();
-                            until VendorProposalRec.Next() = 0;
+                        if DialogResult = Action::OK then begin
+                            RemarkText := RemarkDialog.GetReason();
+
+                            if RemarkText <> '' then begin
+                                // Update approval table
+                                SelectedRec := Rec;
+                                SelectedRec.Status := 'Approved';
+                                SelectedRec.Remark := RemarkText;
+                                SelectedRec.Modify();
+
+                                // Update all matching Vendor Proposal records
+                                VendorProposalRec.SetRange("Proposal ID", SelectedRec."Vendor Proposal ID");
+                                if VendorProposalRec.FindSet() then begin
+                                    repeat
+                                        VendorProposalRec."Internal Remarks" := RemarkText;
+                                        VendorProposalRec."Internal Approval Status" := VendorProposalRec."Internal Approval Status"::Approved;
+                                        VendorProposalRec.Modify();
+                                    until VendorProposalRec.Next() = 0;
+                                end;
+
+                                Commit();
+                                CurrPage.Update();
+                                Message('Request Approved Successfully with Remarks.');
+                            end;
                         end;
-
-
-                        Commit();
-                        CurrPage.Update();
-                        Message('Request Approved Successfully');
                     end else
                         Message('Selected record is not in "Pending" status.');
                 end;
