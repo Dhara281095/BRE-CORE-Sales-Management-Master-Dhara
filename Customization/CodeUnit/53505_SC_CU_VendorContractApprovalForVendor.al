@@ -55,16 +55,13 @@ codeunit 53505 VendorContractApprovalVendor
                                'The contract ' + VendorContract."Contract ID" + ' related to project ' + VendorContract."Project ID" + ' is now ready for your review and approval.' + '<br/>' +
                                'Please find the Contract details below:' + '<br/>' +
                               '<b>Contract ID:</b> ' + VendorContract."Contract ID" + '<br/>' +
-                             '<b>Contract Start date:</b> ' + Format(VendorContract."Contract Start Date") + '<br/>' +
-                              '<b>Contract End date:</b> ' + Format(VendorContract."Contract End Date") + '<br/>' +
-                             '<b>Project ID:</b> ' + VendorContract."Project ID" + '<br/>' +
-                              '<b>Vendor ID:</b> ' + VendorContract."Vendor ID" + '</p>' +
-                              //       '<b>Task ID:</b> ' + VendorContract."Task ID" + '<br/>' +
-                              //   '<b>Task Name:</b> ' + VendorContract."Task Name" + '<br/>' +
-                              //   '<b>Task Start Date:</b> ' + Format(VendorContract."Task Start Date") + '<br/>' +
-                              //   '<b>Task End Date:</b> ' + Format(VendorContract."Task End Date") + '<br/>' +
-                              //   '<b>Task Description:</b> ' + VendorContract."Task Description" + '<br/>' +
-                              //   '<b>Milestone ID:</b> ' + VendorContract."Milestone ID" + '</p>' +
+                              '<b>Vendor ID:</b> ' + VendorContract."Vendor ID" + '<br/>' +
+                 '<b>Project ID:</b> ' + Format(VendorContract."Project ID") + '<br/>' +
+                '<b>Project Name:</b> ' + VendorContract."Project Name" + '<br/>' +
+                '<b>Project Location:</b> ' + VendorContract."Project Location" + '<br/>' +
+                '<b>Contract Start Date:</b> ' + Format(VendorContract."Contract Start Date") + '<br/>' +
+                '<b>Contract End Date:</b> ' + Format(VendorContract."Contract End Date") + '<br/>' +
+                '<b>Total Contract Value </b> ' + Format(VendorContract."Total Contract Value (AED)") + '</p>' +
                               '<p>Please log into the Vendor Portal to review the contract details and approve or refer it back with comments.' + '<br/>' +
                              'If you have any questions or need assistance accessing the portal, please feel free to contact us.' + '<br/>' +
                              'Thank you for your cooperation.</p>' +

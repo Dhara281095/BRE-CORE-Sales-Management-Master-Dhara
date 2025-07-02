@@ -123,6 +123,7 @@ page 53106 "Vendor Proposal"
                 {
                     ApplicationArea = All;
                     Caption = 'Incoterms';
+                    TableRelation = Incoterms.Name;
                 }
                 field("Late Delivery Penalty %"; Rec."Late Delivery Penalty %")
                 {
@@ -339,6 +340,7 @@ page 53106 "Vendor Proposal"
     begin
         Rec.TestField("Project ID");
         Rec.TestField("Vendor ID");
+        Rec."Proposal Date" := Today;
     end;
 
     trigger OnAfterGetRecord()
