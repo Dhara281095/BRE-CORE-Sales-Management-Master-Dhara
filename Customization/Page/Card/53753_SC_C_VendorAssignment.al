@@ -255,6 +255,15 @@ page 53753 "Vendor Assignment"
                 }
 
             }
+            part("Pricing Breakdown Grid"; "Pricing Breakdown Grid")
+            {
+                ApplicationArea = All;
+                Caption = 'Pricing Breakdown Grid';
+                Visible = true;
+                Editable = false;
+                SubPageLink = "Vendor Contract ID" = field("Contract ID");
+                UpdatePropagation = Both;
+            }
         }
     }
 

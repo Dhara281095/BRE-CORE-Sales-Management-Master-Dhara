@@ -284,6 +284,15 @@ page 53108 "Vendor Contract"
                 }
 
             }
+            part("Pricing Breakdown Grid"; "Pricing Breakdown Grid")
+            {
+                ApplicationArea = All;
+                Caption = 'Pricing Breakdown Grid';
+                Visible = true;
+                Editable = false;
+                SubPageLink = "Vendor Contract ID" = field("Contract ID");
+                UpdatePropagation = Both;
+            }
         }
     }
 
@@ -343,7 +352,7 @@ page 53108 "Vendor Contract"
         }
     }
 
-    // Insert Validation and trigger 
+    // Insert Validation and trigger
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     var
     begin

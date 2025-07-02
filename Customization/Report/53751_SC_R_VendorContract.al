@@ -19,6 +19,7 @@ report 53751 "Vendor Contract"
             column(Contract_End_Date; "Contract End Date") { }
             column(Vendor_ID; "Vendor ID") { }
             column(Vendor_Name; "Vendor Name") { }
+            column(Work_Scope; "Work Scope") { }
             column(VendorCountry; VendorCountry) { }
             column(VendorAddess; VendorAddess) { }
             column(CompanyName; CompanyName) { }
@@ -28,11 +29,31 @@ report 53751 "Vendor Contract"
             column(Incoterms; Incoterms) { }
             column(Contract_Amount; "Total Contract Value (AED)") { }
             column(Payment_Terms; "Payment Terms") { }
-            column(PaymentMethod; PaymentMethod) { }
-            column(UAERegulatoryRequiements; UAERegulatoryRequiements) { }
-            column(DisputeResolution; DisputeResolution) { }
-            column(IndustryStandards; IndustryStandards) { }
+            column(Payment_Method; "Payment Method") { }
+            column(UAE_Compliance_Requirements; "UAE Compliance Requirements") { }
+            column(Dispute_Resolution; "Dispute Resolution") { }
+            column(Industry_Standards; "Industry Standards") { }
             column(PenaltyClauses; PenaltyClauses) { }
+            column(Description; Description) { }
+            column(Delivery_Location; "Delivery Location") { }
+            column(Advance_Payment; "Advance Payment (%)") { }
+            column(Interim_Payment; "Interim Payment (%)") { }
+            column(Final_Payment; "Final Payment (%)") { }
+            column(Warranty_Period__Months_; "Warranty Period (Months)") { }
+
+            dataitem("Pricing Breakdown"; "Pricing Breakdown")
+            {
+                DataItemLink = "Vendor Contract ID" = field("Contract ID");
+                DataItemLinkReference = "Vendor Contract";
+                DataItemTableView = sorting("Entry No.");
+
+                column(Vendor_Contract_ID; "Vendor Contract ID") { }
+                column(Item_Description; "Item Description") { }
+                column(Quantity; Quantity) { }
+                column(Unit; Unit) { }
+                column(Price_Per_Unit; "Price Per Unit") { }
+                column(Total_Cost; "Total Cost") { }
+            }
 
 
             trigger OnAfterGetRecord()
@@ -57,11 +78,11 @@ report 53751 "Vendor Contract"
                 VendorAssigment.SetRange("Contract ID", "Contract ID");
                 VendorAssigment.SetRange("Vendor/Subcontractor ID", "Vendor ID");
                 if VendorAssigment.FindFirst() then begin
-                    Incoterms := VendorAssigment.Incoterms;
-                    PaymentMethod := VendorAssigment."Payment Method";
-                    DisputeResolution := VendorAssigment."Governing Law & Dispute Rsln.";
-                    UAERegulatoryRequiements := VendorAssigment."UAE Regulatory Requirements";
-                    IndustryStandards := VendorAssigment."Industry Standards";
+                    // Incoterms := VendorAssigment.Incoterms;
+                    // PaymentMethod := VendorAssigment."Payment Method";
+                    // DisputeResolution := VendorAssigment."Governing Law & Dispute Rsln.";
+                    // UAERegulatoryRequiements := VendorAssigment."UAE Regulatory Requirements";
+                    // IndustryStandards := VendorAssigment."Industry Standards";
                 end;
 
                 Day := AddSuffix(Format(Date2DMY("Contract Date", 1)));
@@ -122,11 +143,6 @@ report 53751 "Vendor Contract"
         ProjectName: Text;
         ProjectLocation: Text;
         VendorAssigment: Record "Vendor Assignment";
-        Incoterms: Text[100];
-        PaymentMethod: Text[100];
-        DisputeResolution: Text[100];
-        UAERegulatoryRequiements: Text[100];
-        IndustryStandards: Text[100];
         PenaltyClauses: Text[250];
 
     procedure AddSuffix(pDay: Text): Text

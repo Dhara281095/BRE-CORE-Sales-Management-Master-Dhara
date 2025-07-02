@@ -269,7 +269,8 @@ page 53106 "Vendor Proposal"
                 ApplicationArea = All;
                 Caption = 'Pricing Breakdown Grid';
                 Visible = true;
-                SubPageLink = "Profile ID" = field("Project ID");
+                SubPageLink = "Vendor Proposal ID" = field("Proposal ID");
+                UpdatePropagation = Both;
             }
         }
     }
