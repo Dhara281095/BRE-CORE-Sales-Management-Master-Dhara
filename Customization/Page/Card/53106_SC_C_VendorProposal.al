@@ -43,77 +43,20 @@ page 53106 "Vendor Proposal"
                     Caption = 'Project Name';
                     Editable = false;
                 }
+                field("Project Location"; Rec."Project Location")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Project Location';
+                    Editable = false;
+                }
                 field("Proposal Date"; Rec."Proposal Date")
                 {
                     ApplicationArea = All;
                 }
-            }
-            group("Task Details")
-            {
-                Caption = 'Task Details';
-                field("Task ID"; Rec."Task ID")
+                field(Description; Rec.Description)
                 {
+                    Caption = 'Description';
                     ApplicationArea = All;
-                    ShowMandatory = true;
-
-                    trigger OnValidate()
-                    var
-                        TaskRec: Record "Project Milestone Task";
-                    begin
-                        TaskRec.SetRange("Task ID", Rec."Task ID");
-                        if TaskRec.FindFirst() then begin
-                            Rec."Task Name" := TaskRec."Task Name";
-                            Rec."Task Start Date" := TaskRec."Start Date";
-                            Rec."Task End Date" := TaskRec."End Date";
-                            Rec."Task Description" := TaskRec."Description";
-                            Rec.Notes := TaskRec.Notes;
-                            Rec."Milestone ID" := TaskRec."Milestone ID";
-                        end else begin
-                            Rec."Task Name" := '';
-                            Rec."Task Start Date" := 0D;
-                            Rec."Task End Date" := 0D;
-                            Rec."Task Description" := '';
-                            Rec.Notes := '';
-                            Rec."Milestone ID" := '';
-                        end;
-                    end;
-                }
-                field("Milestone ID"; Rec."Milestone ID")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Milestone ID';
-                }
-                field("Task Name"; Rec."Task Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Task Name';
-                    Editable = false;
-                }
-                field("Task Start Date"; Rec."Task Start Date")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Task Start Date';
-                    Editable = false;
-                }
-                field("Task End Date"; Rec."Task End Date")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Task End Date';
-                    Editable = false;
-                }
-                field("Task Description"; Rec."Task Description")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Task Description';
-                    Editable = false;
-                    MultiLine = true;
-                }
-                field(Notes; Rec.Notes)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Notes';
-                    Editable = false;
                     MultiLine = true;
                 }
 
@@ -162,6 +105,93 @@ page 53106 "Vendor Proposal"
                     Editable = false;
                 }
             }
+
+            group("Delivery & Performance")
+            {
+                Caption = 'Delivery & Performance';
+                field("Delivery Location"; Rec."Delivery Location")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delivery Location';
+                }
+                field("Delivery Date"; Rec."Delivery Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delivery Date';
+                }
+                field(Incoterms; Rec.Incoterms)
+                {
+                    ApplicationArea = All;
+                    Caption = 'Incoterms';
+                }
+                field("Late Delivery Penalty %"; Rec."Late Delivery Penalty %")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Late Delivery Penalty %';
+                }
+            }
+            group("Price & Payment Terms")
+            {
+                Caption = 'Price & Payment Terms';
+                field("Total Contract Value (AED)"; Rec."Total Contract Value (AED)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Total Contract Value (AED)';
+                }
+                field("Advance Payment (%)"; Rec."Advance Payment (%)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Advance Payment (%)';
+                }
+                field("Interim Payment (%)"; Rec."Interim Payment (%)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Interim Payment (%)';
+                }
+                field("Final Payment (%)"; Rec."Final Payment (%)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Final Payment (%)';
+                }
+                field("Payment Method"; Rec."Payment Method")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Payment Method';
+                }
+            }
+            group("Quality & Compliance")
+            {
+                Caption = 'Quality & Compliance';
+                field("UAE Compliance Requirements"; Rec."UAE Compliance Requirements")
+                {
+                    ApplicationArea = All;
+                    Caption = 'UAE Compliance Requirements';
+                    ShowMandatory = true;
+                    TableRelation = "UAE Regulatory Requirements".Name;
+                }
+                field("Industry Standards"; Rec."Industry Standards")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Industry Standards';
+                    ShowMandatory = true;
+                    TableRelation = "Industry Standards".Name;
+                }
+
+            }
+            field("Warranty Period (Months)"; Rec."Warranty Period (Months)")
+            {
+                ApplicationArea = All;
+                Caption = 'Warranty Period (Months)';
+            }
+            field("Dispute Resolution"; Rec."Dispute Resolution")
+            {
+                ApplicationArea = All;
+                Caption = 'Dispute Resolution';
+                ShowMandatory = true;
+                TableRelation = GoverningLawDisputeResolution.Name;
+            }
+
+
             group("Vendor Proposal Details")
             {
                 Caption = 'Vendor Proposal Details';
@@ -195,18 +225,7 @@ page 53106 "Vendor Proposal"
                     ApplicationArea = All;
                     Editable = false;
                 }
-                field("Quoted Price"; Rec."Quoted Price")
-                {
-                    ApplicationArea = All;
-                }
-                field("Payment Terms"; Rec."Payment Terms")
-                {
-                    ApplicationArea = All;
-                }
-                field("Compliance Required"; Rec."Compliance Required")
-                {
-                    ApplicationArea = All;
-                }
+
             }
             group("Vendor Proposale Status")
             {
@@ -319,7 +338,6 @@ page 53106 "Vendor Proposal"
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     begin
         Rec.TestField("Project ID");
-        Rec.TestField("Task ID");
         Rec.TestField("Vendor ID");
     end;
 

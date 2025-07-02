@@ -27,7 +27,7 @@ report 53751 "Vendor Contract"
             column(ProjectName; ProjectName) { }
             column(ProjectLocation; ProjectLocation) { }
             column(Incoterms; Incoterms) { }
-            column(Contract_Amount; "Contract Amount") { }
+            column(Contract_Amount; "Total Contract Value (AED)") { }
             column(Payment_Terms; "Payment Terms") { }
             column(PaymentMethod; PaymentMethod) { }
             column(UAERegulatoryRequiements; UAERegulatoryRequiements) { }

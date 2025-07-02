@@ -41,14 +41,14 @@ codeunit 53504 VendorProposalApprovalVendor
                           '<b>Project ID:</b> ' + VendorProposal."Proposal ID" + '<br/>' +
                          '<b>Proposal Date:</b> ' + Format(VendorProposal."Proposal Date") + '<br/>' +
                          '<b>Project ID:</b> ' + VendorProposal."Project ID" + '<br/>' +
-                          '<b>Vendor ID:</b> ' + VendorProposal."Vendor ID" + '<br/>' +
-                          '<b>Task ID:</b> ' + VendorProposal."Task ID" + '<br/>' +
-                          '<b>Task Name:</b> ' + VendorProposal."Task Name" + '<br/>' +
-                          '<b>Task Start Date:</b> ' + Format(VendorProposal."Task Start Date") + '<br/>' +
-                          '<b>Task End Date:</b> ' + Format(VendorProposal."Task End Date") + '<br/>' +
-                          '<b>Task Description:</b> ' + VendorProposal."Task Description" + '<br/>' +
-                          '<b>Milestone ID:</b> ' + VendorProposal."Milestone ID" + '</p>' +
-                         '<p>Please log into the Vendor Portal to review the proposal details and approve or refer it back with comments.' + '<br/>' +
+                          '<b>Vendor ID:</b> ' + VendorProposal."Vendor ID" + '</p>' +
+                         //   '<b>Task ID:</b> ' + VendorProposal."Task ID" + '<br/>' +
+                         //   '<b>Task Name:</b> ' + VendorProposal."Task Name" + '<br/>' +
+                         //   '<b>Task Start Date:</b> ' + Format(VendorProposal."Task Start Date") + '<br/>' +
+                         //   '<b>Task End Date:</b> ' + Format(VendorProposal."Task End Date") + '<br/>' +
+                         //   '<b>Task Description:</b> ' + VendorProposal."Task Description" + '<br/>' +
+                         //   '<b>Milestone ID:</b> ' + VendorProposal."Milestone ID" + '</p>' +
+                         //  '<p>Please log into the Vendor Portal to review the proposal details and approve or refer it back with comments.' + '<br/>' +
                          'If you have any questions or need assistance accessing the portal, please feel free to contact us.' + '<br/>' +
                          'Thank you for your cooperation.</p>' +
                          '<p>Best regards,<br/>' + CompanyInfo.Name + '</p>' +
