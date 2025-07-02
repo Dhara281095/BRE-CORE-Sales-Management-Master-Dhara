@@ -115,6 +115,11 @@ page 53753 "Vendor Assignment"
                     ApplicationArea = All;
                 }
             }
+            part(ProjectMilestoneTask; "Project Milestone Tasks")
+            {
+                Editable = false;
+                SubPageLink = "Contract ID" = field("Contract ID");
+            }
             group(FinancialDetails)
             {
                 Caption = 'Financial Details';
