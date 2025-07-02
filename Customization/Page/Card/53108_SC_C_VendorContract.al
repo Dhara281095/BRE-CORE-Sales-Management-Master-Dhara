@@ -128,229 +128,231 @@ page 53108 "Vendor Contract"
             }
 
             group("Vendor Information")
+            {
+                field("Vendor ID"; Rec."Vendor ID")
                 {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Vendor Name"; Rec."Vendor Name")
                 {
-                    {IDRec."Vendor ID")
-                    {
-                        ApplicationArea = All;
-                        Editable = false;
-                    }
-                    field("Vendor Name"; 
-                    {
-                        Editable = false;
-                }    
-                    }
-                    {
-                    {
-                        Editable = false;
-                }    
-                    }
-                    {
-                    {
-                        Editable = false;
-                }    
-            }    }
-                    group("Delivery & Performance")
-                    {
-                        Caption = 'Delivery & Performance';
-                        field("Delivery Location"; Rec."Delivery Location")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Delivery Location';
-                        }
-                        field("Delivery Date"; Rec."Delivery Date")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Delivery Date';
-                        }
-                        field("Late Delivery Penalty %"; Rec."Late Delivery Penalty %")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Late Delivery Penalty %';
-                        }
-                    }
-                    group("Price & Payment Terms")
-                    {
-                        Caption = 'Price & Payment Terms';
-                        field("Total Contract Value (AED)"; Rec."Total Contract Value (AED)")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Total Contract Value (AED)';
-                        }
-                        field("Advance Payment (%)"; Rec."Advance Payment (%)")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Advance Payment (%)';
-                        }
-                        field("Interim Payment (%)"; Rec."Interim Payment (%)")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Interim Payment (%)';
-                        }
-                        field("Final Payment (%)"; Rec."Final Payment (%)")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Final Payment (%)';
-                        }
-                        field("Payment Method"; Rec."Payment Method")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Payment Method';
-                        }
-                    }
-                    group("Quality & Compliance")
-                    {
-                        Caption = 'Quality & Compliance';
-                        field("UAE Compliance Requirements"; Rec."UAE Compliance Requirements")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'UAE Compliance Requirements';
-                            ShowMandatory = true;
-                        }
-                        field("Industry Standards"; Rec."Industry Standards")
-                        {
-                            ApplicationArea = All;
-                            Caption = 'Industry Standards';
-                            ShowMandatory = true;
-                        }
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Vendor Email"; Rec."Vendor Email")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Vendor Designation"; Rec."Vendor Designation")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+            }
+            group("Delivery & Performance")
+            {
+                Caption = 'Delivery & Performance';
+                field("Delivery Location"; Rec."Delivery Location")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delivery Location';
+                }
+                field("Delivery Date"; Rec."Delivery Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delivery Date';
+                }
+                field("Late Delivery Penalty %"; Rec."Late Delivery Penalty %")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Late Delivery Penalty %';
+                }
+            }
+            group("Price & Payment Terms")
+            {
+                Caption = 'Price & Payment Terms';
+                field("Total Contract Value (AED)"; Rec."Total Contract Value (AED)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Total Contract Value (AED)';
+                }
+                field("Advance Payment (%)"; Rec."Advance Payment (%)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Advance Payment (%)';
+                }
+                field("Interim Payment (%)"; Rec."Interim Payment (%)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Interim Payment (%)';
+                }
+                field("Final Payment (%)"; Rec."Final Payment (%)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Final Payment (%)';
+                }
+                field("Payment Method"; Rec."Payment Method")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Payment Method';
+                }
+            }
+            group("Quality & Compliance")
+            {
+                Caption = 'Quality & Compliance';
+                field("UAE Compliance Requirements"; Rec."UAE Compliance Requirements")
+                {
+                    ApplicationArea = All;
+                    Caption = 'UAE Compliance Requirements';
+                    ShowMandatory = true;
+                }
+                field("Industry Standards"; Rec."Industry Standards")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Industry Standards';
+                    ShowMandatory = true;
+                }
 
-                    }
-                    field("Warranty Period (Months)"; Rec."Warranty Period (Months)")
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Warranty Period (Months)';
-                    }
-                    field("Dispute Resolution"; Rec."Dispute Resolution")
-                    {
-                        ApplicationArea = All;
-                        Caption = 'Dispute Resolution';
-                        ShowMandatory = true;
-                    }
+            }
+            field("Warranty Period (Months)"; Rec."Warranty Period (Months)")
+            {
+                ApplicationArea = All;
+                Caption = 'Warranty Period (Months)';
+            }
+            field("Dispute Resolution"; Rec."Dispute Resolution")
+            {
+                ApplicationArea = All;
+                Caption = 'Dispute Resolution';
+                ShowMandatory = true;
+            }
 
 
-
-                    {
-                    {
-                        field("Work Scope"; Rec."Work Scope")
-                        {
-                        {
-                            multiLine = true;
-                }        
-                        }
-                        {
-                        {
-                        }
-                        }
-                        {
-                        {
-                        }
-                        }
-                        {
-                        {
-                        }
+            group("Vendor Contract Details")
+            {
+                Caption = 'Vendor Contract Details';
+                field("Work Scope"; Rec."Work Scope")
+                {
+                    ApplicationArea = All;
+                    multiLine = true;
+                }
+                field("Contract Start Date"; Rec."Contract Start Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Contract End Date"; Rec."Contract End Date")
+                {
+                    ApplicationArea = All;
+                }
+                field("Duration"; Rec."Duration")
+                {
+                    ApplicationArea = All;
+                }
 
 
             }
-            }
 
-                        {
-                        {
-                            field("Internal Approval Status"; Rec."Internal Approval Status")
-                            {
-                            {
-                                Editable = approvaleditable;
-                }            
-                            }
-                            {
-                            {
-                                multiLine = true;
-                                Editable = approvaleditable;
-                }            
-                            }
-                            {
-                            {
-                                Editable = false;
-                }            
-                            }
-                            {
-                            {
-                                Editable = approvaleditable;
-                }            
-                            }
-                            {
-                            {
-                                multiLine = true;
-                                Editable = approvaleditable;
-                }            
-                            }
-                            part("Pricing Breakdown Grid"; "Pricing Breakdown Grid")
-                            {
-                                ApplicationArea = All;
-                                Caption = 'Pricing Breakdown Grid';
-                                Visible = true;
-                                Editable = false;
-                                SubPageLink = "Vendor Contract ID" = field("Contract ID");
-            }                
-        }                }
-                        }
-                    }
-
-                    actions
-                    {
-
-                        {
+            group("Vendor Contract Status")
+            {
+                Caption = 'Vendor Contract Status';
+                field("Internal Approval Status"; Rec."Internal Approval Status")
                 {
+                    ApplicationArea = All;
+                    Editable = approvaleditable;
+                }
+                field("Internal Remarks"; Rec."Internal Remarks")
+                {
+                    ApplicationArea = All;
+                    multiLine = true;
+                    Editable = approvaleditable;
+                }
+                field("Created By"; Rec."Created By")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Vendor Approval Status"; Rec."Vendor Approval Status")
+                {
+                    ApplicationArea = All;
+                    Editable = approvaleditable;
+                }
+                field("Vendor Remarks"; Rec."Vendor Remarks")
+                {
+                    ApplicationArea = All;
+                    multiLine = true;
+                    Editable = approvaleditable;
+                }
 
-                            {
-                            {
-                                Caption = 'Send for Approval';
-                                Image = Approve;
-                
+            }
+            part("Pricing Breakdown Grid"; "Pricing Breakdown Grid")
+            {
+                ApplicationArea = All;
+                Caption = 'Pricing Breakdown Grid';
+                Visible = true;
+                Editable = false;
+                SubPageLink = "Vendor Contract ID" = field("Contract ID");
+                UpdatePropagation = Both;
+            }
+        }
+    }
+
+    actions
+    {
+
+        area(Processing)
+        {
+
+            action("Submission for Approval")
+            {
+                ApplicationArea = All;
+                Caption = 'Send for Approval';
+                Image = Approve;
+
                 trigger OnAction()
-                                var
-                                var
-                                begin
-                                begin
-                                    Dialog.Message('✅ Your request has been submitted successfully.');
-                
+                var
+                    ApprovalVendorProposal: Codeunit "Approval Vendor Contract";
+                begin
+                    ApprovalVendorProposal.SubmitVendorContract(Rec);
+                    Dialog.Message('✅ Your request has been submitted successfully.');
+
                 end;
-            }                end;
-                            }
-                            {
-                            {
-                                Caption = 'Send to Vendor for Approval';
-                                Image = Approve;
-                                trigger OnAction()
-                                var
-                                var
-                                begin
-                                begin
-                                     (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Approved) then begin
-                                        if Confirm('Are you sure you want to send again this contract for approval?', true) then begin
-                                            VendorContractApprovalVendor.VendorContractApproval(Rec);
-                                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                                            Rec.Modify(true);
-                        end;                
-                    end                 end;
-                                        VendorContractApprovalVendor.VendorContractApproval(Rec);
-                                        Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                                        Rec.Modify(true);
-                    end;                
-                end;                end;
-                                end;
-                            }
-                        }
-                        {
-                        {
-                            {
-                            {
-                            }
-                            {
-                            {
-                            }
-                        }
-                 
-    // Insert Validation and trigger 
+            }
+            action("Send to Vendor for Approval")
+            {
+                ApplicationArea = All;
+                Caption = 'Send to Vendor for Approval';
+                Image = Approve;
+                trigger OnAction()
+                var
+                    VendorContractApprovalVendor: Codeunit VendorContractApprovalVendor;
+                begin
+                    if (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Pending) or
+                     (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Approved) then begin
+                        if Confirm('Are you sure you want to send again this contract for approval?', true) then begin
+                            VendorContractApprovalVendor.VendorContractApproval(Rec);
+                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                            Rec.Modify(true);
+                        end;
+                    end else begin
+                        VendorContractApprovalVendor.VendorContractApproval(Rec);
+                        Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                        Rec.Modify(true);
+                    end;
+                end;
+            }
+        }
+        area(Promoted)
+        {
+            actionref(submitforapprovaltoprojectmanager; "Submission for Approval")
+            {
+            }
+            actionref(sendtovendortoprojectmanager; "Send to Vendor for Approval")
+            {
+            }
+        }
+    }
+
+    // Insert Validation and trigger
     trigger OnInsertRecord(BelowxRec: Boolean): Boolean
     var
     begin
@@ -385,4 +387,5 @@ page 53108 "Vendor Contract"
 
     var
         approvaleditable: Boolean;
+
 }
