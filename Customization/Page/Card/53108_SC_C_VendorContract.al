@@ -44,14 +44,22 @@ page 53108 "Vendor Contract"
                             Rec."Created By" := VendorRec."Created By";
                             Rec."Project Name" := VendorRec."Project Name";
                             Rec."Duration" := VendorRec."Duration";
-                            Rec."Contract Amount" := VendorRec."Quoted Price";
-                            Rec."Task ID" := VendorRec."Task ID";
-                            Rec."Task Name" := VendorRec."Task Name";
-                            Rec."Task Start Date" := VendorRec."Task Start Date";
-                            Rec."Task End Date" := VendorRec."Task End Date";
-                            Rec."Task Description" := VendorRec."Task Description";
-                            Rec.Notes := VendorRec.Notes;
-                            Rec."Milestone ID" := VendorRec."Milestone ID";
+                            Rec."Project Location" := VendorRec."Project Location";
+                            Rec."Delivery Location" := VendorRec."Delivery Location";
+                            Rec."Delivery Date" := VendorRec."Delivery Date";
+                            Rec."Late Delivery Penalty %" := VendorRec."Late Delivery Penalty %";
+                            Rec."Total Contract Value (AED)" := VendorRec."Total Contract Value (AED)";
+                            Rec."Advance Payment (%)" := VendorRec."Advance Payment (%)";
+                            Rec."Interim Payment (%)" := VendorRec."Interim Payment (%)";
+                            Rec."Final Payment (%)" := VendorRec."Final Payment (%)";
+                            Rec."VAT %" := VendorRec."VAT %";
+                            Rec."Payment Method" := VendorRec."Payment Method";
+                            Rec."UAE Compliance Requirements" := VendorRec."UAE Compliance Requirements";
+                            Rec."Industry Standards" := VendorRec."Industry Standards";
+                            Rec."Warranty Period (Months)" := VendorRec."Warranty Period (Months)";
+                            Rec."Dispute Resolution" := VendorRec."Dispute Resolution";
+                            Rec.Description := VendorRec.Description;
+                            Rec.Incoterms := VendorRec.Incoterms;
 
                         end else begin
                             Rec."Vendor ID" := '';
@@ -60,14 +68,40 @@ page 53108 "Vendor Contract"
                             Rec."Vendor Designation" := '';
                             Rec."Project ID" := '';
                             Rec."Work Scope" := '';
+                            Rec."Contract Start Date" := 0D;
+                            Rec."Contract End Date" := 0D;
                             Rec."Payment Terms" := '';
+
                             Rec."Created By" := '';
+                            Rec."Project Name" := '';
                             Rec."Duration" := '';
-                            Rec."Contract Amount" := 0;
+                            Rec."Project Location" := '';
+                            Rec."Delivery Location" := '';
+                            Rec."Delivery Date" := 0D;
+                            Rec."Late Delivery Penalty %" := 0;
+                            Rec."Total Contract Value (AED)" := 0;
+                            Rec."Advance Payment (%)" := 0;
+                            Rec."Interim Payment (%)" := 0;
+                            Rec."Final Payment (%)" := 0;
+
+                            Rec."Payment Method" := 0;
+                            Rec."UAE Compliance Requirements" := '';
+                            Rec."Industry Standards" := '';
+                            Rec."Warranty Period (Months)" := 0;
+                            Rec."Dispute Resolution" := '';
+                            Rec.Description := '';
+                            Rec.Incoterms := '';
+
 
                         end;
                     end;
 
+                }
+
+                field("Project ID"; Rec."Project ID")
+                {
+                    ApplicationArea = All;
+                    ShowMandatory = true;
                 }
                 field("Project Name"; Rec."Project Name")
                 {
@@ -75,67 +109,24 @@ page 53108 "Vendor Contract"
                     Caption = 'Project Name';
                     Editable = false;
                 }
-                field("Project ID"; Rec."Project ID")
+                field("Project Location"; Rec."Project Location")
                 {
                     ApplicationArea = All;
-                    ShowMandatory = true;
+                    Caption = 'Project Location';
+                    Editable = false;
                 }
                 field("Contract Date"; Rec."Contract Date")
                 {
                     ApplicationArea = All;
                 }
-            }
-            group("Task Details")
-            {
-                Caption = 'Task Details';
-                field("Task ID"; Rec."Task ID")
+                field(Description; Rec.Description)
                 {
+                    Caption = 'Description';
                     ApplicationArea = All;
-                    ShowMandatory = true;
-                    Editable = false;
-
-                }
-                field("Milestone ID"; Rec."Milestone ID")
-                {
-                    ApplicationArea = All;
-                    Editable = false;
-                    Caption = 'Milestone ID';
-                }
-                field("Task Name"; Rec."Task Name")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Task Name';
-                    Editable = false;
-                }
-                field("Task Start Date"; Rec."Task Start Date")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Task Start Date';
-                    Editable = false;
-                }
-                field("Task End Date"; Rec."Task End Date")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Task End Date';
-                    Editable = false;
-                }
-                field("Task Description"; Rec."Task Description")
-                {
-                    ApplicationArea = All;
-                    Caption = 'Task Description';
-                    Editable = false;
-                    MultiLine = true;
-
-                }
-                field(Notes; Rec.Notes)
-                {
-                    ApplicationArea = All;
-                    Caption = 'Notes';
-                    Editable = false;
                     MultiLine = true;
                 }
-
             }
+
             group("Vendor Information")
             {
                 field("Vendor ID"; Rec."Vendor ID")
@@ -159,6 +150,84 @@ page 53108 "Vendor Contract"
                     Editable = false;
                 }
             }
+            group("Delivery & Performance")
+            {
+                Caption = 'Delivery & Performance';
+                field("Delivery Location"; Rec."Delivery Location")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delivery Location';
+                }
+                field("Delivery Date"; Rec."Delivery Date")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Delivery Date';
+                }
+                field("Late Delivery Penalty %"; Rec."Late Delivery Penalty %")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Late Delivery Penalty %';
+                }
+            }
+            group("Price & Payment Terms")
+            {
+                Caption = 'Price & Payment Terms';
+                field("Total Contract Value (AED)"; Rec."Total Contract Value (AED)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Total Contract Value (AED)';
+                }
+                field("Advance Payment (%)"; Rec."Advance Payment (%)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Advance Payment (%)';
+                }
+                field("Interim Payment (%)"; Rec."Interim Payment (%)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Interim Payment (%)';
+                }
+                field("Final Payment (%)"; Rec."Final Payment (%)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Final Payment (%)';
+                }
+                field("Payment Method"; Rec."Payment Method")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Payment Method';
+                }
+            }
+            group("Quality & Compliance")
+            {
+                Caption = 'Quality & Compliance';
+                field("UAE Compliance Requirements"; Rec."UAE Compliance Requirements")
+                {
+                    ApplicationArea = All;
+                    Caption = 'UAE Compliance Requirements';
+                    ShowMandatory = true;
+                }
+                field("Industry Standards"; Rec."Industry Standards")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Industry Standards';
+                    ShowMandatory = true;
+                }
+
+            }
+            field("Warranty Period (Months)"; Rec."Warranty Period (Months)")
+            {
+                ApplicationArea = All;
+                Caption = 'Warranty Period (Months)';
+            }
+            field("Dispute Resolution"; Rec."Dispute Resolution")
+            {
+                ApplicationArea = All;
+                Caption = 'Dispute Resolution';
+                ShowMandatory = true;
+            }
+
+
             group("Vendor Contract Details")
             {
                 Caption = 'Vendor Contract Details';
@@ -166,10 +235,6 @@ page 53108 "Vendor Contract"
                 {
                     ApplicationArea = All;
                     multiLine = true;
-                }
-                field("Compliance Required"; Rec."Compliance Required")
-                {
-                    ApplicationArea = All;
                 }
                 field("Contract Start Date"; Rec."Contract Start Date")
                 {
@@ -183,14 +248,7 @@ page 53108 "Vendor Contract"
                 {
                     ApplicationArea = All;
                 }
-                field("Contract Amount"; Rec."Contract Amount")
-                {
-                    ApplicationArea = All;
-                }
-                field("Payment Terms"; Rec."Payment Terms")
-                {
-                    ApplicationArea = All;
-                }
+
 
             }
 
@@ -290,8 +348,6 @@ page 53108 "Vendor Contract"
     var
     begin
         Rec.TestField("Proposal ID");
-        Rec.TestField("Project ID");
-        Rec.TestField("Vendor ID");
     end;
 
     trigger OnAfterGetRecord()
