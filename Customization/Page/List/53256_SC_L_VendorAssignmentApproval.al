@@ -99,11 +99,11 @@ page 53256 "Vendor Assignment Approval"
                                 VendorProposalRec.SetRange("Assignment ID", SelectedRec."Vendor Assignment ID");
                                 if VendorProposalRec.FindSet() then begin
                                     repeat
-                                        VendorProposalRec."Contract Status" := VendorProposalRec."Contract Status"::Approved;
+                                        VendorProposalRec."Vendor Assignment Status" := VendorProposalRec."Vendor Assignment Status"::Approved;
                                         VendorProposalRec."Approved By" := GetCurrentUserName();
                                         VendorProposalRec."Reviewed By" := GetCurrentUserName();
                                         VendorProposalRec."Approval Date" := Today;
-                                        VendorProposalRec."Remark On Rejection" := RemarkText;
+                                        VendorProposalRec.Remark := RemarkText;
                                         VendorProposalRec.Modify();
                                     until VendorProposalRec.Next() = 0;
                                 end;
@@ -150,8 +150,8 @@ page 53256 "Vendor Assignment Approval"
                                 VendorProposalRec.SetRange("Assignment ID", SelectedRec."Vendor Assignment ID");
                                 if VendorProposalRec.FindSet() then begin
                                     repeat
-                                        VendorProposalRec."Remark On Rejection" := RemarkText;
-                                        VendorProposalRec."Contract Status" := VendorProposalRec."Contract Status"::Rejected;
+                                        VendorProposalRec.Remark := RemarkText;
+                                        VendorProposalRec."Vendor Assignment Status" := VendorProposalRec."Vendor Assignment Status"::Rejected;
                                         VendorProposalRec."Approved By" := GetCurrentUserName();
                                         VendorProposalRec."Reviewed By" := GetCurrentUserName();
                                         VendorProposalRec."Approval Date" := Today;
