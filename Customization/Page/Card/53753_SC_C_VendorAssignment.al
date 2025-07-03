@@ -156,6 +156,16 @@ page 53753 "Vendor Assignment"
             group(ApprovalDetails)
             {
                 Caption = 'Approval Details';
+
+                field("Vendor Assignment Status"; Rec."Vendor Assignment Status")
+                {
+                    ApplicationArea = All;
+                }
+
+                field("Remark"; Rec."Remark")
+                {
+                    ApplicationArea = All;
+                }
                 field("Reviewed By"; Rec."Reviewed By")
                 {
                     ApplicationArea = All;
@@ -295,10 +305,10 @@ page 53753 "Vendor Assignment"
                 end;
             }
 
-            action("Change Contract Status")
+            action("Change Vendor Assignment Status")
             {
                 ApplicationArea = All;
-                Caption = 'Change Contract Status';
+                Caption = 'Change Vendor Assignment Status';
                 Image = Action;
                 Visible = IsPropertyManager;
 
@@ -307,25 +317,25 @@ page 53753 "Vendor Assignment"
                     selectedOption: Integer;
                 begin
 
-                    if not (Rec."Contract Status" in [Rec."Contract Status"::Approved, Rec."Contract Status"::Suspended]) then begin
-                        Message('You can only change the contract status if it is Approved or Suspended.');
+                    if not (Rec."Vendor Assignment Status" in [Rec."Vendor Assignment Status"::Approved, Rec."Vendor Assignment Status"::Suspended]) then begin
+                        Message('You can only change the Vendor Assignment Status if it is Approved or Suspended.');
                         exit;
                     end;
 
 
-                    selectedOption := Dialog.StrMenu('Activate Contract, Suspend Contract', 1);
+                    selectedOption := Dialog.StrMenu('Activate  Vendor Assignment Status, Suspend Vendor Assignment Status', 1);
                     case selectedOption of
                         1:
                             begin
-                                Rec."Contract Status" := Rec."Contract Status"::Active;
+                                Rec."Vendor Assignment Status" := Rec."Vendor Assignment Status"::Active;
                                 Rec.Modify();
-                                Message('Contract status has been updated to Active.');
+                                Message('Vendor Assignment Status has been updated to Active.');
                             end;
                         2:
                             begin
-                                Rec."Contract Status" := Rec."Contract Status"::Suspended;
+                                Rec."Vendor Assignment Status" := Rec."Vendor Assignment Status"::Suspended;
                                 Rec.Modify();
-                                Message('Contract status has been updated to Suspended.');
+                                Message('Vendor Assignment Status has been updated to Suspended.');
                             end;
                     end;
                 end;
@@ -337,10 +347,9 @@ page 53753 "Vendor Assignment"
             actionref(submitforapprovaltoprojectmanager; "Submission for Approval")
             {
             }
-            actionref(submitforapprovaltoprojectmanager1; "Change Contract Status")
+            actionref(submitforapprovaltoprojectmanager1; "Change Vendor Assignment Status")
             {
             }
-
         }
     }
 

@@ -56,12 +56,12 @@ codeunit 53505 VendorContractApprovalVendor
                                'Please find the Contract details below:' + '<br/>' +
                               '<b>Contract ID:</b> ' + VendorContract."Contract ID" + '<br/>' +
                               '<b>Vendor ID:</b> ' + VendorContract."Vendor ID" + '<br/>' +
-                 '<b>Project ID:</b> ' + Format(VendorContract."Project ID") + '<br/>' +
-                '<b>Project Name:</b> ' + VendorContract."Project Name" + '<br/>' +
-                '<b>Project Location:</b> ' + VendorContract."Project Location" + '<br/>' +
-                '<b>Contract Start Date:</b> ' + Format(VendorContract."Contract Start Date") + '<br/>' +
-                '<b>Contract End Date:</b> ' + Format(VendorContract."Contract End Date") + '<br/>' +
-                '<b>Total Contract Value </b> ' + Format(VendorContract."Total Contract Value (AED)") + '</p>' +
+                                '<b>Project ID:</b> ' + Format(VendorContract."Project ID") + '<br/>' +
+                                '<b>Project Name:</b> ' + VendorContract."Project Name" + '<br/>' +
+                                '<b>Project Location:</b> ' + VendorContract."Project Location" + '<br/>' +
+                                '<b>Contract Start Date:</b> ' + Format(VendorContract."Contract Start Date") + '<br/>' +
+                                '<b>Contract End Date:</b> ' + Format(VendorContract."Contract End Date") + '<br/>' +
+                                '<b>Total Contract Value </b> ' + Format(VendorContract."Total Contract Value (AED)") + '</p>' +
                               '<p>Please log into the Vendor Portal to review the contract details and approve or refer it back with comments.' + '<br/>' +
                              'If you have any questions or need assistance accessing the portal, please feel free to contact us.' + '<br/>' +
                              'Thank you for your cooperation.</p>' +
