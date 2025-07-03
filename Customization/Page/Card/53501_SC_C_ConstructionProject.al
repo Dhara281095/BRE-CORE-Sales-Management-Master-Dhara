@@ -238,6 +238,8 @@ page 53501 "Construction Project"
                 field("UOM"; Rec."UOM")
                 {
                     ApplicationArea = All;
+                    TableRelation = "Unit of Measure".Description;
+
                 }
                 field("Number of Floors"; Rec."Number of Floors")
                 {
