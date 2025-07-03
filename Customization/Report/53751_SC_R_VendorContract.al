@@ -36,6 +36,7 @@ report 53751 "Vendor Contract"
             column(PenaltyClauses; PenaltyClauses) { }
             column(Description; Description) { }
             column(Delivery_Location; "Delivery Location") { }
+            column(Delivery_Date; "Delivery Date") { }
             column(Advance_Payment; "Advance Payment (%)") { }
             column(Interim_Payment; "Interim Payment (%)") { }
             column(Final_Payment; "Final Payment (%)") { }
