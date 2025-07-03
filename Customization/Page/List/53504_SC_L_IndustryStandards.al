@@ -32,4 +32,23 @@ page 53504 "Industry Standards"
             }
         }
     }
+
+    procedure GetLookUpValues(pIndustryStandardsList: Page "Industry Standards"; pIndustryStandard: Record "Industry Standards"): Text
+    var
+        isFirst: Boolean;
+        lookUpValues: Text;
+    begin
+        pIndustryStandardsList.SetSelectionFilter(pIndustryStandard);
+        if pIndustryStandard.FindSet() then begin
+            isFirst := true;
+            repeat
+                if isFirst then begin
+                    lookUpValues := pIndustryStandard.Name;
+                    isFirst := false;
+                end else
+                    lookUpValues += ', ' + pIndustryStandard.Name;
+            until pIndustryStandard.Next() = 0;
+        end;
+        exit(lookUpValues);
+    end;
 }
