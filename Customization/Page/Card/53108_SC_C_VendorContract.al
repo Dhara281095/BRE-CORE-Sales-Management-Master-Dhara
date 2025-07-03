@@ -60,6 +60,11 @@ page 53108 "Vendor Contract"
                             Rec."Dispute Resolution" := VendorRec."Dispute Resolution";
                             Rec.Description := VendorRec.Description;
                             Rec.Incoterms := VendorRec.Incoterms;
+                            Rec."Work Scope" := VendorRec."Work Scope";
+                            Rec."Contract Start Date" := VendorRec."Start Date";
+                            Rec."Contract End Date" := VendorRec."End Date";
+                            Rec.Description := VendorRec.Description;
+                            Rec.Duration := VendorRec.Duration;
 
                         end else begin
                             Rec."Vendor ID" := '';
@@ -123,6 +128,7 @@ page 53108 "Vendor Contract"
                 {
                     Caption = 'Description';
                     ApplicationArea = All;
+                    Editable = false;
                     MultiLine = true;
                 }
             }
@@ -211,6 +217,12 @@ page 53108 "Vendor Contract"
                     Caption = 'Payment Method';
                     Editable = false;
                 }
+                field("Warranty Period (Months)"; Rec."Warranty Period (Months)")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Warranty Period (Months)';
+                    Editable = false;
+                }
             }
             group("Quality & Compliance")
             {
@@ -231,18 +243,19 @@ page 53108 "Vendor Contract"
                 }
 
             }
-            field("Warranty Period (Months)"; Rec."Warranty Period (Months)")
+
+            group("GOVERNING LAW & DISPUTE RESOLUTION")
             {
-                ApplicationArea = All;
-                Caption = 'Warranty Period (Months)';
-                Editable = false;
-            }
-            field("Dispute Resolution"; Rec."Dispute Resolution")
-            {
-                ApplicationArea = All;
-                Caption = 'Dispute Resolution';
-                ShowMandatory = true;
-                Editable = false;
+                Caption = 'Governing Law & Dispute Resolution';
+
+
+                field("Dispute Resolution"; Rec."Dispute Resolution")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Dispute Resolution';
+                    ShowMandatory = true;
+                    Editable = false;
+                }
             }
 
 
@@ -254,18 +267,22 @@ page 53108 "Vendor Contract"
                 {
                     ApplicationArea = All;
                     multiLine = true;
+                    Editable = false;
                 }
                 field("Contract Start Date"; Rec."Contract Start Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Contract End Date"; Rec."Contract End Date")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
                 field("Duration"; Rec."Duration")
                 {
                     ApplicationArea = All;
+                    Editable = false;
                 }
 
 
@@ -353,9 +370,14 @@ page 53108 "Vendor Contract"
                             Rec.Modify(true);
                         end;
                     end else begin
-                        VendorContractApprovalVendor.VendorContractApproval(Rec);
-                        Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                        Rec.Modify(true);
+                        if Rec."Internal Approval Status" = Rec."Internal Approval Status"::Approved then begin
+                            VendorContractApprovalVendor.VendorContractApproval(Rec);
+                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                            Rec.Modify(true);
+                        end else begin
+                            Message('Vendor contract must be approved internally before sending to the vendor for approval.');
+                        end;
+
                     end;
                 end;
             }

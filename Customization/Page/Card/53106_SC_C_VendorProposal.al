@@ -204,7 +204,7 @@ page 53106 "Vendor Proposal"
                 }
                 field("Start Date"; Rec."Start Date")
                 {
-                    Caption = 'Proposal Start Date';
+                    Caption = 'Proposed Contract Start Date';
                     ApplicationArea = All;
                     trigger OnValidate()
                     begin
@@ -213,7 +213,7 @@ page 53106 "Vendor Proposal"
                 }
                 field("End Date"; Rec."End Date")
                 {
-                    Caption = 'Proposal End Date';
+                    Caption = 'Proposed Contract End Date';
                     ApplicationArea = All;
 
                     trigger OnValidate()
@@ -318,9 +318,13 @@ page 53106 "Vendor Proposal"
 
                     end
                     else begin
-                        VendorProposalApprovalVendor.VendorProposalApproval(Rec);
-                        Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                        Rec.Modify(true);
+                        if Rec."Internal Approval Status" = Rec."Internal Approval Status"::Approved then begin
+                            VendorProposalApprovalVendor.VendorProposalApproval(Rec);
+                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
+                            Rec.Modify(true);
+                        end else begin
+                            Message('Vendor proposal must be approved internally before sending to the vendor for approval.');
+                        end;
                     end;
                 end;
             }

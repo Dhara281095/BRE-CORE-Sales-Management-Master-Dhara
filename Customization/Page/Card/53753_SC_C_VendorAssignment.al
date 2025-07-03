@@ -41,26 +41,6 @@ page 53753 "Vendor Assignment"
                     ApplicationArea = All;
                 }
             }
-            group(VendorDetails)
-            {
-                Caption = 'Vendor/Subcontractor Details';
-                field("ID"; Rec."Vendor/Subcontractor ID")
-                {
-                    ApplicationArea = All;
-                }
-                field("Name"; Rec."Vendor/Subcontractor Name")
-                {
-                    ApplicationArea = All;
-                }
-                field("Contact"; Rec."Vendor Contact")
-                {
-                    ApplicationArea = All;
-                }
-                field("Email"; Rec."Vendor Email")
-                {
-                    ApplicationArea = All;
-                }
-            }
             group(ContractDetails)
             {
                 Caption = 'Contract Details';
@@ -113,6 +93,27 @@ page 53753 "Vendor Assignment"
                 field("Contract Notes"; Rec."Contract Notes")
                 {
                     ApplicationArea = All;
+                }
+            }
+
+            group(VendorDetails)
+            {
+                Caption = 'Vendor/Subcontractor Details';
+                field("ID"; Rec."Vendor/Subcontractor ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Name"; Rec."Vendor/Subcontractor Name")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+
+                field("Email"; Rec."Vendor Email")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
                 }
             }
             part(ProjectMilestoneTask; "Project Milestone Tasks")
