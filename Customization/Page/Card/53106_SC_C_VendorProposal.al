@@ -123,7 +123,20 @@ page 53106 "Vendor Proposal"
                 {
                     ApplicationArea = All;
                     Caption = 'Incoterms';
-                    TableRelation = Incoterms.Name;
+
+                    trigger OnLookup(var Text: Text): Boolean
+                    var
+                        IncotermsList: Page "Incoterms List";
+                        incoterms: Record Incoterms;
+                        isFirst: Boolean;
+                    begin
+                        IncotermsList.LookupMode(true);
+                        if not (IncotermsList.RunModal() = Action::LookupOK) then
+                            exit(false);
+
+                        Text := IncotermsList.GetLookUpValues(IncotermsList, incoterms);
+                        exit(true);
+                    end;
                 }
                 field("Late Delivery Penalty %"; Rec."Late Delivery Penalty %")
                 {
@@ -168,14 +181,42 @@ page 53106 "Vendor Proposal"
                     ApplicationArea = All;
                     Caption = 'UAE Compliance Requirements';
                     ShowMandatory = true;
-                    TableRelation = "UAE Regulatory Requirements".Name;
+                    // TableRelation = "UAE Regulatory Requirements".Name;
+
+                    trigger OnLookup(var Text: Text): Boolean
+                    var
+                        UAERegulatoryList: Page "UAE Regulatory Reqs. List";
+                        UAERegulatoryReq: Record "UAE Regulatory Requirements";
+                        isFirst: Boolean;
+                    begin
+                        UAERegulatoryList.LookupMode(true);
+                        if not (UAERegulatoryList.RunModal() = Action::LookupOK) then
+                            exit(false);
+
+                        Text := UAERegulatoryList.GetLookUpValues(UAERegulatoryList, UAERegulatoryReq);
+                        exit(true);
+                    end;
                 }
                 field("Industry Standards"; Rec."Industry Standards")
                 {
                     ApplicationArea = All;
                     Caption = 'Industry Standards';
                     ShowMandatory = true;
-                    TableRelation = "Industry Standards".Name;
+                    // TableRelation = "Industry Standards".Name;
+
+                    trigger OnLookup(var Text: Text): Boolean
+                    var
+                        industryStandardsList: Page "Industry Standards";
+                        industryStandard: Record "Industry Standards";
+                        isFirst: Boolean;
+                    begin
+                        industryStandardsList.LookupMode(true);
+                        if not (industryStandardsList.RunModal() = Action::LookupOK) then
+                            exit(false);
+
+                        Text := industryStandardsList.GetLookUpValues(industryStandardsList, industryStandard);
+                        exit(true);
+                    end;
                 }
 
             }
@@ -441,7 +482,6 @@ page 53106 "Vendor Proposal"
     end;
     //-------------Calculate Lease Duration--------------//
     // Trasfer from Table End
-
 }
 
 

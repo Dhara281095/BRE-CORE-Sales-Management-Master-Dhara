@@ -22,8 +22,6 @@ page 53102 "UAE Regulatory Reqs. List"
                 field(Name; Rec.Name)
                 {
                     ApplicationArea = All;
-
-
                 }
                 field(Description; Rec.Description)
                 {
@@ -32,4 +30,23 @@ page 53102 "UAE Regulatory Reqs. List"
             }
         }
     }
+
+    procedure GetLookUpValues(pUAERegulatoryList: Page "UAE Regulatory Reqs. List"; pUAERegulatoryReq: Record "UAE Regulatory Requirements"): Text
+    var
+        isFirst: Boolean;
+        lookUpValues: Text;
+    begin
+        pUAERegulatoryList.SetSelectionFilter(pUAERegulatoryReq);
+        if pUAERegulatoryReq.FindSet() then begin
+            isFirst := true;
+            repeat
+                if isFirst then begin
+                    lookUpValues := pUAERegulatoryReq.Name;
+                    isFirst := false;
+                end else
+                    lookUpValues += ', ' + pUAERegulatoryReq.Name;
+            until pUAERegulatoryReq.Next() = 0;
+        end;
+        exit(lookUpValues);
+    end;
 }
