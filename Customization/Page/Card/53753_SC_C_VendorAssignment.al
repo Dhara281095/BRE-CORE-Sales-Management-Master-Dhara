@@ -178,6 +178,12 @@ page 53753 "Vendor Assignment"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Created By"; Rec."Created By")
+                {
+                    ApplicationArea = All;
+                    Editable = true;
+                }
             }
             group(QualityNCompliance)
             {
