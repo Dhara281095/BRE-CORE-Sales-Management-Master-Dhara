@@ -55,6 +55,11 @@ page 53253 "Vendor Proposal Approval List"
                 {
                     ApplicationArea = All;
                 }
+                field("Created By"; Rec."Created By")
+                {
+                    ApplicationArea = All;
+                }
+
 
 
 
@@ -73,6 +78,55 @@ page 53253 "Vendor Proposal Approval List"
         area(processing)
         {
 
+            // action(Approve)
+            // {
+            //     Caption = 'Approve';
+            //     ApplicationArea = All;
+            //     Image = Approve;
+            //     Visible = IsPropertyManager;
+
+            //     trigger OnAction()
+            //     var
+            //         SelectedRec: Record "Vendor Proposal Approval";
+            //         VendorProposalRec: Record "Vendor Proposal";
+            //         RemarkDialog: Page "DialogBoxForInvoiceRejection";
+            //         RemarkText: Text;
+            //         DialogResult: Action;
+            //     begin
+            //         if Rec.Status = 'Pending' then begin
+            //             DialogResult := RemarkDialog.RunModal();
+
+            //             if DialogResult = Action::OK then begin
+            //                 RemarkText := RemarkDialog.GetReason();
+
+            //                 if RemarkText <> '' then begin
+            //                     // Update approval table
+            //                     SelectedRec := Rec;
+            //                     SelectedRec.Status := 'Approved';
+            //                     SelectedRec.Remark := RemarkText;
+            //                     SelectedRec.Modify();
+
+            //                     // Update all matching Vendor Proposal records
+            //                     VendorProposalRec.SetRange("Proposal ID", SelectedRec."Vendor Proposal ID");
+            //                     if VendorProposalRec.FindSet() then begin
+            //                         repeat
+            //                             VendorProposalRec."Internal Remarks" := RemarkText;
+            //                             VendorProposalRec."Internal Approval Status" := VendorProposalRec."Internal Approval Status"::Approved;
+            //                             VendorProposalRec.Modify();
+            //                         until VendorProposalRec.Next() = 0;
+            //                     end;
+
+            //                     Commit();
+            //                     CurrPage.Update();
+            //                     Message('Request Approved Successfully with Remarks.');
+            //                 end;
+            //             end;
+            //         end else
+            //             Message('Selected record is not in "Pending" status.');
+            //     end;
+            // }
+
+
             action(Approve)
             {
                 Caption = 'Approve';
@@ -87,6 +141,8 @@ page 53253 "Vendor Proposal Approval List"
                     RemarkDialog: Page "DialogBoxForInvoiceRejection";
                     RemarkText: Text;
                     DialogResult: Action;
+                    NotificationCodeunit: Codeunit "Vendor Proposal Notification"; // 💡 Include your codeunit
+                    RecipientEmail: Text; // ✅ Add this
                 begin
                     if Rec.Status = 'Pending' then begin
                         DialogResult := RemarkDialog.RunModal();
@@ -111,15 +167,23 @@ page 53253 "Vendor Proposal Approval List"
                                     until VendorProposalRec.Next() = 0;
                                 end;
 
+                                // ✅ Call the external codeunit to send email
+                                RecipientEmail := NotificationCodeunit.SendApprovalEmail(
+                                    SelectedRec."Vendor Proposal ID",
+                                    SelectedRec."Created By",
+                                    RemarkText
+                                );
+
                                 Commit();
                                 CurrPage.Update();
-                                Message('Request Approved Successfully with Remarks.');
+                                Message('Request Approved Successfully with Remarks and Email Sent to: %1', RecipientEmail);
                             end;
                         end;
                     end else
                         Message('Selected record is not in "Pending" status.');
                 end;
             }
+
 
             action(Reject)
             {

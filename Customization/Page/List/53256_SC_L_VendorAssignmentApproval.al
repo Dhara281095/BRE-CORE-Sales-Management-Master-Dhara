@@ -56,6 +56,11 @@ page 53256 "Vendor Assignment Approval"
                 {
                     ApplicationArea = All;
                 }
+
+                field("Created By"; Rec."Created By")
+                {
+                    ApplicationArea = All;
+                }
                 field("Contract ID"; Rec."Contract ID")
                 {
                     ApplicationArea = All;
@@ -67,6 +72,8 @@ page 53256 "Vendor Assignment Approval"
     {
         area(processing)
         {
+
+
             action(Approve)
             {
                 Caption = 'Approve';
@@ -81,6 +88,8 @@ page 53256 "Vendor Assignment Approval"
                     RemarkDialog: Page "DialogBoxForInvoiceRejection";
                     RemarkText: Text;
                     DialogResult: Action;
+                    NotificationCodeunit: Codeunit "Vendor Proposal Notification"; // Replace with your actual codeunit name
+                    RecipientEmail: Text; // ✅ Add this
                 begin
                     if Rec.Status = 'Pending' then begin
                         DialogResult := RemarkDialog.RunModal();
@@ -108,15 +117,73 @@ page 53256 "Vendor Assignment Approval"
                                     until VendorProposalRec.Next() = 0;
                                 end;
 
+                                // ✅ Call Notification Codeunit to send approval email
+                                RecipientEmail := NotificationCodeunit.SendAssignmentApprovalEmail(
+                                    SelectedRec."Vendor Assignment ID",
+                                    SelectedRec."Created By",
+                                    RemarkText
+                                );
+
                                 Commit();
                                 CurrPage.Update();
-                                Message('Request Approved Successfully with Remarks.');
+                                Message('Request Approved Successfully with Remarks and Email Sent to: %1', RecipientEmail);
                             end;
                         end;
                     end else
                         Message('Selected record is not in "Pending" status.');
                 end;
             }
+
+            // action(Approve)
+            // {
+            //     Caption = 'Approve';
+            //     ApplicationArea = All;
+            //     Image = Approve;
+            //     Visible = IsPropertyManager;
+
+            //     trigger OnAction()
+            //     var
+            //         SelectedRec: Record "Vendor Assignment Approval";
+            //         VendorProposalRec: Record "Vendor Assignment";
+            //         RemarkDialog: Page "DialogBoxForInvoiceRejection";
+            //         RemarkText: Text;
+            //         DialogResult: Action;
+            //     begin
+            //         if Rec.Status = 'Pending' then begin
+            //             DialogResult := RemarkDialog.RunModal();
+
+            //             if DialogResult = Action::OK then begin
+            //                 RemarkText := RemarkDialog.GetReason();
+
+            //                 if RemarkText <> '' then begin
+            //                     // Update approval table
+            //                     SelectedRec := Rec;
+            //                     SelectedRec.Status := 'Approved';
+            //                     SelectedRec.Remark := RemarkText;
+            //                     SelectedRec.Modify();
+
+            //                     // Update all Vendor Assignment records with matching Assignment ID
+            //                     VendorProposalRec.SetRange("Assignment ID", SelectedRec."Vendor Assignment ID");
+            //                     if VendorProposalRec.FindSet() then begin
+            //                         repeat
+            //                             VendorProposalRec."Vendor Assignment Status" := VendorProposalRec."Vendor Assignment Status"::Approved;
+            //                             VendorProposalRec."Approved By" := GetCurrentUserName();
+            //                             VendorProposalRec."Reviewed By" := GetCurrentUserName();
+            //                             VendorProposalRec."Approval Date" := Today;
+            //                             VendorProposalRec.Remark := RemarkText;
+            //                             VendorProposalRec.Modify();
+            //                         until VendorProposalRec.Next() = 0;
+            //                     end;
+
+            //                     Commit();
+            //                     CurrPage.Update();
+            //                     Message('Request Approved Successfully with Remarks.');
+            //                 end;
+            //             end;
+            //         end else
+            //             Message('Selected record is not in "Pending" status.');
+            //     end;
+            // }
 
             action(Reject)
             {

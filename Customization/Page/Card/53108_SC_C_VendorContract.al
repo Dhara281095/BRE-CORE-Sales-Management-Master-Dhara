@@ -343,6 +343,7 @@ page 53108 "Vendor Contract"
                 ApplicationArea = All;
                 Caption = 'Send for Approval';
                 Image = Approve;
+                Enabled = CanSubmitForApproval;
 
                 trigger OnAction()
                 var
@@ -404,6 +405,7 @@ page 53108 "Vendor Contract"
     begin
         // CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
         approvaleditable := UserApprovalProjectStatus();
+        CanSubmitForApproval := (Rec."Internal Approval Status" in [Rec."Internal Approval Status"::Draft, Rec."Internal Approval Status"::Rejected]);
     end;
 
     procedure UserApprovalProjectStatus(): Boolean
@@ -428,5 +430,6 @@ page 53108 "Vendor Contract"
 
     var
         approvaleditable: Boolean;
+        CanSubmitForApproval: Boolean;
 
 }

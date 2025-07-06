@@ -245,6 +245,7 @@ page 53753 "Vendor Assignment"
                 ApplicationArea = All;
                 Caption = 'Send for Approval';
                 Image = Approve;
+                Enabled = CanSubmitForApproval;
 
                 trigger OnAction()
                 var
@@ -267,8 +268,8 @@ page 53753 "Vendor Assignment"
                     selectedOption: Integer;
                 begin
 
-                    if not (Rec."Vendor Assignment Status" in [Rec."Vendor Assignment Status"::Approved, Rec."Vendor Assignment Status"::Suspended]) then begin
-                        Message('You can only change the Vendor Assignment Status if it is Approved or Suspended.');
+                    if not (Rec."Vendor Assignment Status" in [Rec."Vendor Assignment Status"::Approved, Rec."Vendor Assignment Status"::Suspended, Rec."Vendor Assignment Status"::Active]) then begin
+                        Message('You can only change the Vendor Assignment Status if it is Approved , Active  or Suspended.');
                         exit;
                     end;
 
@@ -303,6 +304,12 @@ page 53753 "Vendor Assignment"
         }
     }
 
+    trigger OnAfterGetRecord()
+    begin
+        // CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
+
+        CanSubmitForApproval := (Rec."Vendor Assignment Status" in [Rec."Vendor Assignment Status"::Draft, Rec."Vendor Assignment Status"::Rejected]);
+    end;
 
 
     trigger OnOpenPage()
@@ -327,4 +334,5 @@ page 53753 "Vendor Assignment"
 
     var
         IsPropertyManager: Boolean;
+        CanSubmitForApproval: Boolean;
 }
