@@ -55,6 +55,11 @@ page 53255 "Vendor Contract Approval List"
                     ApplicationArea = All;
                 }
 
+                field("Created By"; Rec."Created By")
+                {
+                    ApplicationArea = All;
+                }
+
 
 
                 field("Remark"; Rec."Remark")
@@ -72,6 +77,54 @@ page 53255 "Vendor Contract Approval List"
         {
 
 
+            // action(Approve)
+            // {
+            //     Caption = 'Approve';
+            //     ApplicationArea = All;
+            //     Image = Approve;
+            //     Visible = IsPropertyManager;
+
+            //     trigger OnAction()
+            //     var
+            //         SelectedRec: Record "Vendor Contract Approval";
+            //         VendorProposalRec: Record "Vendor Contract";
+            //         RemarkDialog: Page "DialogBoxForInvoiceRejection";
+            //         RemarkText: Text;
+            //         DialogResult: Action;
+            //     begin
+            //         if Rec.Status = 'Pending' then begin
+            //             DialogResult := RemarkDialog.RunModal();
+
+            //             if DialogResult = Action::OK then begin
+            //                 RemarkText := RemarkDialog.GetReason();
+
+            //                 if RemarkText <> '' then begin
+            //                     // Update in approval table
+            //                     SelectedRec := Rec;
+            //                     SelectedRec.Status := 'Approved';
+            //                     SelectedRec.Remark := RemarkText;
+            //                     SelectedRec.Modify();
+
+            //                     // Update in vendor proposal/contract table
+            //                     VendorProposalRec.SetRange("Contract ID", SelectedRec."Vendor Contract ID");
+            //                     if VendorProposalRec.FindSet() then begin
+            //                         repeat
+            //                             VendorProposalRec."Internal Remarks" := RemarkText;
+            //                             VendorProposalRec."Internal Approval Status" := VendorProposalRec."Internal Approval Status"::Approved;
+            //                             VendorProposalRec.Modify();
+            //                         until VendorProposalRec.Next() = 0;
+            //                     end;
+
+            //                     Commit();
+            //                     CurrPage.Update();
+            //                     Message('Request Approved Successfully with Remarks.');
+            //                 end;
+            //             end;
+            //         end else
+            //             Message('Selected record is not in "Pending" status.');
+            //     end;
+            // }
+
             action(Approve)
             {
                 Caption = 'Approve';
@@ -86,6 +139,8 @@ page 53255 "Vendor Contract Approval List"
                     RemarkDialog: Page "DialogBoxForInvoiceRejection";
                     RemarkText: Text;
                     DialogResult: Action;
+                    NotificationCodeunit: Codeunit "Vendor Proposal Notification"; // ← Replace with your actual codeunit name
+                    RecipientEmail: Text; // ✅ Add this
                 begin
                     if Rec.Status = 'Pending' then begin
                         DialogResult := RemarkDialog.RunModal();
@@ -100,7 +155,7 @@ page 53255 "Vendor Contract Approval List"
                                 SelectedRec.Remark := RemarkText;
                                 SelectedRec.Modify();
 
-                                // Update in vendor proposal/contract table
+                                // Update in vendor contract table
                                 VendorProposalRec.SetRange("Contract ID", SelectedRec."Vendor Contract ID");
                                 if VendorProposalRec.FindSet() then begin
                                     repeat
@@ -110,9 +165,16 @@ page 53255 "Vendor Contract Approval List"
                                     until VendorProposalRec.Next() = 0;
                                 end;
 
+                                // ✅ Call contract email notification codeunit
+                                RecipientEmail := NotificationCodeunit.SendContractApprovalEmail(
+                                    SelectedRec."Vendor Contract ID",
+                                    SelectedRec."Created By",
+                                    RemarkText
+                                );
+
                                 Commit();
                                 CurrPage.Update();
-                                Message('Request Approved Successfully with Remarks.');
+                                Message('Request Approved Successfully with Remarks and Email Sent to: %1', RecipientEmail);
                             end;
                         end;
                     end else

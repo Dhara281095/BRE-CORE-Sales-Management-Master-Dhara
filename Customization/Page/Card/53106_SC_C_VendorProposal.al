@@ -328,6 +328,7 @@ page 53106 "Vendor Proposal"
                 ApplicationArea = All;
                 Caption = 'Submit for Approval';
                 Image = Approve;
+                Enabled = CanSubmitForApproval;
                 trigger OnAction()
                 var
                     ApprovalVendorProposal: Codeunit "Approval Vendor Proposal";
@@ -392,6 +393,7 @@ page 53106 "Vendor Proposal"
     begin
         // CurrPage."Construction Project Document List Part".Page.SetProjectId(Rec."Project ID");
         approvaleditable := UserApprovalProjectStatus();
+        CanSubmitForApproval := (Rec."Internal Approval Status" in [Rec."Internal Approval Status"::Draft, Rec."Internal Approval Status"::Rejected]);
     end;
 
     procedure UserApprovalProjectStatus(): Boolean
@@ -416,6 +418,7 @@ page 53106 "Vendor Proposal"
 
     var
         approvaleditable: Boolean;
+        CanSubmitForApproval: Boolean;
 
     // Calculate the duration based on start and end dates
     procedure CalculateDuration()
