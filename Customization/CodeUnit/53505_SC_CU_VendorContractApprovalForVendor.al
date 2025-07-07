@@ -74,7 +74,7 @@ codeunit 53505 VendorContractApprovalVendor
 
                 if Email.Send(EmailMessage) then begin
 
-                    Message('Email sent successfully to: %1.', VendorContract."Vendor Name");
+                    Message('Email sent successfully to the Vendor: %1.', VendorContract."Vendor Name");
                 end else begin
                     Error('Failed to send email.');
                 end;

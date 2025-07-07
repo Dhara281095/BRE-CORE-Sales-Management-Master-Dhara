@@ -89,6 +89,27 @@ page 53106 "Vendor Proposal"
                         end;
                     end;
                 }
+                field("Service Type"; Rec."Service Type")
+                {
+                    ApplicationArea = all;
+                    // TableRelation = "Vendor Business Profile"."Service Type" where("Profile ID" = field("Vendor ID"));
+                    trigger OnLookup(var Text: Text): Boolean
+                    var
+                        Vendorbusinessprofilelist: Page "Vendor Business Profile Lookup";
+                        vendorbusinessprofileRec: Record "Vendor Business Profile";
+                        isFirst: Boolean;
+                    begin
+                        vendorbusinessprofileRec.SetRange("Profile ID", Rec."Vendor ID");
+                        Vendorbusinessprofilelist.SetTableView(vendorbusinessprofileRec);
+                        Vendorbusinessprofilelist.LookupMode(true);
+                        if not (Vendorbusinessprofilelist.RunModal() = Action::LookupOK) then
+                            exit(false);
+
+                        Text := Vendorbusinessprofilelist.GetLookUpValues(Vendorbusinessprofilelist, vendorbusinessprofileRec);
+                        exit(true);
+                    end;
+
+                }
                 field("Vendor Name"; Rec."Vendor Name")
                 {
                     ApplicationArea = All;
@@ -225,12 +246,18 @@ page 53106 "Vendor Proposal"
                 ApplicationArea = All;
                 Caption = 'Warranty Period (Months)';
             }
-            field("Dispute Resolution"; Rec."Dispute Resolution")
+            group("GOVERNING LAW & DISPUTE RESOLUTION")
             {
-                ApplicationArea = All;
-                Caption = 'Dispute Resolution';
-                ShowMandatory = true;
-                TableRelation = GoverningLawDisputeResolution.Name;
+                Caption = 'Governing Law & Dispute Resolution';
+
+
+                field("Dispute Resolution"; Rec."Dispute Resolution")
+                {
+                    ApplicationArea = All;
+                    Caption = 'Dispute Resolution';
+                    ShowMandatory = true;
+                    TableRelation = GoverningLawDisputeResolution.Name;
+                }
             }
 
 
@@ -339,46 +366,14 @@ page 53106 "Vendor Proposal"
 
                 end;
             }
-            action("Send to Vendor for Approval")
-            {
-                ApplicationArea = All;
-                Caption = 'Send to Vendor for Approval';
-                Image = Approve;
-                trigger OnAction()
-                var
-                    VendorProposalApprovalVendor: Codeunit VendorProposalApprovalVendor;
-                begin
-                    if (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Pending) or
-                     (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Approved) then begin
-                        if Confirm('Are you sure you want to send again this proposal for approval?', true) then begin
-                            VendorProposalApprovalVendor.VendorProposalApproval(Rec);
-                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                            Rec.Modify(true);
-                        end else begin
-                            exit;
-                        end;
 
-                    end
-                    else begin
-                        if Rec."Internal Approval Status" = Rec."Internal Approval Status"::Approved then begin
-                            VendorProposalApprovalVendor.VendorProposalApproval(Rec);
-                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                            Rec.Modify(true);
-                        end else begin
-                            Message('Vendor proposal must be approved internally before sending to the vendor for approval.');
-                        end;
-                    end;
-                end;
-            }
         }
         area(Promoted)
         {
             actionref(submitforapprovaltoprojectmanager; "Submission for Approval")
             {
             }
-            actionref(sendtovendortoprojectmanager; "Send to Vendor for Approval")
-            {
-            }
+
         }
     }
 

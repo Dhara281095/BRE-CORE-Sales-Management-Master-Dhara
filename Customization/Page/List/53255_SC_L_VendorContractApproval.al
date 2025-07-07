@@ -141,6 +141,7 @@ page 53255 "Vendor Contract Approval List"
                     DialogResult: Action;
                     NotificationCodeunit: Codeunit "Vendor Proposal Notification"; // ← Replace with your actual codeunit name
                     RecipientEmail: Text; // ✅ Add this
+                    VendorContractApprovalVendor: Codeunit VendorContractApprovalVendor;
                 begin
                     if Rec.Status = 'Pending' then begin
                         DialogResult := RemarkDialog.RunModal();
@@ -175,6 +176,9 @@ page 53255 "Vendor Contract Approval List"
                                 Commit();
                                 CurrPage.Update();
                                 Message('Request Approved Successfully with Remarks and Email Sent to: %1', RecipientEmail);
+                                VendorContractApprovalVendor.VendorContractApproval(VendorProposalRec);
+                                VendorProposalRec."Vendor Approval Status" := VendorProposalRec."Vendor Approval Status"::Pending;
+                                VendorProposalRec.Modify(true);
                             end;
                         end;
                     end else
