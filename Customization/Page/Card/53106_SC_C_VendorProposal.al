@@ -163,6 +163,11 @@ page 53106 "Vendor Proposal"
                 {
                     ApplicationArea = All;
                     Caption = 'Late Delivery Penalty %';
+                    trigger OnValidate()
+                    begin
+                        if Rec."Late Delivery Penalty %" > 100 then
+                            Error('Late Delivery Penalty %1 cannot exceed 100.', Rec."Late Delivery Penalty %");
+                    end;
                 }
             }
             group("Price & Payment Terms")
