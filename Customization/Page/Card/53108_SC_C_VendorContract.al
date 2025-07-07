@@ -65,6 +65,7 @@ page 53108 "Vendor Contract"
                             Rec."Contract End Date" := VendorRec."End Date";
                             Rec.Description := VendorRec.Description;
                             Rec.Duration := VendorRec.Duration;
+                            Rec."Service Type" := VendorRec."Service Type";
 
                         end else begin
                             Rec."Vendor ID" := '';
@@ -136,6 +137,11 @@ page 53108 "Vendor Contract"
             group("Vendor Information")
             {
                 field("Vendor ID"; Rec."Vendor ID")
+                {
+                    ApplicationArea = All;
+                    Editable = false;
+                }
+                field("Service Type"; Rec."Service Type")
                 {
                     ApplicationArea = All;
                     Editable = false;
@@ -354,43 +360,14 @@ page 53108 "Vendor Contract"
 
                 end;
             }
-            action("Send to Vendor for Approval")
-            {
-                ApplicationArea = All;
-                Caption = 'Send to Vendor for Approval';
-                Image = Approve;
-                trigger OnAction()
-                var
-                    VendorContractApprovalVendor: Codeunit VendorContractApprovalVendor;
-                begin
-                    if (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Pending) or
-                     (Rec."Vendor Approval Status" = Rec."Vendor Approval Status"::Approved) then begin
-                        if Confirm('Are you sure you want to send again this contract for approval?', true) then begin
-                            VendorContractApprovalVendor.VendorContractApproval(Rec);
-                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                            Rec.Modify(true);
-                        end;
-                    end else begin
-                        if Rec."Internal Approval Status" = Rec."Internal Approval Status"::Approved then begin
-                            VendorContractApprovalVendor.VendorContractApproval(Rec);
-                            Rec."Vendor Approval Status" := Rec."Vendor Approval Status"::Pending;
-                            Rec.Modify(true);
-                        end else begin
-                            Message('Vendor contract must be approved internally before sending to the vendor for approval.');
-                        end;
 
-                    end;
-                end;
-            }
         }
         area(Promoted)
         {
             actionref(submitforapprovaltoprojectmanager; "Submission for Approval")
             {
             }
-            actionref(sendtovendortoprojectmanager; "Send to Vendor for Approval")
-            {
-            }
+
         }
     }
 

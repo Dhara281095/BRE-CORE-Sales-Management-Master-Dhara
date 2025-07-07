@@ -234,6 +234,8 @@ page 53501 "Construction Project"
                 field("Building Type or Classification"; Rec."Building Type/Classification")
                 {
                     ApplicationArea = All;
+                    TableRelation = "Primary Classification"."Classification Name";
+
                 }
                 field("UOM"; Rec."UOM")
                 {
