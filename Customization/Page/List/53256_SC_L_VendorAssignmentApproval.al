@@ -246,7 +246,7 @@ page 53256 "Vendor Assignment Approval"
             {
                 Caption = 'Open Vendor Assignment';
                 ApplicationArea = All;
-                Image = OpenRecord;
+                Image = Open;
 
                 trigger OnAction()
                 var
