@@ -23,6 +23,7 @@ page 53251 "Pricing Breakdown Grid"
                 {
                     ApplicationArea = All;
                     Caption = 'Vendor Profile ID';
+                    Visible = false;
                 }
                 field("Vendor Proposal ID"; Rec."Vendor Proposal ID")
                 {
@@ -33,6 +34,7 @@ page 53251 "Pricing Breakdown Grid"
                 {
                     ApplicationArea = All;
                     Editable = false;
+                    Visible = false;
                 }
                 field("Item Description"; Rec."Item Description")
                 {
