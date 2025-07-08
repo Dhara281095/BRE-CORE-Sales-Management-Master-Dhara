@@ -34,7 +34,7 @@ page 53251 "Pricing Breakdown Grid"
                 {
                     ApplicationArea = All;
                     Editable = false;
-                    Visible = false;
+
                 }
                 field("Item Description"; Rec."Item Description")
                 {
